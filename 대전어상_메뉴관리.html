@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta name="color-scheme" content="light only">
+<meta name="color-scheme" content="only light">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-5HZ7QFKDK9"></script>
 <script>
@@ -15,7 +15,7 @@
 <title>대전어상 전통주 메뉴</title>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{color-scheme:light;
+:root{color-scheme:only light;
   --ink:#180e00; --paper:#f8f0de; --paper2:#ede0c4;
   --crimson:#7a1414; --gold:#8a6218; --gold2:#b8820a;
   --muted:#6b5535; --div:#c4a878; --pine:#2a4a10;
@@ -583,6 +583,8 @@ const DD = {
       {id:"i7",name:"오미자 하이볼",icon:"🍇",spec:"오미자 증류주 베이스",badge:"",badgeText:"",desc:"다섯 가지 맛을 품은 오미자 증류주로 만든 개성 있는 하이볼",priceBottle:"",priceGlass:"9,000"},
       {id:"i8",name:"안동소주 하이볼",icon:"🍶",spec:"안동소주 베이스",badge:"",badgeText:"",desc:"누룩향이 매력적인 안동소주로 만든, 한국의 전통이 담긴 하이볼",priceBottle:"",priceGlass:"9,000"},
       {id:"i9",name:"얼그레이 꼬량볼",icon:"🍵",spec:"서울고량주 베이스",badge:"",badgeText:"",desc:"스모키한 얼그레이와 국내 유일 서울고량주의 만남. 이색적이고 깊은 풍미",priceBottle:"",priceGlass:"9,000"},
+      {id:"i10",name:"복분자 하이볼",icon:"🫐",spec:"복분자주 베이스",badge:"",badgeText:"",desc:"새콤달콤한 국산 복분자의 풍미가 가득한 청량한 하이볼",priceBottle:"",priceGlass:"9,000"},
+      {id:"i11",name:"복숭아 하이볼",icon:"🍑",spec:"복숭아 베이스",badge:"",badgeText:"",desc:"달콤하고 향긋한 복숭아 향이 가득한 부드러운 하이볼",priceBottle:"",priceGlass:"9,000"},
     ]},
     {id:"s2",title:"조선 진토닉",layout:"2col",note:"",items:[
       {id:"i10",name:"나물진",icon:"🌱",spec:"산나물 베이스 한국형 진",badge:"",badgeText:"",desc:"돌미나리·참나물·오이로 만든 청초하고 풀향 넘치는 진토닉. 한식과 잘 어울림",priceBottle:"",priceGlass:"10,000"},
@@ -1067,7 +1069,7 @@ function exportCustomer(){
 }
 
 function buildCustomerHTML(dj){
-  var css=':root{--ink:#180e00;--paper:#f8f0de;--paper2:#ede0c4;--crimson:#7a1414;--gold2:#b8820a;--muted:#6b5535;--div:#c4a878;}'
+  var css=':root{color-scheme:only light;--ink:#180e00;--paper:#f8f0de;--paper2:#ede0c4;--crimson:#7a1414;--gold2:#b8820a;--muted:#6b5535;--div:#c4a878;}'
     +'*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}'
     +'body{background:#c8b898;font-family:"Noto Sans KR",sans-serif;font-weight:300;color:var(--ink);}'
     +'.top-header{position:sticky;top:0;z-index:100;background:var(--paper);color:var(--ink);padding:10px 16px 8px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.12);}'
@@ -1189,6 +1191,7 @@ function buildCustomerHTML(dj){
     +'<div class=\"site-footer\"><strong id=\"ft\"></strong>\uBAA8\uB4E0 \uBA54\uB274\uB294 \uB2F9\uC77C \uC785\uACE0 \uC0C1\uD669\uC5D0 \uB530\uB77C \uBCC0\uB3D9\uB420 \uC218 \uC788\uC2B5\uB2C8\uB2E4<br>\uC74C\uC8FC\uB294 19\uC138 \uC774\uC0C1<br><span class=\"insta\">\uD83D\uDCF7 @daejeon_uhsang</span></div>';
 
   return '<!DOCTYPE html><html lang=\"ko\"><head>'
+    +'<meta name=\"color-scheme\" content=\"only light\">'
     +'<meta charset=\"UTF-8\">'
     +'<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0,maximum-scale=1.0\">'
     +'<title>\uB300\uC804\uC5B4\uC0C1 \uC8FC\uB958 \uBA54\uB274</title>'
