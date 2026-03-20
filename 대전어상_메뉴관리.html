@@ -1070,7 +1070,7 @@ function exportCustomer(){
 
 function buildCustomerHTML(dj){
   var css=':root{color-scheme:only light;--ink:#180e00;--paper:#f8f0de;--paper2:#ede0c4;--crimson:#7a1414;--gold2:#b8820a;--muted:#6b5535;--div:#c4a878;}'
-    +'*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;background:#c8b898;color-scheme:only light;}'
+    +'*{margin:0;padding:0;box-sizing:border-box;color-scheme:light!important;}html{scroll-behavior:smooth;background:#c8b898;color-scheme:only light;}'
     +'body{background:#c8b898;font-family:"Noto Sans KR",sans-serif;font-weight:300;color:var(--ink);}'
     +'.top-header{position:sticky;top:0;z-index:100;background:var(--paper);color:var(--ink);padding:10px 16px 8px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.12);}'
     +'.th-en{font-size:9px;letter-spacing:6px;color:#7a1414;margin-bottom:3px;}'
@@ -1191,13 +1191,14 @@ function buildCustomerHTML(dj){
     +'<button class=\"top-btn\" id=\"tb\" onclick=\"window.scrollTo({top:0,behavior:\'smooth\'})\">\u2191</button>'
     +'<div class=\"site-footer\"><strong id=\"ft\"></strong>\uBAA8\uB4E0 \uBA54\uB274\uB294 \uB2F9\uC77C \uC785\uACE0 \uC0C1\uD669\uC5D0 \uB530\uB77C \uBCC0\uB3D9\uB420 \uC218 \uC788\uC2B5\uB2C8\uB2E4<br>\uC74C\uC8FC\uB294 19\uC138 \uC774\uC0C1<br><span class=\"insta\">\uD83D\uDCF7 @daejeon_uhsang</span></div>';
 
-  return '<!DOCTYPE html><html lang=\"ko\"><head>'
-    +'<meta name=\"color-scheme\" content=\"only light\">'
+  return '<!DOCTYPE html><html lang=\"ko\" style=\"color-scheme:light;background:#c8b898;\"><head>'
+    +'<meta name=\"color-scheme\" content=\"only light\"><meta name=\"supported-color-schemes\" content=\"light\">'
     +'<meta charset=\"UTF-8\">'
     +'<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0,maximum-scale=1.0\">'
     +'<title>\uB300\uC804\uC5B4\uC0C1 \uC8FC\uB958 \uBA54\uB274</title>'
     +'<link href=\"https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500&display=swap\" rel=\"stylesheet\">'
     +'<style>'+css+'</style>'
+    +'<script>(function(){var d=document.documentElement;d.style.colorScheme=\"light\";d.style.backgroundColor=\"#c8b898\";var p=[\"--ink:#180e00\",\"--paper:#f8f0de\",\"--paper2:#ede0c4\",\"--crimson:#7a1414\",\"--gold2:#b8820a\",\"--muted:#6b5535\",\"--div:#c4a878\"];p.forEach(function(v){var s=v.split(\":\");d.style.setProperty(s[0],s[1]);});})()</script>'
     +'</head><body>'
     +body
     +'<script>'+sc+'<\/script>'
