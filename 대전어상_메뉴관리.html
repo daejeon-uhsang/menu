@@ -679,7 +679,7 @@ const DD = {
   ]
 };
 
-let MD=loadData(),isAdmin=false,ctx=null;
+let MD=null,isAdmin=false,ctx=null;
 
 function loadData(){
   try{
@@ -1047,7 +1047,20 @@ function toast(msg){const t=document.createElement('div');t.style.cssText='posit
 
 document.querySelectorAll('.modal-overlay').forEach(el=>{el.addEventListener('click',e=>{if(e.target===el)el.classList.remove('open');});});
 
-renderAll();
+function initMenu(data){
+  if(!data.header) data.header=DD.header;
+  MD=data;
+  renderAll();
+}
+fetch('./menu.json')
+  .then(r=>r.json())
+  .then(initMenu)
+  .catch(()=>{
+    fetch('https://raw.githubusercontent.com/daejeon-uhsang/menu/main/menu.json')
+      .then(r=>r.json())
+      .then(initMenu)
+      .catch(()=>{ initMenu(JSON.parse(JSON.stringify(DD))); });
+  });
 document.querySelectorAll('.tne-dots-wrap').forEach(wrap=>{
   wrap.querySelectorAll('.tne-dot').forEach((dot,i)=>{
     dot.addEventListener('click',()=>{
