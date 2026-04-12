@@ -571,9 +571,11 @@ function renderH(){
   const en=document.getElementById('h-en');
   const ti=document.getElementById('h-title');
   const su=document.getElementById('h-sub');
-  if(en) en.textContent=MD.header.en;
-  if(ti) ti.textContent=MD.header.title;
-  if(su) su.textContent=MD.header.sub;
+  if(MD.header){
+    if(en) en.textContent=MD.header.en;
+    if(ti) ti.textContent=MD.header.title;
+    if(su) su.textContent=MD.header.sub;
+  }
   // 이벤트는 한 번만 등록
   if(!window._hBound){
     window._hBound=true;
