@@ -395,6 +395,7 @@ body.admin-mode .add-sec-btn{display:block;}
   </div>
   <div class="bar-right">
     <span id="astatus">보기 모드</span>
+    <button class="abtn" style="background:#1a5276;color:#fff" onclick="exportMenuJson()">💾 menu.json 내보내기</button>
     <button class="abtn" style="background:#2d6a4f;color:#fff" onclick="exportCustomer()">📱 고객용 내보내기</button>
     <button class="abtn abtn-print" onclick="printMenu()">🖨 인쇄 (A4)</button>
     <button class="abtn abtn-edit" id="etoggle" onclick="toggleAdmin()">✎ 메뉴 수정</button>
@@ -544,12 +545,11 @@ const DD = {
   header:{en:"Royal Korean Cuisine & Liquor",title:"대전어상 메뉴",sub:"궁중의 맛과 조선의 술, 현대의 감각으로"},
   sections:[
     {id:"f1",title:"주안상",layout:"default",note:"모든 메뉴는 당일 식재료 입고 상황에 따라 변동될 수 있습니다",items:[
-      {id:"f101",name:"백순대 내장볶음 (오마카세)",icon:"🔥",spec:"소 · 2인기준",badge:"sig",badgeText:"시그니처",desc:"당일 수급한 재료로 구성되는 오마카세식 백순대 내장볶음. 매일 다른 구성이 특징",priceBottle:"",priceGlass:"25,000"},
-      {id:"f101b",name:"백순대 내장볶음 (오마카세)",icon:"🔥",spec:"중 · 3~4인기준",badge:"sig",badgeText:"시그니처",desc:"당일 수급한 재료로 구성되는 오마카세식 백순대 내장볶음. 매일 다른 구성이 특징",priceBottle:"",priceGlass:"35,000"},
-      {id:"f102",name:"↳ 곁들임: 삶은 간",icon:"",spec:"추가 토핑",badge:"",badgeText:"",desc:"",priceBottle:"",priceGlass:"2,000"},
-      {id:"f103",name:"↳ 파스타 면사리",icon:"",spec:"추가 토핑",badge:"",badgeText:"",desc:"",priceBottle:"",priceGlass:"2,000"},
-      {id:"f104",name:"↳ 마라 추가",icon:"",spec:"추가 토핑",badge:"",badgeText:"",desc:"",priceBottle:"",priceGlass:"2,000"},
-      {id:"f105",name:"청도미나리 조개탕",icon:"🐚",spec:"전북 고창 모시·백합·동죽 3종 + 청도미나리",badge:"",badgeText:"",desc:"전북 고창의 신선한 조개 3종과 청도미나리로 끓인 깊고 맑은 조개탕",priceBottle:"",priceGlass:"25,000"},
+      {id:"f101",name:"백순대 내장볶음",icon:"🔥",spec:"소 · 2인기준",badge:"sig",badgeText:"시그니처",desc:"당일 수급 재료로 구성하는 오마카세식 내장볶음. 양념은 기본 간장 · 매콤양념 · 마라 중 택일",priceBottle:"",priceGlass:"25,000"},
+      {id:"f101b",name:"백순대 내장볶음",icon:"🔥",spec:"중 · 3~4인기준",badge:"sig",badgeText:"시그니처",desc:"당일 수급 재료로 구성하는 오마카세식 내장볶음. 양념은 기본 간장 · 매콤양념 · 마라 중 택일",priceBottle:"",priceGlass:"35,000"},
+      {id:"f101c",name:"↳ 매콤양념 또는 마라",icon:"",spec:"양념 선택 추가",badge:"",badgeText:"",desc:"",priceBottle:"",priceGlass:"+1,000"},
+      {id:"f102",name:"↳ 삶은 간",icon:"",spec:"추가 토핑",badge:"",badgeText:"",desc:"",priceBottle:"",priceGlass:"+2,000"},
+      {id:"f105",name:"청도미나리 조개탕",icon:"🐚",spec:"명주조개 · 백합 · 동죽 3종 + 청도미나리",badge:"",badgeText:"",desc:"고창 신선한 조개 3종과 청도미나리로 끓인 깊고 맑은 조개탕",priceBottle:"",priceGlass:"25,000"},
       {id:"f106",name:"궁중 한우 육회",icon:"🥩",spec:"한우 생고기",badge:"award",badgeText:"대표메뉴",desc:"엄선한 한우 생고기로 만든 궁중식 육회. 참기름과 배즙으로 버무린 정통 방식",priceBottle:"",priceGlass:"25,000"},
       {id:"f107",name:"육전",icon:"🍳",spec:"한우",badge:"",badgeText:"",desc:"한우로 부쳐낸 고소하고 부드러운 육전",priceBottle:"",priceGlass:"25,000"},
       {id:"f108",name:"육사시미",icon:"🔪",spec:"한우 생고기",badge:"sig",badgeText:"시그니처",desc:"얇게 슬라이스한 한우 생고기 육사시미. 고소한 참기름장과 함께",priceBottle:"",priceGlass:"27,000"},
@@ -608,6 +608,7 @@ const DD = {
       {id:"i21",name:"두두물물 탁주",icon:"",spec:"12% · 375ml",badge:"",badgeText:"",desc:"조선시대 향이 좋기로 유명했던 전북 익산 '호산춘'을 복원한 술",priceBottle:"19,000",priceGlass:""},
       {id:"i22",name:"해창 막걸리",icon:"",spec:"6% · 900ml",badge:"award",badgeText:"명품",desc:"'막걸리계의 롤스로이스'로 불리는 명품 막걸리. 1등급 해남쌀과 청정 지하수로 빚으며, 해남 지역에서만 구입 가능한 제품",priceBottle:"19,000",priceGlass:""},
       {id:"i23",name:"백수환동주",icon:"",spec:"12% · 375ml",badge:"",badgeText:"",desc:"'흰 머리 노인이 다시 아이로 돌아온다'는 뜻을 지닌 전통주. 그 이름만큼이나 깊고 풍부한 맛",priceBottle:"43,000",priceGlass:""},
+      {id:"cmtakju1",name:"청명탁주",icon:"",spec:"8% · 500ml",badge:"",badgeText:"",desc:"청명주 원주로 빚은 생탁주 버전. 다채로운 과일향, 감칠맛 도는 적당한 단맛, 기분 좋은 산미.",priceBottle:"25,000",priceGlass:""},
     ]},
     {id:"s6",title:"맑은 술 · 약주 · 청주",layout:"list",note:"🍶 병 판매 기본 | 마산정종은 잔술(90ml) 별도 제공",items:[
       {id:"i25",name:"맑은내일 유자",icon:"🍋",spec:"7% · 360ml",badge:"",badgeText:"",desc:"100% 국산 유자를 사용해 유자 본연의 향과 맛을 최대한 살린 청량한 약주",priceBottle:"15,000",priceGlass:""},
@@ -619,6 +620,8 @@ const DD = {
       {id:"i33",name:"백경 블랙",icon:"",spec:"15% · 375ml",badge:"",badgeText:"",desc:"직접 경작한 쌀과 향온곡으로 삼양주 방식 양조. 잘 익은 거봉·복숭아 향으로 시작해 어떤 음식과도 어울리는 조화로운 단맛과 산도",priceBottle:"54,000",priceGlass:""},
       {id:"i34",name:"백경 골드",icon:"",spec:"15% · 375ml",badge:"",badgeText:"",desc:"직접 빚은 밀누룩으로 삼양주 방식 양조. 라임·레몬 같은 싱그러운 산미로 화이트 와인에 비견되는 약주",priceBottle:"53,000",priceGlass:""},
       {id:"_geefxu",name:"청담(淸談)",icon:"",spec:"16% 375ml",badge:"hot",badgeText:"미쉐린2스타 권숙수입점",desc:"찹쌀과 전통 누룩으로 빚은 프리미엄 약주.\n맑고 투명한 빛깔에 은은한 산미와 단맛이 공존하며,\n화이트 와인을 떠올리게 하는 부드러운 품미.",priceBottle:"45,000",priceGlass:""},
+      {id:"hymoje1",name:"효모재",icon:"",spec:"11.3% · 750ml",badge:"hot",badgeText:"파인다이닝 권숙수",desc:"단양주 방식의 청주. 리슬링을 연상케 하는 섬세한 과실향과 드라이한 매력. 파인다이닝 권숙수",priceBottle:"45,000",priceGlass:""},
+      {id:"dohancm1",name:"도한청명주",icon:"",spec:"18.6% · 375ml",badge:"hot",badgeText:"절기 추천주",desc:"조선 실학자 이익 선생의 성호사설에 기록된 청명주 양조법을 전통누룩 명인 한영석이 재해석. 청포도·자두 과실향, 맑은 산미, 드라이한 피니시. 이익 선생이 평생 사랑한 술.",priceBottle:"55,000",priceGlass:""},
     ]},
     {id:"s7",title:"증류식 소주",layout:"list",note:"🍶 병 판매 기본 (375ml 전후)",items:[
       {id:"dong1",name:"동해소주",icon:"",spec:"",badge:"",badgeText:"",desc:"맑은 동해를 담은 증류식 소주. 부드럽고 깔끔하며 희석식과 차별화된 향긋한 청량감",priceBottle:"7,000",priceGlass:""},
@@ -636,6 +639,7 @@ const DD = {
       {id:"i48",name:"병영소주",icon:"",spec:"40% · 200ml",badge:"award",badgeText:"61호 명인",desc:"조선시대 강진 병영진영에서 보리로 빚어 이순신 장군도 마셨다는 소주. 3대를 이어온 61호 명인의 전통 방식으로 만든 술. 은은한 보리향과 알싸하고 깔끔한 마무리",priceBottle:"39,000",priceGlass:""},
       {id:"i49",name:"삼해소주",icon:"",spec:"45% · 250ml",badge:"",badgeText:"",desc:"조선 정조와 사대부 사이에서 널리 음용되던 전통 고도주",priceBottle:"59,000",priceGlass:""},
       {id:"i50",name:"주향담을",icon:"",spec:"41% · 375ml",badge:"",badgeText:"",desc:"충북 도자기 마을 담을술공방의 도예가 부부가 만드는 프리미엄 증류식 소주. 3년간 항아리 숙성",priceBottle:"79,000",priceGlass:""},
+      {id:"chusibek1",name:"추시벡오크",icon:"🍎",spec:"25% · 350ml",badge:"",badgeText:"",desc:"예산 사과로 만든 프리미엄 증류주. 오크통 숙성으로 사과의 은은한 풍미에 바닐라향·초콜릿향이 더해지고 뒤끝이 깔끔한 것이 특징.",priceBottle:"28,000",priceGlass:""},
     ]},
     {id:"s8",title:"프리미엄 잔술",layout:"premium",note:"🥃 잔술 전용 (30ml) — 병 판매 미제공",items:[
       {id:"i51",name:"일엽편주",icon:"",spec:"38% | 잔술 30ml",badge:"",badgeText:"",desc:"600년 전통 농암종택의 17대 종부가 전통 방식 그대로 빚는 술",priceBottle:"",priceGlass:"19,000"},
@@ -1053,6 +1057,18 @@ document.querySelectorAll('.tne-dots-wrap').forEach(wrap=>{
     });
   });
 });
+function exportMenuJson(){
+  try{
+    var data={sections:MD.sections};
+    var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json;charset=utf-8'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    a.href=url; a.download='menu.json'; a.style.display='none';
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(url);},1000);
+    toast('✅ menu.json 다운로드 완료! Downloads/3 폴더에 덮어쓰고 push 요청하세요.');
+  }catch(e){alert('오류: '+e.message);}
+}
 function exportCustomer(){
   try{
     var blob=new Blob([buildCustomerHTML(JSON.stringify(MD))],{type:'text/html;charset=utf-8'});

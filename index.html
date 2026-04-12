@@ -1089,16 +1089,22 @@ function printMenu(){
 
 
 
+function applyMenu(data){
+  MD = data;
+  if(typeof render === 'function') render();
+  else if(typeof renderMenu === 'function') renderMenu();
+  else if(typeof renderAll === 'function') renderAll();
+}
 fetch('./menu.json')
   .then(r => r.json())
-  .then(data => {
-    MD = data;
-    if(typeof render === 'function') render();
-    else if(typeof renderMenu === 'function') renderMenu();
-    else if(typeof renderAll === 'function') renderAll();
-  })
-  .catch(err => {
-    document.body.innerHTML += '<p style="padding:40px;color:red;">menu.json 로드 실패: ' + err + '</p>';
+  .then(applyMenu)
+  .catch(() => {
+    fetch('https://raw.githubusercontent.com/daejeon-uhsang/menu/main/menu.json')
+      .then(r => r.json())
+      .then(applyMenu)
+      .catch(err => {
+        document.body.innerHTML += '<p style="padding:40px;color:red;">menu.json 로드 실패: ' + err + '</p>';
+      });
   });
 </script>
 <script type="text/javascript" src="//wcs.pstatic.net/wcslog.js"></script>
