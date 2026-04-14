@@ -263,6 +263,25 @@ body.admin-mode .add-sec-btn{display:block;}
 .footer{text-align:center;padding:8px 0 3px;margin-top:8px;border-top:2px solid var(--ink);font-size:8.5px;color:var(--muted);letter-spacing:1.5px;line-height:2;}
 .footer strong{font-family:'Nanum Myeongjo',serif;font-size:12px;color:var(--ink);display:block;margin-bottom:2px;letter-spacing:2px;}
 
+/* ── 모바일 반응형 ── */
+@media(max-width:768px){
+  html,body{overflow-x:hidden;}
+  .page{
+    width:100%!important;min-height:auto;
+    margin:0!important;padding:10px 14px 60px!important;
+    box-shadow:none!important;border-radius:0;
+  }
+  .page::before,.page::after,.c-bl,.c-br,.c-dot{display:none!important;}
+  .pband,.pband-b{margin-left:-14px;margin-right:-14px;}
+  .h-title{font-size:22px!important;letter-spacing:4px!important;}
+  .h-en{letter-spacing:3px!important;white-space:normal;}
+  .h-sub{letter-spacing:2px!important;}
+  .sec-title{font-size:13px!important;letter-spacing:3px!important;white-space:normal;}
+  .idesc{max-width:100%!important;}
+  .items .item{grid-template-columns:1fr auto;gap:8px;}
+  .iprice{min-width:52px;}
+}
+
 /* 인쇄 */
 @media print{
   @page{size:A4 portrait;margin:8mm 9mm;}
