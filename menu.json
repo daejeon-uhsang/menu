@@ -10,34 +10,12 @@
           "id": "f101",
           "name": "백순대 내장볶음",
           "icon": "🔥",
-          "spec": "소 · 2인기준",
+          "spec": "간장 · 매콤양념 · 마라 택일",
           "badge": "sig",
           "badgeText": "시그니처",
-          "desc": "당일 수급 재료로 구성하는 오마카세식 내장볶음. 양념은 기본 간장 · 매콤양념 · 마라 중 택일",
-          "priceBottle": "",
-          "priceGlass": "25,000"
-        },
-        {
-          "id": "f101b",
-          "name": "백순대 내장볶음",
-          "icon": "🔥",
-          "spec": "중 · 3~4인기준",
-          "badge": "sig",
-          "badgeText": "시그니처",
-          "desc": "당일 수급 재료로 구성하는 오마카세식 내장볶음. 양념은 기본 간장 · 매콤양념 · 마라 중 택일",
-          "priceBottle": "",
-          "priceGlass": "35,000"
-        },
-        {
-          "id": "f101c",
-          "name": "↳ 매콤양념 또는 마라",
-          "icon": "",
-          "spec": "양념 선택 추가",
-          "badge": "",
-          "badgeText": "",
-          "desc": "",
-          "priceBottle": "",
-          "priceGlass": "+1,000"
+          "desc": "당일 수급 재료로 구성하는 오마카세식 내장볶음",
+          "priceBottle": "소 25,000",
+          "priceGlass": "중 35,000"
         },
         {
           "id": "f102",
