@@ -46,7 +46,18 @@
           "spec": "추가 토핑",
           "badge": "",
           "badgeText": "",
-          "desc": "파스타면사리 +2,000",
+          "desc": "",
+          "priceBottle": "",
+          "priceGlass": "+2,000"
+        },
+        {
+          "id": "f102b",
+          "name": "↳ 파스타 면사리",
+          "icon": "",
+          "spec": "추가 토핑",
+          "badge": "",
+          "badgeText": "",
+          "desc": "",
           "priceBottle": "",
           "priceGlass": "+2,000"
         },
