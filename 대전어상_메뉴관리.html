@@ -369,6 +369,7 @@ body.admin-mode .add-sec-btn{display:block;}
   .compact-page .pg{font-size:5.5px!important;}
   .compact-page .badge-p{font-size:4.5px!important;padding:0.5px 1.5px!important;}
   .compact-page .ppage-body{padding:0 2mm!important;}
+  .compact-page .pidesc{display:none!important;}
 }
 @page{size:A4;margin:0;}
 
@@ -759,7 +760,7 @@ function buildPrintPages(){
   const PAGE_GROUPS = [
     {ids:['f1','f2','f3','s1','s2','s3','f4'], label:'음식 · 하이볼 · 칵테일 · 샘플러'},
     {ids:['s4','s5'],           label:'마스브루어리 · 막걸리 · 탁주'},
-    {ids:['s6'],                label:'맑은 술 · 약주 · 청주'},
+    {ids:['s6'],                label:'맑은 술 · 약주 · 청주', compact:true},
     {ids:['s7'],                label:'증류식 소주'},
     {ids:['s8','s9','s11'],     label:'프리미엄 잔술 · 브랜디 · 과실주'},
     {ids:['s10'],               label:'조선의 위스키'},
@@ -820,7 +821,7 @@ function buildPrintPages(){
     const secs = group.ids.map(id=>MD.sections[idxMap[id]]).filter(Boolean);
     if(!secs.length) return;
     const pg=document.createElement('div');
-    pg.className = pageNum===1 ? 'print-page compact-page' : 'print-page';
+    pg.className = (pageNum===1 || group.compact) ? 'print-page compact-page' : 'print-page';
     ['c-bl','c-br'].forEach(cls=>{const d=document.createElement('div');d.className=cls;pg.appendChild(d);});
     const band=document.createElement('div'); band.className='pband'; pg.appendChild(band);
     const mh=document.createElement('div'); mh.className='print-mini-header';
