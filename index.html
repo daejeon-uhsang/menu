@@ -393,7 +393,8 @@ body.admin-mode .add-sec-btn{display:block;}
   .compact-page .pb{font-size:7px!important;}
   .compact-page .pg{font-size:5.5px!important;}
   .compact-page .badge-p{font-size:4.5px!important;padding:0.5px 1.5px!important;}
-  .compact-page .ppage-body{padding:0 2mm!important;}
+  .compact-page .ppage-body{padding:0 2mm!important;gap:3px!important;}
+  .compact-page .pidesc{display:none!important;}
 }
 @page{size:A4;margin:0;}
 
@@ -621,10 +622,10 @@ function buildPrintPages(){
   const PAGE_GROUPS = [
     {ids:['f1','f2','f3','s1','s2','s3','f4'], label:'음식 · 하이볼 · 칵테일 · 샘플러'},
     {ids:['s4','s5'],           label:'마스브루어리 · 막걸리 · 탁주'},
-    {ids:['s6'],                label:'맑은 술 · 약주 · 청주'},
-    {ids:['s7'],                label:'증류식 소주'},
+    {ids:['s6'],                label:'맑은 술 · 약주 · 청주', compact:true},
+    {ids:['s7'],                label:'증류식 소주', compact:true},
     {ids:['s8','s9','s11'],     label:'프리미엄 잔술 · 브랜디 · 과실주'},
-    {ids:['s10'],               label:'조선의 위스키'},
+    {ids:['s10'],               label:'조선의 위스키', compact:true},
   ];
 
   const idxMap={};
@@ -682,7 +683,7 @@ function buildPrintPages(){
     const secs = group.ids.map(id=>MD.sections[idxMap[id]]).filter(Boolean);
     if(!secs.length) return;
     const pg=document.createElement('div');
-    pg.className = pageNum===1 ? 'print-page compact-page' : 'print-page';
+    pg.className = (pageNum===1||group.compact) ? 'print-page compact-page' : 'print-page';
     ['c-bl','c-br'].forEach(cls=>{const d=document.createElement('div');d.className=cls;pg.appendChild(d);});
     const band=document.createElement('div'); band.className='pband'; pg.appendChild(band);
     const mh=document.createElement('div'); mh.className='print-mini-header';
@@ -702,7 +703,7 @@ function buildPrintPages(){
       body.appendChild(col1);
       body.appendChild(col2);
     } else {
-      secs.forEach(sec=>body.appendChild(buildPSec(sec,false)));
+      secs.forEach(sec=>body.appendChild(buildPSec(sec, group.compact||false)));
     }
     pg.appendChild(body);
     const bandb=document.createElement('div'); bandb.className='pband-b'; pg.appendChild(bandb);
@@ -1089,7 +1090,7 @@ function printMenu(){
     {ids:['f2','f3','f4'],cat:'소안상 · 궁중 디저트 · 샘플러 & 플래터',pg:2},
     {ids:['s1','s2','s3'],cat:'조선 하이볼 · 진토닉 · 칵테일',pg:3},
     {ids:['s4','s5'],cat:'마스브루어리 · 막걸리 · 탁주',pg:4},
-    {ids:['s6'],cat:'맑은 술 · 약주 · 청주',pg:5},
+    {ids:['s6'],cat:'맑은 술 · 약주 · 청주',compact:true,pg:5},
     {ids:['s7'],cat:'증류식 소주',compact:true,pg:6},
     {ids:['s8','s9','s11'],cat:'프리미엄 잔술 · 브랜디 · 과실주',pg:7},
     {ids:['s10'],cat:'조선의 위스키',compact:true,pg:8},
