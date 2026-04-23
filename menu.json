@@ -14,8 +14,8 @@
           "badge": "sig",
           "badgeText": "시그니처",
           "desc": "당일 수급 재료로 구성하는 오마카세식 내장볶음",
-          "priceBottle": "소 25,000",
-          "priceGlass": "중 35,000"
+          "priceBottle": "소 25,000 / 중 35,000",
+          "priceGlass": ""
         },
         {
           "id": "f102",
