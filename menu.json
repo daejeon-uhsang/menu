@@ -40,17 +40,6 @@
           "priceGlass": "+2,000"
         },
         {
-          "id": "f105",
-          "name": "청도미나리 조개탕",
-          "icon": "🐚",
-          "spec": "명주조개 · 백합 · 동죽 3종 + 청도미나리",
-          "badge": "",
-          "badgeText": "",
-          "desc": "고창 신선한 조개 3종과 청도미나리로 끓인 깊고 맑은 조개탕",
-          "priceBottle": "",
-          "priceGlass": "25,000"
-        },
-        {
           "id": "f106",
           "name": "궁중 한우 육회",
           "icon": "🥩",
@@ -110,6 +99,17 @@
           "badge": "",
           "badgeText": "",
           "desc": "",
+          "priceBottle": "",
+          "priceGlass": "19,000"
+        },
+        {
+          "id": "f201b",
+          "name": "어묵탕",
+          "icon": "",
+          "spec": "",
+          "badge": "",
+          "badgeText": "",
+          "desc": "왕의 수라상에 오를 어묵이란 어떤 것이어야 할까. 알래스카 명태 연육 100%, 국산 쌀 반죽의 어묵을 매일 직접 끓인 대전어상의 육수에 올렸습니다.",
           "priceBottle": "",
           "priceGlass": "19,000"
         },
