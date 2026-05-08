@@ -533,6 +533,17 @@
           "priceGlass": ""
         },
         {
+          "id": "maruna1",
+          "name": "마루나 막걸리",
+          "icon": "",
+          "spec": "7% · 750ml",
+          "badge": "new",
+          "badgeText": "신메뉴",
+          "desc": "무감미료 막걸리. 탄산 없이 참외의 은은한 단맛과 갓 지은 밥의 부드러움이 특징. 아스파탐 없이 쌀함량을 높여 단맛을 이끌어냄",
+          "priceBottle": "15,000",
+          "priceGlass": ""
+        },
+        {
           "id": "i22",
           "name": "해창 막걸리",
           "icon": "",
