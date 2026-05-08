@@ -544,6 +544,17 @@
           "priceGlass": ""
         },
         {
+          "id": "guinjip1",
+          "name": "귀인집주 탁한술",
+          "icon": "",
+          "spec": "6% · 750ml",
+          "badge": "new",
+          "badgeText": "신메뉴",
+          "desc": "인공 단맛 없이 본연의 맛만 담은 소규모 양조장 탁주. 평양냉면처럼 드라이하고 깔끔하며 잔을 비울수록 입안이 정돈되는 입자 고운 천연 탄산",
+          "priceBottle": "15,000",
+          "priceGlass": ""
+        },
+        {
           "id": "i22",
           "name": "해창 막걸리",
           "icon": "",
