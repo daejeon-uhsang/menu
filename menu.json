@@ -662,28 +662,6 @@
           "priceGlass": ""
         },
         {
-          "id": "i31",
-          "name": "삼해주",
-          "icon": "",
-          "spec": "14% · 375ml",
-          "badge": "",
-          "badgeText": "",
-          "desc": "100일 이상 발효. 은은한 누룩향과 깔끔하고 담백한 감칠맛의 드라이 청주",
-          "priceBottle": "35,000",
-          "priceGlass": ""
-        },
-        {
-          "id": "i33",
-          "name": "백경 블랙",
-          "icon": "",
-          "spec": "15% · 375ml",
-          "badge": "",
-          "badgeText": "",
-          "desc": "직접 경작한 쌀과 향온곡으로 삼양주 방식 양조. 잘 익은 거봉·복숭아 향으로 시작해 어떤 음식과도 어울리는 조화로운 단맛과 산도",
-          "priceBottle": "54,000",
-          "priceGlass": ""
-        },
-        {
           "id": "_geefxu",
           "name": "청담(淸談)",
           "icon": "",
@@ -691,17 +669,6 @@
           "badge": "hot",
           "badgeText": "미쉐린2스타 권숙수입점",
           "desc": "찹쌀과 전통 누룩으로 빚은 프리미엄 약주.\n맑고 투명한 빛깔에 은은한 산미와 단맛이 공존하며,\n화이트 와인을 떠올리게 하는 부드러운 품미.",
-          "priceBottle": "45,000",
-          "priceGlass": ""
-        },
-        {
-          "id": "hymoje1",
-          "name": "효모재",
-          "icon": "",
-          "spec": "11.3% · 750ml",
-          "badge": "",
-          "badgeText": "",
-          "desc": "단양주 방식의 청주. 리슬링을 연상케 하는 섬세한 과실향과 드라이한 매력. 파인다이닝 권숙수 입점주",
           "priceBottle": "45,000",
           "priceGlass": ""
         },
