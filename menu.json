@@ -525,12 +525,12 @@
           "id": "i20",
           "name": "대전어상 탁주",
           "icon": "🍶",
-          "spec": "10% · 375ml",
+          "spec": "10% · 375ml | 잔술 90ml",
           "badge": "sig",
           "badgeText": "하우스",
           "desc": "궁중 연회에서 향을 곁들이던 전통을 현대적으로 재해석. 깻잎과 타임 허브의 상쾌함을 살린 하우스 막걸리. 코리안 모히또 스타일",
           "priceBottle": "19,000",
-          "priceGlass": ""
+          "priceGlass": "6,000"
         },
         {
           "id": "maruna1",
