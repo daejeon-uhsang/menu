@@ -51,6 +51,17 @@
           "priceGlass": ""
         },
         {
+          "id": "f106b",
+          "name": "치마살 육회",
+          "icon": "🥩",
+          "spec": "한우 치마살 생고기",
+          "badge": "limited",
+          "badgeText": "한정판매",
+          "desc": "정육점 사장님들이 생일에 꼭 챙겨먹는 육회 부위 중 1티어 치마살",
+          "priceBottle": "",
+          "priceGlass": "35,000"
+        },
+        {
           "id": "f106",
           "name": "궁중 한우 육회",
           "icon": "🥩",
