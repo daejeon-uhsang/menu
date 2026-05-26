@@ -411,6 +411,21 @@ body.admin-mode .add-sec-btn{display:block;}
 .search-result-hint{font-size:10px;color:var(--muted);padding:4px 14px 2px;font-family:'Noto Sans KR',sans-serif;}
 
 .sctrl.mv{padding:2px 6px;font-size:10px;min-width:0;}.item-mv{display:none;position:absolute;left:2px;top:50%;transform:translateY(-50%);flex-direction:column;gap:1px;z-index:2;}.imv{font-size:9px;padding:1px 4px;line-height:1.5;border:1px solid var(--div);background:var(--paper2);color:var(--gold2);cursor:pointer;border-radius:1px;font-family:'Noto Sans KR',sans-serif;display:block;font-weight:600;}.imv:hover{background:var(--crimson);color:var(--paper);border-color:var(--crimson);}.admin-mode .item-mv{display:flex;}.admin-mode .item,.admin-mode .pitem,.admin-mode .ccard{padding-left:30px;}
+
+/* 브랜드 소개 섹션 */
+.brand-intro{text-align:center;padding:22px 20px 18px;border-bottom:1.5px solid var(--ink);margin-bottom:4px;}
+.bi-hanja{font-family:'Nanum Myeongjo',serif;font-size:22px;font-weight:800;letter-spacing:10px;color:var(--crimson);margin-bottom:3px;}
+.bi-korean{font-family:'Nanum Myeongjo',serif;font-size:13px;letter-spacing:6px;color:var(--muted);margin-bottom:10px;}
+.bi-divider{color:var(--gold2);font-size:9px;letter-spacing:6px;margin:8px 0;}
+.bi-tagline{font-family:'Nanum Myeongjo',serif;font-size:11.5px;color:var(--ink);line-height:2.1;letter-spacing:1px;margin-bottom:16px;}
+.bi-sub-title{font-family:'Nanum Myeongjo',serif;font-size:13px;font-weight:700;letter-spacing:4px;color:var(--crimson);margin:14px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--div);display:inline-block;}
+.bi-body{font-size:11px;color:#3d2200;line-height:2.1;margin-bottom:10px;letter-spacing:0.3px;}
+.bi-promise-title{font-family:'Nanum Myeongjo',serif;font-size:12px;font-weight:700;letter-spacing:3px;color:var(--gold2);margin:16px 0 10px;}
+.bi-promise-list{list-style:none;text-align:left;max-width:420px;margin:0 auto;padding:0;}
+.bi-promise-list li{font-size:10.5px;color:#3d2200;line-height:1.95;padding:7px 0 7px 14px;border-bottom:1px dashed var(--div);position:relative;letter-spacing:0.2px;}
+.bi-promise-list li:last-child{border-bottom:none;}
+.bi-promise-list li::before{content:'';position:absolute;left:0;top:14px;width:5px;height:5px;background:var(--crimson);border-radius:50%;}
+@media(max-width:768px){.bi-hanja{font-size:18px;letter-spacing:6px;}.bi-tagline,.bi-body{font-size:10.5px;}.bi-promise-list{max-width:100%;}}
 </style>
 </head>
 <body>
@@ -541,6 +556,36 @@ body.admin-mode .add-sec-btn{display:block;}
     </div>
   </div>
   <div id="search-hint" class="search-result-hint" style="display:none"></div>
+
+  <!-- 브랜드 소개 섹션 -->
+  <div class="brand-intro main-header-block">
+    <div class="bi-hanja">大殿御床</div>
+    <div class="bi-korean">대전어상</div>
+    <div class="bi-divider">◆</div>
+    <p class="bi-tagline">
+      大殿은 임금이 머무는 공간,<br>
+      御床은 임금의 수라상.<br>
+      대전어상 — 왕의 공간에 차린 왕의 밥상.
+    </p>
+    <div class="bi-sub-title">대령숙수(待令熟手)</div>
+    <p class="bi-body">
+      조선의 궁중에는 오직 왕을 위해 요리하던 남자 요리사가 있었습니다.<br>
+      왕의 명을 기다려(待令) 손으로 익힌(熟手) 자, 대령숙수.
+    </p>
+    <p class="bi-body">
+      대전어상의 요리사는 그 이름을 잇습니다.<br>
+      오늘 밤 이 자리에 앉은 당신이 왕이고,<br>
+      이 상이 수라상입니다.
+    </p>
+    <div class="bi-promise-title">— 대전어상의 약속 —</div>
+    <ol class="bi-promise-list">
+      <li>뭉티기는 당일 도축한 한우를 사용합니다. 육회와 육사시미의 부위는 고정하지 않고 소량만 입고하며, 그날 가장 좋은 컨디션의 것을 대령숙수가 직접 고릅니다.</li>
+      <li>당일 도축한 돼지를 독산우시장에서 직접 받아와 매장에서 손질하고 삶습니다. 백순대 내장볶음은 신림동에서 나고 자란 대령숙수가 어릴 적 즐겨 먹던 신림 순대촌 백순대를 요리로 승격시킨 레시피입니다. 다양한 내장 부속물을 한 번에 볶아내는 방식, 전국 유일무이한 대전어상만의 것입니다.</li>
+      <li>육수는 국내산 디포리·새우·제철 채소를 직접 끓여 만들며 음식 전반의 기반이 됩니다. 우동의 유부 역시 매장에서 직접 조려냅니다.</li>
+      <li>전통주는 절기에 맞는 술을 대령숙수가 직접 선별하여 전국 각지에서 진상되는 술로 채워지고 있습니다. 취향을 말씀해 주시면 오늘의 수라상에 가장 어울리는 술을 추천해드리며, 잔술로 주문 가능합니다.</li>
+    </ol>
+  </div>
+
   <div id="scon"></div>
 <div id="print-root" style="display:none"></div>
   <button class="add-sec-btn" onclick="document.getElementById('sec-modal').classList.add('open');setTimeout(()=>document.getElementById('s-name').focus(),80)">＋ 카테고리 추가</button>
