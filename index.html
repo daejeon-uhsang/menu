@@ -426,6 +426,15 @@ body.admin-mode .add-sec-btn{display:block;}
 .bi-promise-list li:last-child{border-bottom:none;}
 .bi-promise-list li::before{content:'';position:absolute;left:0;top:14px;width:5px;height:5px;background:var(--crimson);border-radius:50%;}
 @media(max-width:768px){.bi-hanja{font-size:18px;letter-spacing:6px;}.bi-tagline,.bi-body{font-size:10.5px;}.bi-promise-list{max-width:100%;}}
+
+/* 카테고리 탭 네비게이션 */
+#cat-tab-nav{position:sticky;top:44px;z-index:98;display:flex;overflow-x:auto;gap:6px;padding:9px 14px;background:var(--ink);scrollbar-width:none;-webkit-overflow-scrolling:touch;border-bottom:1px solid rgba(196,168,120,.2);}
+#cat-tab-nav::-webkit-scrollbar{display:none;}
+#cat-tab-nav .ctab{flex-shrink:0;padding:5px 13px;border:1px solid rgba(196,168,120,.45);border-radius:20px;font-size:11px;color:var(--div);cursor:pointer;white-space:nowrap;background:transparent;font-family:'Noto Sans KR',sans-serif;font-weight:400;letter-spacing:.5px;transition:background .15s,color .15s,border-color .15s;}
+#cat-tab-nav .ctab.active{background:var(--gold2);color:#fff;border-color:var(--gold2);font-weight:500;}
+#cat-tab-nav .ctab:hover:not(.active){border-color:var(--gold2);color:var(--gold2);}
+@media(max-width:768px){#cat-tab-nav{top:44px;padding:8px 10px;gap:5px;}#cat-tab-nav .ctab{font-size:10.5px;padding:4px 11px;}}
+@media print{#cat-tab-nav{display:none!important;}}
 </style>
 </head>
 <body>
@@ -586,6 +595,19 @@ body.admin-mode .add-sec-btn{display:block;}
     </ol>
   </div>
 
+  <div id="cat-tab-nav">
+    <button class="ctab active" data-sec="">전체</button>
+    <button class="ctab" data-sec="f1">주안상</button>
+    <button class="ctab" data-sec="f2">소안상</button>
+    <button class="ctab" data-sec="f3">디저트</button>
+    <button class="ctab" data-sec="s1">하이볼</button>
+    <button class="ctab" data-sec="s3">칵테일</button>
+    <button class="ctab" data-sec="s5">막걸리·탁주</button>
+    <button class="ctab" data-sec="s6">맑은술·약주</button>
+    <button class="ctab" data-sec="s7">증류식소주</button>
+    <button class="ctab" data-sec="s10">위스키</button>
+    <button class="ctab" data-sec="s8">잔술</button>
+  </div>
   <div id="scon"></div>
 <div id="print-root" style="display:none"></div>
   <button class="add-sec-btn" onclick="document.getElementById('sec-modal').classList.add('open');setTimeout(()=>document.getElementById('s-name').focus(),80)">＋ 카테고리 추가</button>
@@ -650,6 +672,61 @@ function renderAll(){
   const c=document.getElementById('scon');c.innerHTML='';
   MD.sections.forEach((s,i)=>c.appendChild(buildSec(s,i)));
   buildPrintPages();
+  initCatNav();
+}
+
+function initCatNav(){
+  // 섹션ID → 탭 data-sec 매핑 (여러 섹션이 하나의 탭에 묶임)
+  const SEC_TAB={
+    'f1':'f1','f2':'f2','f3':'f3','f4':'f3',
+    's1':'s1','s2':'s1','s3':'s3',
+    's4':'s5','s5':'s5',
+    's6':'s6','s7':'s7','s8':'s8','s10':'s10'
+  };
+  // 탭 클릭 → 해당 섹션으로 smooth scroll
+  document.querySelectorAll('#cat-tab-nav .ctab').forEach(btn=>{
+    btn.onclick=()=>{
+      const sid=btn.dataset.sec;
+      document.querySelectorAll('#cat-tab-nav .ctab').forEach(t=>t.classList.remove('active'));
+      btn.classList.add('active');
+      btn.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+      if(!sid){
+        window.scrollTo({top:0,behavior:'smooth'});
+      } else {
+        const target=document.getElementById('sec-'+sid);
+        if(target){
+          const ab=document.getElementById('admin-bar');
+          const nav=document.getElementById('cat-tab-nav');
+          const offset=(ab?ab.offsetHeight:0)+(nav?nav.offsetHeight:0)+6;
+          window.scrollTo({top:target.getBoundingClientRect().top+window.scrollY-offset,behavior:'smooth'});
+        }
+      }
+    };
+  });
+  // IntersectionObserver → 현재 보이는 섹션의 탭 활성화
+  if(window._catObs) window._catObs.disconnect();
+  window._catObs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting) return;
+      const sid=e.target.id.replace('sec-','');
+      const tabSec=SEC_TAB[sid];
+      if(!tabSec) return;
+      document.querySelectorAll('#cat-tab-nav .ctab').forEach(t=>t.classList.toggle('active',t.dataset.sec===tabSec));
+      const activeBtn=document.querySelector('#cat-tab-nav .ctab.active');
+      if(activeBtn) activeBtn.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+    });
+  },{rootMargin:'-20% 0px -70% 0px'});
+  document.querySelectorAll('#scon [id^="sec-"]').forEach(el=>window._catObs.observe(el));
+  // 최상단 복귀 시 '전체' 탭 활성화
+  window.removeEventListener('scroll',window._catNavTopCheck);
+  window._catNavTopCheck=()=>{
+    if(window.scrollY<150){
+      document.querySelectorAll('#cat-tab-nav .ctab').forEach(t=>t.classList.remove('active'));
+      const all=document.querySelector('#cat-tab-nav .ctab[data-sec=""]');
+      if(all) all.classList.add('active');
+    }
+  };
+  window.addEventListener('scroll',window._catNavTopCheck,{passive:true});
 }
 
 function buildPrintPages(){
@@ -763,7 +840,7 @@ function buildPrintPages(){
 }
 
 function buildSec(sec,si){
-  const el=document.createElement('div');el.className='section';
+  const el=document.createElement('div');el.className='section';el.id='sec-'+sec.id;
   const h=document.createElement('div');h.className='sec-head';
   const _l1=document.createElement('div');_l1.className='sec-line';h.appendChild(_l1);
   const stEl=document.createElement('div');stEl.className='sec-title';stEl.textContent=sec.title;stEl.addEventListener('click',()=>{gtag('event','category_click',{category_name:sec.title,category_id:sec.id});if(isAdmin)renSec(sec.id);});h.appendChild(stEl);
