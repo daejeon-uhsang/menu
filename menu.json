@@ -84,17 +84,6 @@
           "priceGlass": "25,000"
         },
         {
-          "id": "f108",
-          "name": "육사시미",
-          "icon": "🔪",
-          "spec": "한우 생고기",
-          "badge": "sig",
-          "badgeText": "시그니처",
-          "desc": "얇게 슬라이스한 한우 생고기 육사시미. 고소한 참기름장과 함께",
-          "priceBottle": "",
-          "priceGlass": "27,000"
-        },
-        {
           "id": "f109",
           "name": "궁중 숭채만두",
           "icon": "🥟",
