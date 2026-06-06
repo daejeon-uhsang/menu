@@ -287,117 +287,38 @@ body.admin-mode .add-sec-btn{display:block;}
   @page{size:A4 portrait;margin:8mm 9mm;}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
   body{background:white!important;margin:0;padding:0;}
-  #admin-bar,.add-item-btn,.add-sec-btn,.sec-ctrls,.ehint{display:none!important;}
-  body.admin-mode .h-en,.h-title,.h-sub,.sec-title{outline:none!important;background:none!important;cursor:default!important;}
-  .main-header-block,#scon,.orn,.footer{display:none!important;}
-  #print-root{display:block!important;}
-  .page{min-height:0!important;height:auto!important;padding:0!important;margin:0!important;background:transparent!important;box-shadow:none!important;border-radius:0!important;}
 
-  /* ── A4 페이지 기본 ── */
-  .print-page{
-    width:192mm;
-    padding:0;
-    page-break-after:always;break-after:page;
-    position:relative;
+  /* 수정/관리 UI 숨김 */
+  #admin-bar,.add-item-btn,.add-sec-btn,.sec-ctrls,.ehint,.top-btn{display:none!important;}
+  body.admin-mode .sec-title{outline:none!important;background:none!important;cursor:default!important;}
+
+  /* 구버전 인쇄 레이아웃 숨김 */
+  #print-root{display:none!important;}
+
+  /* 화면 콘텐츠 표시 */
+  .main-header-block{display:block!important;}
+  .review-bar,.search-bar{display:none!important;}
+  #scon{display:block!important;}
+  .orn,.footer{display:block!important;}
+
+  /* 페이지 컨테이너 */
+  .page{
+    min-height:0!important;
+    height:auto!important;
+    padding:4mm 8mm!important;
+    margin:0!important;
     background:var(--paper)!important;
-    box-sizing:border-box;
-    display:flex;flex-direction:column;
-    min-height:277mm;
-  }
-  .print-page:last-child{page-break-after:auto;break-after:auto;}
-
-  /* 코너 장식 */
-  .print-page::before,.print-page::after,.print-page .c-bl,.print-page .c-br{
-    content:'';position:absolute;width:18px;height:18px;
-    border-color:var(--crimson);border-style:solid;
-  }
-  .print-page::before{top:4px;left:4px;border-width:2px 0 0 2px;}
-  .print-page::after{top:4px;right:4px;border-width:2px 2px 0 0;}
-  .print-page .c-bl{bottom:4px;left:4px;border-width:0 0 2px 2px;}
-  .print-page .c-br{bottom:4px;right:4px;border-width:0 2px 2px 0;}
-
-  /* 단청 띠 */
-  .pband,.pband-b{
-    height:5px;
-    background:repeating-linear-gradient(90deg,
-      #7a1414 0,#7a1414 4px,#b8820a 4px,#b8820a 8px,
-      #2a4a10 8px,#2a4a10 12px,#b8820a 12px,#b8820a 16px,
-      #4a6fa5 16px,#4a6fa5 20px,#b8820a 20px,#b8820a 24px)!important;
-    opacity:.85;flex-shrink:0;
+    box-shadow:none!important;
+    border-radius:0!important;
+    width:100%!important;
   }
 
-  /* 미니 헤더 */
-  .print-mini-header{
-    display:flex!important;align-items:center;justify-content:space-between;
-    padding:5px 12px 4px;border-bottom:1.5px solid var(--ink);flex-shrink:0;
-  }
-  .pmh-title{font-family:'Nanum Myeongjo',serif;font-size:12px;font-weight:800;letter-spacing:3px;color:var(--ink);}
-  .pmh-acc{color:var(--crimson);}
-  .pmh-cat{font-size:9px;color:var(--muted);letter-spacing:1.5px;flex:1;text-align:center;}
-  .pmh-page{font-size:8px;color:var(--muted);letter-spacing:1px;}
+  /* 섹션 페이지 분리 방지 */
+  .section{page-break-inside:avoid;break-inside:avoid;}
 
-  /* 페이지 본문 */
-  .ppage-body{
-    flex:1;padding:6px 12px 4px;
-    display:flex;flex-direction:column;gap:6px;
-  }
-
-  /* 섹션 */
-  .psec{page-break-inside:avoid;break-inside:avoid;}
-  .psec-head{display:flex;align-items:center;gap:6px;margin-bottom:4px;padding-bottom:3px;border-bottom:1.5px solid var(--ink);}
-  .psec-line{flex:1;height:1px;background:var(--div);}
-  .psec-title{font-family:'Nanum Myeongjo',serif;font-size:11px;font-weight:700;letter-spacing:3px;white-space:nowrap;color:var(--ink);}
-  .psec-title::before,.psec-title::after{content:'◆';font-size:5px;color:var(--crimson);margin:0 2px;vertical-align:middle;}
-  .psec-note{font-size:8px;color:var(--muted);padding:3px 8px;border-left:2px solid var(--crimson);background:rgba(122,20,20,.05);margin-bottom:4px;line-height:1.6;}
-
-  /* 아이템 기본 (세로 레이아웃) */
-  .pitems{}
-  .pitem-row{
-    display:grid;grid-template-columns:1fr auto;
-    padding:3.5px 0;border-bottom:0.5px solid var(--div);gap:8px;align-items:start;
-  }
-  .pitem-row:last-child{border-bottom:none;}
-  .piname{font-family:'Nanum Myeongjo',serif;font-size:9px;font-weight:700;display:flex;align-items:center;gap:3px;flex-wrap:wrap;line-height:1.4;margin-bottom:1px;}
-  .pico{font-size:10px;}
-  .pispec{font-size:7.5px;color:var(--muted);line-height:1.3;}
-  .piregion{font-size:6.5px;color:var(--gold2);margin-left:4px;font-weight:400;}
-  .pidesc{font-size:7px;color:var(--muted);line-height:1.4;margin-top:1px;}
-  .piprice{text-align:right;white-space:nowrap;}
-  .pb{font-family:'Nanum Myeongjo',serif;font-size:9px;font-weight:700;}
-  .pg{font-size:7px;color:var(--muted);}
-
-  /* 뱃지 */
-  .badge-p{display:inline-block;font-size:6px;padding:1px 3px;border-radius:1px;font-weight:600;vertical-align:middle;margin-left:2px;}
-  .bsig-p{background:var(--crimson);color:#fff;}
-  .baward-p{background:var(--gold2);color:#fff;}
-  .blimited-p{background:var(--ink);color:var(--paper);}
-  .bhot-p{background:#b03010;color:#fff;}
-
-  /* 2단 그리드 아이템 (하이볼·칵테일 등) */
-  .pitems-2col{display:grid;grid-template-columns:1fr 1fr;gap:0 12px;}
-  .pitems-2col .pitem-row{border-bottom:0.5px dashed var(--div);}
-  .pitems-2col .pitem-row:last-child,.pitems-2col .pitem-row:nth-last-child(2):nth-child(odd){border-bottom:none;}
-
-  /* 푸터 */
-  .pfooter{
-    font-size:7px;padding:3px 12px 5px;text-align:center;
-    color:var(--muted);border-top:0.5px solid var(--div);flex-shrink:0;
-  }
-  .pfooter strong{font-family:'Nanum Myeongjo',serif;font-size:8px;color:var(--ink);margin-right:6px;}
-  .two-col-body{display:flex!important;flex-direction:row!important;gap:3mm;align-items:flex-start;}
-  .two-col-body .pcol{flex:1;display:flex;flex-direction:column;min-width:0;}
-  .compact-page .psec-title{font-size:7px!important;letter-spacing:1.5px!important;}
-  .compact-page .psec-note{font-size:5.5px!important;padding:0.8mm 1.5mm!important;margin-bottom:0.8mm!important;}
-  .compact-page .pitem-row{padding:1.2px 0!important;}
-  .compact-page .piname{font-size:7px!important;}
-  .compact-page .pispec{font-size:5.5px!important;}
-  .compact-page .pb{font-size:7px!important;}
-  .compact-page .pg{font-size:5.5px!important;}
-  .compact-page .badge-p{font-size:4.5px!important;padding:0.5px 1.5px!important;}
-  .compact-page .ppage-body{padding:0 2mm!important;gap:3px!important;}
-  .compact-page .pidesc{display:none!important;}
+  /* 모서리 장식 제거 */
+  .c-bl,.c-br,.c-dot{display:none!important;}
 }
-@page{size:A4;margin:0;}
 
 /* 검색 */
 .search-bar{padding:7px 14px;background:var(--paper);border-bottom:1px solid var(--div);}
