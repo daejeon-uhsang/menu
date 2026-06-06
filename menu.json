@@ -577,50 +577,6 @@
           "priceGlass": ""
         },
         {
-          "id": "kkotjam1",
-          "name": "꽃잠",
-          "icon": "",
-          "spec": "6% · 1000ml",
-          "badge": "new",
-          "badgeText": "신메뉴",
-          "desc": "지리산 옛술도가의 단양주. 물·쌀·누룩만으로 빚어 자연스럽게 생긴 천연탄산이 매력적. 벌컥벌컥벌컥 세 번 마셔야 술의 진가를 알 수 있으며 달지 않은 것이 특징",
-          "priceBottle": "26,000",
-          "priceGlass": ""
-        },
-        {
-          "id": "i22",
-          "name": "해창 막걸리",
-          "icon": "",
-          "spec": "6% · 900ml",
-          "badge": "award",
-          "badgeText": "명품",
-          "desc": "'막걸리계의 롤스로이스'로 불리는 명품 막걸리. 1등급 해남쌀과 청정 지하수로 빚으며, 해남 지역에서만 구입 가능한 제품",
-          "priceBottle": "19,000",
-          "priceGlass": ""
-        },
-        {
-          "id": "i23",
-          "name": "백수환동주",
-          "icon": "",
-          "spec": "12% · 375ml",
-          "badge": "",
-          "badgeText": "",
-          "desc": "'흰 머리 노인이 다시 아이로 돌아온다'는 뜻을 지닌 전통주. 그 이름만큼이나 깊고 풍부한 맛",
-          "priceBottle": "43,000",
-          "priceGlass": ""
-        },
-        {
-          "id": "cmtakju1",
-          "name": "청명탁주",
-          "icon": "",
-          "spec": "8% · 500ml",
-          "badge": "",
-          "badgeText": "",
-          "desc": "청명주 원주로 빚은 생탁주. 다채로운 과일향, 감칠맛 도는 단맛, 기분 좋은 산미",
-          "priceBottle": "25,000",
-          "priceGlass": ""
-        },
-        {
           "id": "ihangtakju1",
           "name": "이항탁주 (利流탁酒)",
           "icon": "",
