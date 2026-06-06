@@ -84,17 +84,6 @@
           "priceGlass": "25,000"
         },
         {
-          "id": "f107",
-          "name": "육전",
-          "icon": "🍳",
-          "spec": "한우",
-          "badge": "",
-          "badgeText": "",
-          "desc": "한우로 부쳐낸 고소하고 부드러운 육전",
-          "priceBottle": "",
-          "priceGlass": "25,000"
-        },
-        {
           "id": "f108",
           "name": "육사시미",
           "icon": "🔪",
