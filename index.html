@@ -287,37 +287,84 @@ body.admin-mode .add-sec-btn{display:block;}
   @page{size:A4 portrait;margin:8mm 9mm;}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
   body{background:white!important;margin:0;padding:0;}
-
-  /* 수정/관리 UI 숨김 */
   #admin-bar,.add-item-btn,.add-sec-btn,.sec-ctrls,.ehint,.top-btn{display:none!important;}
   body.admin-mode .sec-title{outline:none!important;background:none!important;cursor:default!important;}
+  .main-header-block,#scon,.orn,.footer{display:none!important;}
+  #print-root{display:block!important;}
+  .page{min-height:0!important;height:auto!important;padding:0!important;margin:0!important;background:transparent!important;box-shadow:none!important;border-radius:0!important;}
 
-  /* 구버전 인쇄 레이아웃 숨김 */
-  #print-root{display:none!important;}
+  /* A4 페이지 */
+  .print-page{width:192mm;padding:0;page-break-after:always;break-after:page;position:relative;background:var(--paper)!important;box-sizing:border-box;display:flex;flex-direction:column;min-height:277mm;}
+  .print-page:last-child{page-break-after:auto;break-after:auto;}
 
-  /* 화면 콘텐츠 표시 */
-  .main-header-block{display:block!important;}
-  .review-bar,.search-bar{display:none!important;}
-  #scon{display:block!important;}
-  .orn,.footer{display:block!important;}
+  /* 코너 장식 */
+  .print-page::before,.print-page::after,.print-page .c-bl,.print-page .c-br{content:'';position:absolute;width:18px;height:18px;border-color:var(--crimson);border-style:solid;}
+  .print-page::before{top:4px;left:4px;border-width:2px 0 0 2px;}
+  .print-page::after{top:4px;right:4px;border-width:2px 2px 0 0;}
+  .print-page .c-bl{bottom:4px;left:4px;border-width:0 0 2px 2px;}
+  .print-page .c-br{bottom:4px;right:4px;border-width:0 2px 2px 0;}
 
-  /* 페이지 컨테이너 */
-  .page{
-    min-height:0!important;
-    height:auto!important;
-    padding:4mm 8mm!important;
-    margin:0!important;
-    background:var(--paper)!important;
-    box-shadow:none!important;
-    border-radius:0!important;
-    width:100%!important;
-  }
+  /* 단청 띠 */
+  .pband,.pband-b{height:5px;background:repeating-linear-gradient(90deg,#7a1414 0,#7a1414 4px,#b8820a 4px,#b8820a 8px,#2a4a10 8px,#2a4a10 12px,#b8820a 12px,#b8820a 16px,#4a6fa5 16px,#4a6fa5 20px,#b8820a 20px,#b8820a 24px)!important;opacity:.85;flex-shrink:0;}
 
-  /* 섹션 페이지 분리 방지 */
-  .section{page-break-inside:avoid;break-inside:avoid;}
+  /* 미니 헤더 */
+  .print-mini-header{display:flex!important;align-items:center;justify-content:space-between;padding:5px 12px 4px;border-bottom:1.5px solid var(--ink);flex-shrink:0;}
+  .pmh-title{font-family:'Nanum Myeongjo',serif;font-size:12px;font-weight:800;letter-spacing:3px;color:var(--ink);}
+  .pmh-acc{color:var(--crimson);}
+  .pmh-cat{font-size:9px;color:var(--muted);letter-spacing:1.5px;flex:1;text-align:center;}
+  .pmh-page{font-size:8px;color:var(--muted);letter-spacing:1px;}
 
-  /* 모서리 장식 제거 */
-  .c-bl,.c-br,.c-dot{display:none!important;}
+  /* 페이지 본문 */
+  .ppage-body{flex:1;padding:6px 12px 4px;display:flex;flex-direction:column;gap:6px;}
+
+  /* 섹션 */
+  .psec{page-break-inside:avoid;break-inside:avoid;}
+  .psec-head{display:flex;align-items:center;gap:6px;margin-bottom:4px;padding-bottom:3px;border-bottom:1.5px solid var(--ink);}
+  .psec-line{flex:1;height:1px;background:var(--div);}
+  .psec-title{font-family:'Nanum Myeongjo',serif;font-size:11px;font-weight:700;letter-spacing:3px;white-space:nowrap;color:var(--ink);}
+  .psec-title::before,.psec-title::after{content:'◆';font-size:5px;color:var(--crimson);margin:0 2px;vertical-align:middle;}
+  .psec-note{font-size:8px;color:var(--muted);padding:3px 8px;border-left:2px solid var(--crimson);background:rgba(122,20,20,.05);margin-bottom:4px;line-height:1.6;}
+
+  /* 아이템 */
+  .pitem-row{display:grid;grid-template-columns:1fr auto;padding:3.5px 0;border-bottom:0.5px solid var(--div);gap:8px;align-items:start;}
+  .pitem-row:last-child{border-bottom:none;}
+  .piname{font-family:'Nanum Myeongjo',serif;font-size:9px;font-weight:700;display:flex;align-items:center;gap:3px;flex-wrap:wrap;line-height:1.4;margin-bottom:1px;}
+  .pico{font-size:10px;}
+  .pispec{font-size:7.5px;color:var(--muted);line-height:1.3;}
+  .piregion{font-size:6.5px;color:var(--gold2);margin-left:4px;font-weight:400;}
+  .pidesc{font-size:7px;color:var(--muted);line-height:1.4;margin-top:1px;}
+  .piprice{text-align:right;white-space:nowrap;}
+  .pb{font-family:'Nanum Myeongjo',serif;font-size:9px;font-weight:700;}
+  .pg{font-size:7px;color:var(--muted);}
+
+  /* 뱃지 */
+  .badge-p{display:inline-block;font-size:6px;padding:1px 3px;border-radius:1px;font-weight:600;vertical-align:middle;margin-left:2px;}
+  .bsig-p{background:var(--crimson);color:#fff;}
+  .baward-p{background:var(--gold2);color:#fff;}
+  .blimited-p{background:var(--ink);color:var(--paper);}
+  .bhot-p{background:#b03010;color:#fff;}
+
+  /* 2단 그리드 */
+  .pitems-2col{display:grid;grid-template-columns:1fr 1fr;gap:0 12px;}
+  .pitems-2col .pitem-row{border-bottom:0.5px dashed var(--div);}
+  .pitems-2col .pitem-row:last-child,.pitems-2col .pitem-row:nth-last-child(2):nth-child(odd){border-bottom:none;}
+
+  /* 푸터 */
+  .pfooter{font-size:7px;padding:3px 12px 5px;text-align:center;color:var(--muted);border-top:0.5px solid var(--div);flex-shrink:0;}
+  .pfooter strong{font-family:'Nanum Myeongjo',serif;font-size:8px;color:var(--ink);margin-right:6px;}
+
+  /* compact 모드 (소주·위스키 등 15종 이상) */
+  .compact-page .psec-title{font-size:8px!important;letter-spacing:1.5px!important;}
+  .compact-page .psec-note{font-size:6px!important;padding:1mm 2mm!important;margin-bottom:1mm!important;}
+  .compact-page .pitem-row{padding:2px 0!important;}
+  .compact-page .piname{font-size:7.5px!important;}
+  .compact-page .pispec{font-size:6px!important;}
+  .compact-page .pb{font-size:7.5px!important;}
+  .compact-page .pg{font-size:6px!important;}
+  .compact-page .badge-p{font-size:5px!important;padding:0.5px 2px!important;}
+  .compact-page .ppage-body{padding:4px 10px 4px!important;gap:4px!important;}
+  .compact-page .pidesc{display:none!important;}
+  .compact-page .pitems-2col{gap:0 10px!important;}
 }
 
 /* 검색 */
@@ -578,21 +625,28 @@ function buildPrintPages(){
   if(!pr)return;
   pr.innerHTML='';
 
-  // 페이지 구성
-  // 1: 음식 전체(f1~f4)
-  // 2: s1(하이볼) s2(진토닉) s3(칵테일)
-  // 3: s4(마스브루어리) s5(막걸리·탁주)
-  // 4: s6(맑은술·약주·청주)
-  // 5: s7(증류식 소주)
-  // 6: s8(프리미엄 잔술) s9(고운달·오미자 브랜디) s11(오미자 와인·과실주)
-  // 7: s10(조선의 위스키)
+  // 페이지 구성 (10페이지)
+  // 1: f1 주안상
+  // 2: f2 소안상
+  // 3: f3 궁중 디저트 + f4 샘플러 & 플래터
+  // 4: s1 조선 하이볼
+  // 5: s3 칵테일
+  // 6: s4 마스브루어리·막걸리·탁주
+  // 7: s6 맑은 술·약주·청주
+  // 8: s7 증류식 소주 (compact 2단)
+  // 9: s8 프리미엄 잔술 + s9 브랜디 + s11 과실주
+  // 10: s10 조선의 위스키 (compact 2단)
   const PAGE_GROUPS = [
-    {ids:['f1','f2','f3','s1','s2','s3','f4'], label:'음식 · 하이볼 · 칵테일 · 샘플러'},
-    {ids:['s4','s5'],           label:'마스브루어리 · 막걸리 · 탁주'},
-    {ids:['s6'],                label:'맑은 술 · 약주 · 청주', compact:true},
-    {ids:['s7'],                label:'증류식 소주', compact:true},
-    {ids:['s8','s9','s11'],     label:'프리미엄 잔술 · 브랜디 · 과실주'},
-    {ids:['s10'],               label:'조선의 위스키', compact:true},
+    {ids:['f1'],            label:'주안상'},
+    {ids:['f2'],            label:'소안상'},
+    {ids:['f3','f4'],       label:'궁중 디저트 · 샘플러 & 플래터'},
+    {ids:['s1'],            label:'조선 하이볼'},
+    {ids:['s3'],            label:'칵테일'},
+    {ids:['s4'],            label:'마스브루어리 · 막걸리 · 탁주'},
+    {ids:['s6'],            label:'맑은 술 · 약주 · 청주'},
+    {ids:['s7'],            label:'증류식 소주', compact:true},
+    {ids:['s8','s9','s11'], label:'프리미엄 잔술 · 브랜디 · 과실주'},
+    {ids:['s10'],           label:'조선의 위스키', compact:true},
   ];
 
   const idxMap={};
@@ -629,7 +683,7 @@ function buildPrintPages(){
       if(item.region||item.brewery){const rb=document.createElement('span');rb.className='piregion';rb.textContent=(item.region||'')+(item.region&&item.brewery?' · ':'')+(item.brewery||'');nm.appendChild(rb);}
       left.appendChild(nm);
       if(item.spec){const sp=document.createElement('div');sp.className='pispec';sp.textContent=item.spec;left.appendChild(sp);}
-      if(item.desc&&ly!=='2col'&&ly!=='cocktail'&&!hideDesc){const de=document.createElement('div');de.className='pidesc';de.textContent=item.desc;left.appendChild(de);}
+      if(item.desc&&ly!=='2col'&&!hideDesc){const de=document.createElement('div');de.className='pidesc';de.textContent=item.desc;left.appendChild(de);}
       if(item.tSweet||item.tSour||item.tBody||item.tCarb||item.tUmami){
         const tnEl=document.createElement('div');
         tnEl.innerHTML=tnHtml(item);
@@ -650,28 +704,14 @@ function buildPrintPages(){
     const secs = group.ids.map(id=>MD.sections[idxMap[id]]).filter(Boolean);
     if(!secs.length) return;
     const pg=document.createElement('div');
-    pg.className = (pageNum===1||group.compact) ? 'print-page compact-page' : 'print-page';
+    pg.className = group.compact ? 'print-page compact-page' : 'print-page';
     ['c-bl','c-br'].forEach(cls=>{const d=document.createElement('div');d.className=cls;pg.appendChild(d);});
     const band=document.createElement('div'); band.className='pband'; pg.appendChild(band);
     const mh=document.createElement('div'); mh.className='print-mini-header';
-    mh.innerHTML=`<span class="pmh-title"><span class="pmh-acc">대전어상</span> 메뉴</span><span class="pmh-cat">${group.label}</span><span class="pmh-page">${pageNum} / 6</span>`;
+    mh.innerHTML=`<span class="pmh-title"><span class="pmh-acc">대전어상</span> 메뉴</span><span class="pmh-cat">${group.label}</span><span class="pmh-page">${pageNum} / 10</span>`;
     pg.appendChild(mh);
-    const body=document.createElement('div');
-    body.className = pageNum===1 ? 'ppage-body two-col-body' : 'ppage-body';
-    if(pageNum===1){
-      const col1=document.createElement('div'); col1.className='pcol';
-      const col2=document.createElement('div'); col2.className='pcol';
-      let c1=0, c2=0;
-      secs.forEach(sec=>{
-        const n=sec.items.length;
-        if(c1<=c2){ col1.appendChild(buildPSec(sec,true)); c1+=n; }
-        else       { col2.appendChild(buildPSec(sec,true)); c2+=n; }
-      });
-      body.appendChild(col1);
-      body.appendChild(col2);
-    } else {
-      secs.forEach(sec=>body.appendChild(buildPSec(sec, group.compact||false)));
-    }
+    const body=document.createElement('div'); body.className='ppage-body';
+    secs.forEach(sec=>body.appendChild(buildPSec(sec, group.compact||false)));
     pg.appendChild(body);
     const bandb=document.createElement('div'); bandb.className='pband-b'; pg.appendChild(bandb);
     const ft=document.createElement('div'); ft.className='pfooter';
