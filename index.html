@@ -812,7 +812,7 @@ function buildPrintPages(){
   (function makeIntroPage(){
     const body=addPageShell('pi-page','소개',1);
     const biEl=document.querySelector('.brand-intro');
-    if(biEl){const clone=biEl.cloneNode(true);body.appendChild(clone);}
+    if(biEl){const clone=biEl.cloneNode(true);clone.classList.remove('main-header-block');body.appendChild(clone);}
   })();
 
   // 2~9페이지
