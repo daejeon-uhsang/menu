@@ -353,7 +353,7 @@ body.admin-mode .add-sec-btn{display:block;}
   .pfooter{font-size:7px;padding:3px 12px 5px;text-align:center;color:var(--muted);border-top:0.5px solid var(--div);flex-shrink:0;}
   .pfooter strong{font-family:'Nanum Myeongjo',serif;font-size:8px;color:var(--ink);margin-right:6px;}
 
-  /* ── 소개 페이지 (1/9) ── */
+  /* ── 소개 페이지 (1/12) ── */
   .pi-page .ppage-body{justify-content:center;align-items:center;padding:6px 24px;}
   .pi-page .brand-intro{border-bottom:none;padding:0;margin:0;width:100%;}
   .pi-page .bi-hanja{font-size:36px;letter-spacing:13px;}
@@ -367,100 +367,140 @@ body.admin-mode .add-sec-btn{display:block;}
   .pi-page .bi-promise-list li{font-size:11.5px;line-height:1.95;padding:6px 0 6px 18px;}
   .pi-page .bi-promise-list li::before{top:12px;width:5px;height:5px;}
 
-  /* ── pg2: 주안상+소안상+궁중디저트 (17 items) ── */
-  .pg2 .ppage-body{padding:4px 12px 3px;gap:3px;}
-  .pg2 .psec-head{margin-bottom:2px;padding-bottom:2px;}
-  .pg2 .psec-title{font-size:9.5px;letter-spacing:2px;}
-  .pg2 .pitem-row{padding:2.5px 0;}
-  .pg2 .piname{font-size:9.5px;}
-  .pg2 .pispec{font-size:7.5px;}
-  .pg2 .pidesc{font-size:7px;}
-  .pg2 .pb{font-size:9.5px;}
-  .pg2 .pg{font-size:7px;}
+  /* ── pg2: 주안상 (8 items) ── */
+  .pg2 .ppage-body{padding:8px 14px 6px;gap:8px;}
+  .pg2 .psec{flex:1;display:flex;flex-direction:column;}
+  .pg2 .psec-title{font-size:17px;letter-spacing:4px;}
+  .pg2 .psec-head{margin-bottom:8px;}
+  .pg2 .pitems{flex:1;display:flex;flex-direction:column;justify-content:space-evenly;}
+  .pg2 .piname{font-size:17px;}
+  .pg2 .pispec{font-size:13px;}
+  .pg2 .pidesc{font-size:11.5px;}
+  .pg2 .pb{font-size:17px;}
+  .pg2 .pg{font-size:11.5px;}
 
-  /* ── pg3: 샘플러+칵테일 (4+6 items) ── */
-  .pg3 .ppage-body{padding:8px 12px 6px;gap:0;}
+  /* ── pg3: 소안상+궁중디저트 (9 items) ── */
+  .pg3 .ppage-body{padding:8px 14px 6px;gap:8px;}
   .pg3 .psec{flex:1;display:flex;flex-direction:column;}
-  .pg3 .psec-title{font-size:14px;letter-spacing:3px;}
+  .pg3 .psec-title{font-size:15px;letter-spacing:4px;}
   .pg3 .psec-head{margin-bottom:6px;}
   .pg3 .pitems{flex:1;display:flex;flex-direction:column;justify-content:space-evenly;}
-  .pg3 .pitems-2col{flex:1;display:grid;align-content:space-evenly;}
-  .pg3 .piname{font-size:14px;}
-  .pg3 .pispec{font-size:11px;}
-  .pg3 .pidesc{font-size:10px;}
-  .pg3 .pb{font-size:14px;}
-  .pg3 .pg{font-size:10px;}
+  .pg3 .piname{font-size:15px;}
+  .pg3 .pispec{font-size:12px;}
+  .pg3 .pidesc{font-size:10.5px;}
+  .pg3 .pb{font-size:15px;}
+  .pg3 .pg{font-size:10.5px;}
 
-  /* ── pg4: 조선하이볼 (11 items, 2col) ── */
-  .pg4 .ppage-body{padding:8px 12px 6px;gap:8px;}
+  /* ── pg4: 샘플러+칵테일 (4+6 items) ── */
+  .pg4 .ppage-body{padding:8px 12px 6px;gap:0;}
   .pg4 .psec{flex:1;display:flex;flex-direction:column;}
   .pg4 .psec-title{font-size:14px;letter-spacing:3px;}
-  .pg4 .psec-head{margin-bottom:8px;}
-  .pg4 .pitems-2col{flex:1;display:grid;align-content:space-evenly;gap:0 18px;}
+  .pg4 .psec-head{margin-bottom:6px;}
+  .pg4 .pitems{flex:1;display:flex;flex-direction:column;justify-content:space-evenly;}
+  .pg4 .pitems-2col{flex:1;display:grid;align-content:space-evenly;}
   .pg4 .piname{font-size:14px;}
   .pg4 .pispec{font-size:11px;}
-  .pg4 .pidesc{font-size:9.5px;}
+  .pg4 .pidesc{font-size:10px;}
   .pg4 .pb{font-size:14px;}
-  .pg4 .pg{font-size:9.5px;}
+  .pg4 .pg{font-size:10px;}
 
-  /* ── pg5: 마스브루어리+막걸리+탁주 (7 items) ── */
-  .pg5 .ppage-body{padding:8px 14px 6px;gap:8px;}
+  /* ── pg5: 조선 하이볼 (11 items, 2col) ── */
+  .pg5 .ppage-body{padding:8px 12px 6px;gap:8px;}
   .pg5 .psec{flex:1;display:flex;flex-direction:column;}
-  .pg5 .psec-title{font-size:17px;letter-spacing:4px;}
+  .pg5 .psec-title{font-size:14px;letter-spacing:3px;}
   .pg5 .psec-head{margin-bottom:8px;}
-  .pg5 .pitems{flex:1;display:flex;flex-direction:column;justify-content:space-evenly;}
-  .pg5 .piname{font-size:18px;}
-  .pg5 .pispec{font-size:14px;}
-  .pg5 .pidesc{font-size:12px;}
-  .pg5 .pb{font-size:18px;}
-  .pg5 .pg{font-size:12px;}
+  .pg5 .pitems-2col{flex:1;display:grid;align-content:space-evenly;gap:0 18px;}
+  .pg5 .piname{font-size:14px;}
+  .pg5 .pispec{font-size:11px;}
+  .pg5 .pidesc{font-size:9.5px;}
+  .pg5 .pb{font-size:14px;}
+  .pg5 .pg{font-size:9.5px;}
 
-  /* ── pg6: 맑은술+약주+청주 (4 items) ── */
-  .pg6 .ppage-body{padding:10px 16px 8px;gap:10px;}
+  /* ── pg6: 마스브루어리+막걸리+탁주 (7 items) ── */
+  .pg6 .ppage-body{padding:8px 14px 6px;gap:8px;}
   .pg6 .psec{flex:1;display:flex;flex-direction:column;}
-  .pg6 .psec-title{font-size:21px;letter-spacing:6px;}
-  .pg6 .psec-head{margin-bottom:10px;}
-  .pg6 .psec-note{font-size:13px;padding:8px 16px;margin-bottom:8px;}
+  .pg6 .psec-title{font-size:17px;letter-spacing:4px;}
+  .pg6 .psec-head{margin-bottom:8px;}
   .pg6 .pitems{flex:1;display:flex;flex-direction:column;justify-content:space-evenly;}
-  .pg6 .piname{font-size:23px;}
-  .pg6 .pispec{font-size:18px;}
-  .pg6 .pidesc{font-size:15px;}
-  .pg6 .pb{font-size:23px;}
-  .pg6 .pg{font-size:15px;}
+  .pg6 .piname{font-size:18px;}
+  .pg6 .pispec{font-size:14px;}
+  .pg6 .pidesc{font-size:12px;}
+  .pg6 .pb{font-size:18px;}
+  .pg6 .pg{font-size:12px;}
 
-  /* ── pg7: 증류식 소주 (15 items, force 2col) ── */
-  .pg7 .ppage-body{padding:6px 12px 4px;gap:6px;}
+  /* ── pg7: 맑은술+약주+청주 (5 items) ── */
+  .pg7 .ppage-body{padding:10px 16px 8px;gap:10px;}
   .pg7 .psec{flex:1;display:flex;flex-direction:column;}
-  .pg7 .psec-title{font-size:13px;letter-spacing:3px;}
-  .pg7 .psec-head{margin-bottom:6px;}
-  .pg7 .pitems-2col{flex:1;display:grid;align-content:space-evenly;gap:0 14px;}
-  .pg7 .piname{font-size:13px;}
-  .pg7 .pispec{font-size:10px;}
-  .pg7 .pidesc{font-size:9px;}
-  .pg7 .pb{font-size:13px;}
-  .pg7 .pg{font-size:9px;}
+  .pg7 .psec-title{font-size:19px;letter-spacing:6px;}
+  .pg7 .psec-head{margin-bottom:10px;}
+  .pg7 .psec-note{font-size:12px;padding:8px 16px;margin-bottom:8px;}
+  .pg7 .pitems{flex:1;display:flex;flex-direction:column;justify-content:space-evenly;}
+  .pg7 .piname{font-size:19px;}
+  .pg7 .pispec{font-size:15px;}
+  .pg7 .pidesc{font-size:13px;}
+  .pg7 .pb{font-size:19px;}
+  .pg7 .pg{font-size:13px;}
 
-  /* ── pg8: 프리미엄잔술+브랜디+과실주 (6+2+3 items) ── */
-  .pg8 .ppage-body{padding:6px 12px 4px;gap:0;justify-content:space-evenly;}
-  .pg8 .psec-title{font-size:12px;letter-spacing:2px;}
-  .pg8 .pitem-row{padding:4px 0;}
-  .pg8 .piname{font-size:13px;}
-  .pg8 .pispec{font-size:10px;}
-  .pg8 .pidesc{font-size:9px;}
-  .pg8 .pb{font-size:13px;}
-  .pg8 .pg{font-size:9px;}
+  /* ── pg8: 증류식 소주 1~8 (8 items, 2col) ── */
+  .pg8 .ppage-body{padding:8px 12px 6px;gap:8px;}
+  .pg8 .psec{flex:1;display:flex;flex-direction:column;}
+  .pg8 .psec-title{font-size:15px;letter-spacing:3px;}
+  .pg8 .psec-head{margin-bottom:8px;}
+  .pg8 .pitems-2col{flex:1;display:grid;align-content:space-evenly;gap:0 16px;}
+  .pg8 .piname{font-size:17px;}
+  .pg8 .pispec{font-size:13px;}
+  .pg8 .pidesc{font-size:11.5px;}
+  .pg8 .pb{font-size:17px;}
+  .pg8 .pg{font-size:11.5px;}
 
-  /* ── pg9: 조선의 위스키 (15 items, force 2col) ── */
-  .pg9 .ppage-body{padding:6px 12px 4px;gap:6px;}
+  /* ── pg9: 증류식 소주 9~15 (7 items, 2col) ── */
+  .pg9 .ppage-body{padding:8px 12px 6px;gap:8px;}
   .pg9 .psec{flex:1;display:flex;flex-direction:column;}
-  .pg9 .psec-title{font-size:13px;letter-spacing:3px;}
-  .pg9 .psec-head{margin-bottom:6px;}
-  .pg9 .pitems-2col{flex:1;display:grid;align-content:space-evenly;gap:0 14px;}
-  .pg9 .piname{font-size:13px;}
-  .pg9 .pispec{font-size:10px;}
-  .pg9 .pidesc{font-size:9px;}
-  .pg9 .pb{font-size:13px;}
-  .pg9 .pg{font-size:9px;}
+  .pg9 .psec-title{font-size:15px;letter-spacing:3px;}
+  .pg9 .psec-head{margin-bottom:8px;}
+  .pg9 .pitems-2col{flex:1;display:grid;align-content:space-evenly;gap:0 16px;}
+  .pg9 .piname{font-size:18px;}
+  .pg9 .pispec{font-size:14px;}
+  .pg9 .pidesc{font-size:12px;}
+  .pg9 .pb{font-size:18px;}
+  .pg9 .pg{font-size:12px;}
+
+  /* ── pg10: 프리미엄 잔술 (6 items) ── */
+  .pg10 .ppage-body{padding:10px 14px 8px;gap:8px;}
+  .pg10 .psec{flex:1;display:flex;flex-direction:column;}
+  .pg10 .psec-title{font-size:17px;letter-spacing:3px;}
+  .pg10 .psec-head{margin-bottom:8px;}
+  .pg10 .pitems{flex:1;display:flex;flex-direction:column;justify-content:space-evenly;}
+  .pg10 .pitem-row{padding:4px 0;}
+  .pg10 .piname{font-size:18px;}
+  .pg10 .pispec{font-size:14px;}
+  .pg10 .pidesc{font-size:12px;}
+  .pg10 .pb{font-size:18px;}
+  .pg10 .pg{font-size:12px;}
+
+  /* ── pg11: 브랜디+오미자와인+과실주 (2+3 items) ── */
+  .pg11 .ppage-body{padding:10px 16px 8px;gap:10px;}
+  .pg11 .psec{flex:1;display:flex;flex-direction:column;}
+  .pg11 .psec-title{font-size:17px;letter-spacing:4px;}
+  .pg11 .psec-head{margin-bottom:8px;}
+  .pg11 .pitems{flex:1;display:flex;flex-direction:column;justify-content:space-evenly;}
+  .pg11 .piname{font-size:19px;}
+  .pg11 .pispec{font-size:15px;}
+  .pg11 .pidesc{font-size:13px;}
+  .pg11 .pb{font-size:19px;}
+  .pg11 .pg{font-size:13px;}
+
+  /* ── pg12: 조선의 위스키 (15 items, force 2col) ── */
+  .pg12 .ppage-body{padding:6px 12px 4px;gap:6px;}
+  .pg12 .psec{flex:1;display:flex;flex-direction:column;}
+  .pg12 .psec-title{font-size:13px;letter-spacing:3px;}
+  .pg12 .psec-head{margin-bottom:6px;}
+  .pg12 .pitems-2col{flex:1;display:grid;align-content:space-evenly;gap:0 14px;}
+  .pg12 .piname{font-size:13px;}
+  .pg12 .pispec{font-size:10px;}
+  .pg12 .pidesc{font-size:9px;}
+  .pg12 .pb{font-size:13px;}
+  .pg12 .pg{font-size:9px;}
 }
 
 /* 검색 */
@@ -721,25 +761,31 @@ function buildPrintPages(){
   if(!pr)return;
   pr.innerHTML='';
 
-  // 9페이지 구성
-  // 1: 소개 (brand-intro)
-  // 2: f1 주안상 · f2 소안상 · f3 궁중 디저트
-  // 3: f4 샘플러 & 플래터 · s3 칵테일
-  // 4: s1 조선 하이볼
-  // 5: s4 마스브루어리 · 막걸리 · 탁주
-  // 6: s6 맑은 술 · 약주 · 청주
-  // 7: s7 증류식 소주 (2단)
-  // 8: s8 프리미엄 잔술 · s9 브랜디 · s11 과실주
-  // 9: s10 조선의 위스키 (2단)
+  // 12페이지 구성
+  // 1:  소개 (brand-intro)
+  // 2:  f1 주안상
+  // 3:  f2 소안상 · f3 궁중 디저트
+  // 4:  f4 샘플러 & 플래터 · s3 칵테일
+  // 5:  s1 조선 하이볼
+  // 6:  s4 마스브루어리 · 막걸리 · 탁주
+  // 7:  s6 맑은 술 · 약주 · 청주
+  // 8:  s7 증류식 소주 (2단, 1~8번)
+  // 9:  s7 증류식 소주 (2단, 9~15번)
+  // 10: s8 프리미엄 잔술
+  // 11: s9 브랜디 · s11 오미자 와인 · 과실주
+  // 12: s10 조선의 위스키 (2단)
   const PAGE_GROUPS = [
-    {ids:['f1','f2','f3'],  label:'주안상 · 소안상 · 궁중 디저트',      pgClass:'pg2'},
-    {ids:['f4','s3'],       label:'샘플러 & 플래터 · 칵테일',            pgClass:'pg3'},
-    {ids:['s1'],            label:'조선 하이볼',                         pgClass:'pg4'},
-    {ids:['s4'],            label:'마스브루어리 · 막걸리 · 탁주',        pgClass:'pg5'},
-    {ids:['s6'],            label:'맑은 술 · 약주 · 청주',              pgClass:'pg6'},
-    {ids:['s7'],            label:'증류식 소주',       twoColItems:true, pgClass:'pg7'},
-    {ids:['s8','s9','s11'], label:'프리미엄 잔술 · 브랜디 · 과실주',    pgClass:'pg8'},
-    {ids:['s10'],           label:'조선의 위스키',     twoColItems:true, pgClass:'pg9'},
+    {ids:['f1'],            label:'주안상',                                            pgClass:'pg2'},
+    {ids:['f2','f3'],       label:'소안상 · 궁중 디저트',                              pgClass:'pg3'},
+    {ids:['f4','s3'],       label:'샘플러 & 플래터 · 칵테일',                          pgClass:'pg4'},
+    {ids:['s1'],            label:'조선 하이볼',                   twoColItems:true,   pgClass:'pg5'},
+    {ids:['s4'],            label:'마스브루어리 · 막걸리 · 탁주',                      pgClass:'pg6'},
+    {ids:['s6'],            label:'맑은 술 · 약주 · 청주',                             pgClass:'pg7'},
+    {ids:['s7'],            label:'증류식 소주',                   twoColItems:true, sliceEnd:8,   pgClass:'pg8'},
+    {ids:['s7'],            label:'증류식 소주',                   twoColItems:true, sliceStart:8, pgClass:'pg9'},
+    {ids:['s8'],            label:'프리미엄 잔술',                                     pgClass:'pg10'},
+    {ids:['s9','s11'],      label:'브랜디 · 오미자 와인 · 과실주',                     pgClass:'pg11'},
+    {ids:['s10'],           label:'조선의 위스키',                 twoColItems:true,   pgClass:'pg12'},
   ];
 
   const idxMap={};
@@ -758,16 +804,17 @@ function buildPrintPages(){
     return `<span class="badge-p ${m[item.badge]||''}">${x(item.badgeText||item.badge)}</span>`;
   }
 
-  function buildPSec(sec, forceTwoCol){
+  function buildPSec(sec, forceTwoCol, sliceStart, sliceEnd){
     const sw=document.createElement('div'); sw.className='psec';
     const sh=document.createElement('div'); sh.className='psec-head';
     sh.innerHTML=`<div class="psec-line"></div><div class="psec-title">${x(sec.title)}</div><div class="psec-line"></div>`;
     sw.appendChild(sh);
-    if(sec.note){const sn=document.createElement('div');sn.className='psec-note';sn.textContent=sec.note;sw.appendChild(sn);}
+    if(sec.note&&sliceStart===undefined){const sn=document.createElement('div');sn.className='psec-note';sn.textContent=sec.note;sw.appendChild(sn);}
     const ly=sec.layout;
     const iw=document.createElement('div');
     iw.className = (forceTwoCol||ly==='2col'||ly==='cocktail') ? 'pitems-2col' : 'pitems';
-    sec.items.forEach((item)=>{
+    const items = (sliceStart!==undefined||sliceEnd!==undefined) ? sec.items.slice(sliceStart||0, sliceEnd) : sec.items;
+    items.forEach((item)=>{
       const row=document.createElement('div'); row.className='pitem-row';
       const left=document.createElement('div');
       const nm=document.createElement('div'); nm.className='piname';
@@ -796,7 +843,7 @@ function buildPrintPages(){
     ['c-bl','c-br'].forEach(cls=>{const d=document.createElement('div');d.className=cls;pg.appendChild(d);});
     pg.appendChild(Object.assign(document.createElement('div'),{className:'pband'}));
     const mh=document.createElement('div'); mh.className='print-mini-header';
-    mh.innerHTML=`<span class="pmh-title"><span class="pmh-acc">대전어상</span> 메뉴</span><span class="pmh-cat">${catLabel}</span><span class="pmh-page">${pageNum} / 9</span>`;
+    mh.innerHTML=`<span class="pmh-title"><span class="pmh-acc">대전어상</span> 메뉴</span><span class="pmh-cat">${catLabel}</span><span class="pmh-page">${pageNum} / 12</span>`;
     pg.appendChild(mh);
     const body=document.createElement('div'); body.className='ppage-body';
     pg.appendChild(body);
@@ -815,12 +862,12 @@ function buildPrintPages(){
     if(biEl){const clone=biEl.cloneNode(true);clone.classList.remove('main-header-block');body.appendChild(clone);}
   })();
 
-  // 2~9페이지
+  // 2~12페이지
   PAGE_GROUPS.forEach((g,i)=>{
     const secs=g.ids.map(id=>MD.sections[idxMap[id]]).filter(Boolean);
     if(!secs.length)return;
     const body=addPageShell(g.pgClass, g.label, i+2);
-    secs.forEach(sec=>body.appendChild(buildPSec(sec, g.twoColItems||false)));
+    secs.forEach(sec=>body.appendChild(buildPSec(sec, g.twoColItems||false, g.sliceStart, g.sliceEnd)));
   });
 }
 
