@@ -517,17 +517,6 @@
           "priceGlass": "9,000"
         },
         {
-          "id": "dongjeongchun1",
-          "name": "동정춘",
-          "icon": "",
-          "spec": "8% · 500ml",
-          "badge": "",
-          "badgeText": "",
-          "desc": "조선후기 실학자 서유구 선생의 임원십육지에 기록된 제조법을 바탕으로, 논 1평에서 수확한 쌀 4.4kg으로 1L만 나올 정도로 귀한 프리미엄 탁주. 높은 쌀 함량 덕에 요거트 같은 감촉으로 달달하고 풍부한 맛과 향이 특징",
-          "priceBottle": "29,000",
-          "priceGlass": ""
-        },
-        {
           "id": "baekjaju1",
           "name": "백자주",
           "icon": "",
