@@ -756,9 +756,9 @@
     },
     {
       "id": "s8",
-      "title": "프리미엄 잔술",
+      "title": "프리미엄 증류식소주",
       "layout": "premium",
-      "note": "🥃 잔술 전용 (30ml) — 병 판매 미제공",
+      "note": "🥃 잔술 전용 (30ml) | 모곡은 병 구매 가능",
       "items": [
         {
           "id": "i51",
@@ -801,7 +801,7 @@
           "badge": "limited",
           "badgeText": "한정판",
           "desc": "홍천의 보리와 쌀로 증류한 한정판 에디션. 보리 특유의 알싸하고 고소한 향과 쌀의 부드러움이 조화",
-          "priceBottle": "",
+          "priceBottle": "130,000",
           "priceGlass": "17,000"
         },
         {
