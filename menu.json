@@ -554,7 +554,7 @@
           "badge": "",
           "badgeText": "",
           "desc": "325년 역사의 일본 사케 양조장과 기술 제휴. 마산 지역의 쌀과 물로 빚은 전통 청주",
-          "priceBottle": "18,000",
+          "priceBottle": "",
           "priceGlass": "5,000"
         },
         {
@@ -566,17 +566,6 @@
           "badgeText": "미쉐린2스타 권숙수입점",
           "desc": "찹쌀과 전통 누룩으로 빚은 프리미엄 약주.\n맑고 투명한 빛깔에 은은한 산미와 단맛이 공존하며,\n화이트 와인을 떠올리게 하는 부드러운 품미.",
           "priceBottle": "45,000",
-          "priceGlass": ""
-        },
-        {
-          "id": "ilyeopkkotsul1",
-          "name": "일엽편주 꽃술",
-          "icon": "🌸",
-          "spec": "15% · 375ml",
-          "badge": "new",
-          "badgeText": "신메뉴",
-          "desc": "1년에 단 한번 봄에 나오는 일엽편주 약주 꽃술",
-          "priceBottle": "79,000",
           "priceGlass": ""
         },
         {
