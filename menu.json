@@ -51,28 +51,6 @@
           "priceGlass": ""
         },
         {
-          "id": "f106b",
-          "name": "치마살 육회/육사시미",
-          "icon": "🥩",
-          "spec": "한우 치마살 생고기",
-          "badge": "limited",
-          "badgeText": "한정판매",
-          "desc": "정육점 사장님들이 생일에 꼭 챙겨먹는 육회 부위 중 1티어 치마살",
-          "priceBottle": "",
-          "priceGlass": "37,000"
-        },
-        {
-          "id": "f106c",
-          "name": "채끝등심 육회/육사시미",
-          "icon": "🥩",
-          "spec": "한우 채끝등심 생고기",
-          "badge": "new",
-          "badgeText": "신메뉴",
-          "desc": "현주엽 농구감독의 최애 부위",
-          "priceBottle": "",
-          "priceGlass": "35,000"
-        },
-        {
           "id": "f108b",
           "name": "한우 차돌 육사시미",
           "icon": "🔪",
