@@ -153,10 +153,13 @@ body.admin-mode .sec-title:hover{background:rgba(184,130,10,.1);}
 .sctrl{font-size:9px;padding:1px 5px;border:1px solid var(--div);background:var(--paper2);color:var(--muted);cursor:pointer;border-radius:1px;font-family:'Noto Sans KR',sans-serif;}
 .sctrl.d{color:var(--crimson);border-color:var(--crimson);}
 .note{font-size:10px;color:#3d2200;padding:4px 10px;border-left:2px solid var(--crimson);background:rgba(122,20,20,.05);margin-bottom:8px;line-height:1.75;}
+.group-head{font-family:'Nanum Myeongjo',serif;font-size:11px;font-weight:700;letter-spacing:3px;color:var(--gold2);padding:10px 0 4px;}
+.items .group-head:first-child{padding-top:0;}
 
 /* ITEM */
+.items{border-top:1.5px solid var(--ink);}
+.items>*:first-child{padding-top:12px;}
 .items .item{display:grid;grid-template-columns:1fr auto;align-items:start;padding:12px 0;gap:10px;border-bottom:1px solid var(--div);position:relative;}
-.items .item:first-child{border-top:1.5px solid var(--ink);padding-top:12px;}
 .items .item:last-child{border-bottom:1.5px solid var(--ink);}
 .iname{font-family:'Nanum Myeongjo',serif;font-size:14px;font-weight:700;margin-bottom:3px;display:flex;align-items:center;gap:4px;flex-wrap:wrap;line-height:1.4;}
 .iicon{font-size:14px;line-height:1;}
@@ -324,6 +327,9 @@ body.admin-mode .add-sec-btn{display:block;}
   .psec-title{font-family:'Nanum Myeongjo',serif;font-size:11px;font-weight:700;letter-spacing:3px;white-space:nowrap;color:var(--ink);}
   .psec-title::before,.psec-title::after{content:'◆';font-size:5px;color:var(--crimson);margin:0 2px;vertical-align:middle;}
   .psec-note{font-size:8px;color:var(--muted);padding:3px 8px;border-left:2px solid var(--crimson);background:rgba(122,20,20,.05);margin-bottom:4px;line-height:1.6;}
+  .pgroup-head{font-family:'Nanum Myeongjo',serif;font-size:7.5px;font-weight:700;letter-spacing:1.5px;color:var(--gold2);padding:3px 0 1px;}
+  .pitems>.pgroup-head:first-child,.pitems-2col>.pgroup-head:first-child{padding-top:0;}
+  .pitems-2col .pgroup-head{grid-column:1/-1;}
 
   /* 아이템 */
   .pitem-row{display:grid;grid-template-columns:1fr auto;padding:3.5px 0;border-bottom:0.5px solid var(--div);gap:8px;align-items:start;}
@@ -441,7 +447,7 @@ body.admin-mode .add-sec-btn{display:block;}
   .pg7 .pb{font-size:19px;}
   .pg7 .pg{font-size:13px;}
 
-  /* ── pg8: 증류식 소주 1~8 (8 items, 2col) ── */
+  /* ── pg8: 증류식 소주 1~8 (8 items, 2col, 그룹헤더) ── */
   .pg8 .ppage-body{padding:8px 12px 6px;gap:8px;}
   .pg8 .psec{flex:1;display:flex;flex-direction:column;}
   .pg8 .psec-title{font-size:15px;letter-spacing:3px;}
@@ -452,33 +458,35 @@ body.admin-mode .add-sec-btn{display:block;}
   .pg8 .pidesc{font-size:11.5px;}
   .pg8 .pb{font-size:17px;}
   .pg8 .pg{font-size:11.5px;}
+  .pg8 .pgroup-head{font-size:11px;}
 
-  /* ── pg9: 증류식 소주 9~15 (7 items, 2col) ── */
+  /* ── pg9: 증류식 소주 9~16 (8 items, 2col, 그룹헤더) ── */
   .pg9 .ppage-body{padding:8px 12px 6px;gap:8px;}
   .pg9 .psec{flex:1;display:flex;flex-direction:column;}
   .pg9 .psec-title{font-size:15px;letter-spacing:3px;}
   .pg9 .psec-head{margin-bottom:8px;}
   .pg9 .pitems-2col{flex:1;display:grid;align-content:space-evenly;gap:0 16px;}
-  .pg9 .piname{font-size:18px;}
-  .pg9 .pispec{font-size:14px;}
-  .pg9 .pidesc{font-size:12px;}
-  .pg9 .pb{font-size:18px;}
-  .pg9 .pg{font-size:12px;}
+  .pg9 .piname{font-size:13.5px;}
+  .pg9 .pispec{font-size:10.5px;}
+  .pg9 .pidesc{font-size:9.5px;}
+  .pg9 .pb{font-size:13.5px;}
+  .pg9 .pg{font-size:9.5px;}
+  .pg9 .pgroup-head{font-size:9px;}
 
-  /* ── pg10: 프리미엄 잔술 (6 items) ── */
-  .pg10 .ppage-body{padding:10px 14px 8px;gap:8px;}
+  /* ── pg10: 증류식 소주 17~23 (7 items, 2col, 그룹헤더) ── */
+  .pg10 .ppage-body{padding:8px 12px 6px;gap:8px;}
   .pg10 .psec{flex:1;display:flex;flex-direction:column;}
-  .pg10 .psec-title{font-size:17px;letter-spacing:3px;}
+  .pg10 .psec-title{font-size:15px;letter-spacing:3px;}
   .pg10 .psec-head{margin-bottom:8px;}
-  .pg10 .pitems{flex:1;display:flex;flex-direction:column;justify-content:space-evenly;}
-  .pg10 .pitem-row{padding:4px 0;}
-  .pg10 .piname{font-size:18px;}
-  .pg10 .pispec{font-size:14px;}
-  .pg10 .pidesc{font-size:12px;}
-  .pg10 .pb{font-size:18px;}
-  .pg10 .pg{font-size:12px;}
+  .pg10 .pitems-2col{flex:1;display:grid;align-content:space-evenly;gap:0 16px;}
+  .pg10 .piname{font-size:16px;}
+  .pg10 .pispec{font-size:12.5px;}
+  .pg10 .pidesc{font-size:11px;}
+  .pg10 .pb{font-size:16px;}
+  .pg10 .pg{font-size:11px;}
+  .pg10 .pgroup-head{font-size:10.5px;}
 
-  /* ── pg11: 브랜디+오미자와인+과실주 (2+3 items) ── */
+  /* ── pg11: 오미자 와인 · 과실주 ── */
   .pg11 .ppage-body{padding:10px 16px 8px;gap:10px;}
   .pg11 .psec{flex:1;display:flex;flex-direction:column;}
   .pg11 .psec-title{font-size:17px;letter-spacing:4px;}
@@ -769,10 +777,10 @@ function buildPrintPages(){
   // 5:  s1 조선 하이볼
   // 6:  s4 마스브루어리 · 막걸리 · 탁주
   // 7:  s6 맑은 술 · 약주 · 청주
-  // 8:  s7 증류식 소주 (2단, 1~8번)
-  // 9:  s7 증류식 소주 (2단, 9~15번)
-  // 10: s8 프리미엄 잔술
-  // 11: s9 브랜디 · s11 오미자 와인 · 과실주
+  // 8:  s7 증류식 소주 (2단, 1~8번, 그룹헤더)
+  // 9:  s7 증류식 소주 (2단, 9~16번, 그룹헤더)
+  // 10: s7 증류식 소주 (2단, 17~23번, 그룹헤더)
+  // 11: s11 오미자 와인 · 과실주
   // 12: s10 조선의 위스키 (2단)
   const PAGE_GROUPS = [
     {ids:['f1'],            label:'주안상',                                            pgClass:'pg2'},
@@ -781,10 +789,10 @@ function buildPrintPages(){
     {ids:['s1'],            label:'조선 하이볼',                   twoColItems:true,   pgClass:'pg5'},
     {ids:['s4'],            label:'마스브루어리 · 막걸리 · 탁주',                      pgClass:'pg6'},
     {ids:['s6'],            label:'맑은 술 · 약주 · 청주',                             pgClass:'pg7'},
-    {ids:['s7'],            label:'증류식 소주',                   twoColItems:true, sliceEnd:8,   pgClass:'pg8'},
-    {ids:['s7'],            label:'증류식 소주',                   twoColItems:true, sliceStart:8, pgClass:'pg9'},
-    {ids:['s8'],            label:'프리미엄 잔술',                                     pgClass:'pg10'},
-    {ids:['s9','s11'],      label:'브랜디 · 오미자 와인 · 과실주',                     pgClass:'pg11'},
+    {ids:['s7'],            label:'증류식 소주',                   twoColItems:true, sliceEnd:8,              pgClass:'pg8'},
+    {ids:['s7'],            label:'증류식 소주',                   twoColItems:true, sliceStart:8, sliceEnd:16, pgClass:'pg9'},
+    {ids:['s7'],            label:'증류식 소주',                   twoColItems:true, sliceStart:16,           pgClass:'pg10'},
+    {ids:['s11'],           label:'오미자 와인 · 과실주',                              pgClass:'pg11'},
     {ids:['s10'],           label:'조선의 위스키',                 twoColItems:true,   pgClass:'pg12'},
   ];
 
@@ -814,7 +822,13 @@ function buildPrintPages(){
     const iw=document.createElement('div');
     iw.className = (forceTwoCol||ly==='2col'||ly==='cocktail') ? 'pitems-2col' : 'pitems';
     const items = (sliceStart!==undefined||sliceEnd!==undefined) ? sec.items.slice(sliceStart||0, sliceEnd) : sec.items;
+    let lastGroup=null;
     items.forEach((item)=>{
+      if(item.group&&item.group!==lastGroup){
+        const gh=document.createElement('div'); gh.className='pgroup-head'; gh.textContent=item.group;
+        iw.appendChild(gh);
+        lastGroup=item.group;
+      }
       const row=document.createElement('div'); row.className='pitem-row';
       const left=document.createElement('div');
       const nm=document.createElement('div'); nm.className='piname';
@@ -886,7 +900,15 @@ function buildSec(sec,si){
   if(sec.layout==='2col'){w=document.createElement('div');w.className='items-2col';}
   else if(sec.layout==='cocktail'){w=document.createElement('div');w.className='cocktail-grid';}
   else{w=document.createElement('div');w.className='items';}
-  sec.items.forEach((item,ii)=>w.appendChild(buildItem(item,sec,ii)));
+  let lastGroup=null;
+  sec.items.forEach((item,ii)=>{
+    if(item.group&&item.group!==lastGroup){
+      const gh=document.createElement('div');gh.className='group-head';gh.textContent=item.group;
+      w.appendChild(gh);
+      lastGroup=item.group;
+    }
+    w.appendChild(buildItem(item,sec,ii));
+  });
   el.appendChild(w);
   const ab=document.createElement('button');ab.className='add-item-btn';ab.textContent='＋ 메뉴 추가';
   ab.onclick=()=>openAdd(sec.id);el.appendChild(ab);

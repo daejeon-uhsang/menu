@@ -563,7 +563,7 @@
       "id": "s7",
       "title": "증류식 소주",
       "layout": "list",
-      "note": "🍶 병 판매 기본 (375ml 전후)",
+      "note": "🍶 병 판매 기본(375ml 전후) · 일부 프리미엄 소주는 잔술(30ml) 전용 · 고운달은 병(500ml)·잔술(30ml) 선택 가능 · 모곡은 병 구매 가능",
       "items": [
         {
           "id": "dong1",
@@ -574,7 +574,8 @@
           "badgeText": "",
           "desc": "맑은 동해를 담은 증류식 소주. 부드럽고 깔끔하며 희석식과 차별화된 향긋한 청량감",
           "priceBottle": "7,000",
-          "priceGlass": ""
+          "priceGlass": "",
+          "group": "쌀"
         },
         {
           "id": "i36",
@@ -585,40 +586,8 @@
           "badgeText": "",
           "desc": "서울의 상징 해치를 모티브로, 전통 상압 증류 방식으로 만든 소주. 은은한 쌀향과 풀향이 조화로움",
           "priceBottle": "25,000",
-          "priceGlass": ""
-        },
-        {
-          "id": "i37",
-          "name": "추사백",
-          "icon": "🍎",
-          "spec": "25% · 375ml",
-          "badge": "",
-          "badgeText": "",
-          "desc": "예산 사과를 발효 후 진공 저온 증류. 은은한 사과향이 맑고 부드럽게 이어지는 증류주",
-          "priceBottle": "21,000",
-          "priceGlass": ""
-        },
-        {
-          "id": "i39",
-          "name": "이강주",
-          "icon": "🍐",
-          "spec": "19% · 375ml",
-          "badge": "",
-          "badgeText": "",
-          "desc": "조선 3대 명주. 배·생강·계피를 넣어 만든 증류주로 향긋하고 따뜻한 여운",
-          "priceBottle": "13,000",
-          "priceGlass": ""
-        },
-        {
-          "id": "i40",
-          "name": "문배술",
-          "icon": "",
-          "spec": "25% · 375ml",
-          "badge": "award",
-          "badgeText": "남북정상 만찬주",
-          "desc": "150년 전통. 국산 수수·조·쌀을 증류해 달큰한 문배향과 깔끔한 끝맛이 일품. 남북 정상회담 만찬주로 사용",
-          "priceBottle": "19,000",
-          "priceGlass": ""
+          "priceGlass": "",
+          "group": "쌀"
         },
         {
           "id": "i41",
@@ -629,29 +598,8 @@
           "badgeText": "우리술 품평회 대상",
           "desc": "한국에서 가장 비싼 독일 코테사 증류기로 내린 상압 증류식 소주",
           "priceBottle": "29,000",
-          "priceGlass": ""
-        },
-        {
-          "id": "i42",
-          "name": "왕주",
-          "icon": "👑",
-          "spec": "25% · 375ml",
-          "badge": "award",
-          "badgeText": "국가중요문화재",
-          "desc": "조선 왕실 궁중 비법을 3대째 이어온 명인이 재현한 궁중주. 명성황후 친정 민씨 가문의 가양주이자 궁중 진상주. 국가중요문화재 제56호이자 종묘대제의 제주",
-          "priceBottle": "31,000",
-          "priceGlass": ""
-        },
-        {
-          "id": "i43",
-          "name": "필",
-          "icon": "🍠",
-          "spec": "25% · 375ml",
-          "badge": "",
-          "badgeText": "",
-          "desc": "여주산 고구마를 상압 증류한 소주. 고소하고 부드러운 고구마 풍미",
-          "priceBottle": "39,000",
-          "priceGlass": ""
+          "priceGlass": "",
+          "group": "쌀"
         },
         {
           "id": "i44",
@@ -662,7 +610,8 @@
           "badgeText": "",
           "desc": "상압 증류 소주의 구수하고 부드러운 풍미를 가장 잘 나타내는, 이름 그대로의 소주",
           "priceBottle": "29,000",
-          "priceGlass": ""
+          "priceGlass": "",
+          "group": "쌀"
         },
         {
           "id": "i46",
@@ -673,29 +622,8 @@
           "badgeText": "",
           "desc": "세종대왕 재위 32년을 기리는 이름. 유기농 쌀과 특허 효모로 감압 증류한 소주",
           "priceBottle": "39,000",
-          "priceGlass": ""
-        },
-        {
-          "id": "i47",
-          "name": "진맥소주",
-          "icon": "🌾",
-          "spec": "22% · 375ml",
-          "badge": "award",
-          "badgeText": "SFWSC 더블골드",
-          "desc": "안동 맹개마을에서 직접 재배한 유기농 통밀을 상압 증류. 고소한 밀향과 플로럴한 향이 풍부하며 따뜻한 열감이 기분 좋게 이어짐. 세계 3대 주류품평회 SFWSC 더블골드·골드 수상",
-          "priceBottle": "40,000",
-          "priceGlass": ""
-        },
-        {
-          "id": "i48",
-          "name": "병영소주",
-          "icon": "",
-          "spec": "40% · 200ml",
-          "badge": "award",
-          "badgeText": "61호 명인",
-          "desc": "조선시대 강진 병영진영에서 보리로 빚어 이순신 장군도 마셨다는 소주. 3대를 이어온 61호 명인의 전통 방식으로 만든 술. 은은한 보리향과 알싸하고 깔끔한 마무리",
-          "priceBottle": "39,000",
-          "priceGlass": ""
+          "priceGlass": "",
+          "group": "쌀"
         },
         {
           "id": "i49",
@@ -706,7 +634,8 @@
           "badgeText": "",
           "desc": "조선 정조와 사대부 사이에서 널리 음용되던 전통 고도주",
           "priceBottle": "59,000",
-          "priceGlass": ""
+          "priceGlass": "",
+          "group": "쌀"
         },
         {
           "id": "i50",
@@ -717,27 +646,9 @@
           "badgeText": "",
           "desc": "충북 도자기 마을 담을술공방의 도예가 부부가 만드는 프리미엄 증류식 소주. 3년간 항아리 숙성",
           "priceBottle": "79,000",
-          "priceGlass": ""
+          "priceGlass": "",
+          "group": "쌀"
         },
-        {
-          "id": "chusibek1",
-          "name": "추시벡오크",
-          "icon": "🍎",
-          "spec": "25% · 350ml",
-          "badge": "",
-          "badgeText": "",
-          "desc": "예산 사과로 만든 프리미엄 증류주. 오크통 숙성으로 바닐라향·초콜릿향이 더해지고 뒤끝이 깔끔한 것이 특징",
-          "priceBottle": "28,000",
-          "priceGlass": ""
-        }
-      ]
-    },
-    {
-      "id": "s8",
-      "title": "프리미엄 증류식소주",
-      "layout": "premium",
-      "note": "🥃 잔술 전용 (30ml) | 모곡은 병 구매 가능",
-      "items": [
         {
           "id": "i51",
           "name": "일엽편주",
@@ -747,18 +658,8 @@
           "badgeText": "",
           "desc": "600년 전통 농암종택의 17대 종부가 전통 방식 그대로 빚는 술",
           "priceBottle": "",
-          "priceGlass": "19,000"
-        },
-        {
-          "id": "i52",
-          "name": "무작",
-          "icon": "",
-          "spec": "53% · 상압증류 · 5년 숙성 | 잔술 30ml",
-          "badge": "",
-          "badgeText": "",
-          "desc": "옛 문헌의 '적선소주'를 재현. 조선 사대부 양반이 즐겼던 대표 소주. 상압 증류 후 5년 숙성",
-          "priceBottle": "",
-          "priceGlass": "23,000"
+          "priceGlass": "19,000",
+          "group": "쌀"
         },
         {
           "id": "i53",
@@ -769,29 +670,8 @@
           "badgeText": "",
           "desc": "해창 막걸리로 유명한 해창주조에서 출시한 초고가 프리미엄 소주",
           "priceBottle": "",
-          "priceGlass": "19,000"
-        },
-        {
-          "id": "i54",
-          "name": "모곡",
-          "icon": "",
-          "spec": "53% · 배치1/배치2 선택 | 잔술 30ml",
-          "badge": "limited",
-          "badgeText": "한정판",
-          "desc": "홍천의 보리와 쌀로 증류한 한정판 에디션. 보리 특유의 알싸하고 고소한 향과 쌀의 부드러움이 조화",
-          "priceBottle": "130,000",
-          "priceGlass": "17,000"
-        },
-        {
-          "id": "i55",
-          "name": "려 2013본",
-          "icon": "",
-          "spec": "41.5% · 10년 숙성 | 잔술 30ml",
-          "badge": "",
-          "badgeText": "",
-          "desc": "여주산 고구마 10년 숙성 원액. 임원십육지 감저소주 제법을 기반으로 만든 술. 나전칠기 패턴을 담은 섬세한 디자인",
-          "priceBottle": "",
-          "priceGlass": "13,000"
+          "priceGlass": "19,000",
+          "group": "쌀"
         },
         {
           "id": "i56",
@@ -802,16 +682,93 @@
           "badgeText": "",
           "desc": "삼해소주를 여러 번 재증류하여 만든 초고도주. 깊고 단아한 풍미",
           "priceBottle": "",
-          "priceGlass": "55,000"
-        }
-      ]
-    },
-    {
-      "id": "s9",
-      "title": "고운달 · 오미자 브랜디",
-      "layout": "list",
-      "note": "🍶 병 (500ml) 또는 잔술(30ml) 선택 가능",
-      "items": [
+          "priceGlass": "55,000",
+          "group": "쌀"
+        },
+        {
+          "id": "i48",
+          "name": "병영소주",
+          "icon": "",
+          "spec": "40% · 200ml",
+          "badge": "award",
+          "badgeText": "61호 명인",
+          "desc": "조선시대 강진 병영진영에서 보리로 빚어 이순신 장군도 마셨다는 소주. 3대를 이어온 61호 명인의 전통 방식으로 만든 술. 은은한 보리향과 알싸하고 깔끔한 마무리",
+          "priceBottle": "39,000",
+          "priceGlass": "",
+          "group": "보리"
+        },
+        {
+          "id": "i54",
+          "name": "모곡",
+          "icon": "",
+          "spec": "53% · 배치1/배치2 선택 | 잔술 30ml",
+          "badge": "limited",
+          "badgeText": "한정판",
+          "desc": "홍천의 보리와 쌀로 증류한 한정판 에디션. 보리 특유의 알싸하고 고소한 향과 쌀의 부드러움이 조화",
+          "priceBottle": "130,000",
+          "priceGlass": "17,000",
+          "group": "보리"
+        },
+        {
+          "id": "i47",
+          "name": "진맥소주",
+          "icon": "🌾",
+          "spec": "22% · 375ml",
+          "badge": "award",
+          "badgeText": "SFWSC 더블골드",
+          "desc": "안동 맹개마을에서 직접 재배한 유기농 통밀을 상압 증류. 고소한 밀향과 플로럴한 향이 풍부하며 따뜻한 열감이 기분 좋게 이어짐. 세계 3대 주류품평회 SFWSC 더블골드·골드 수상",
+          "priceBottle": "40,000",
+          "priceGlass": "",
+          "group": "밀"
+        },
+        {
+          "id": "i37",
+          "name": "추사백",
+          "icon": "🍎",
+          "spec": "25% · 375ml",
+          "badge": "",
+          "badgeText": "",
+          "desc": "예산 사과를 발효 후 진공 저온 증류. 은은한 사과향이 맑고 부드럽게 이어지는 증류주",
+          "priceBottle": "21,000",
+          "priceGlass": "",
+          "group": "사과"
+        },
+        {
+          "id": "chusibek1",
+          "name": "추시벡오크",
+          "icon": "🍎",
+          "spec": "25% · 350ml",
+          "badge": "",
+          "badgeText": "",
+          "desc": "예산 사과로 만든 프리미엄 증류주. 오크통 숙성으로 바닐라향·초콜릿향이 더해지고 뒤끝이 깔끔한 것이 특징",
+          "priceBottle": "28,000",
+          "priceGlass": "",
+          "group": "사과"
+        },
+        {
+          "id": "i43",
+          "name": "필",
+          "icon": "🍠",
+          "spec": "25% · 375ml",
+          "badge": "",
+          "badgeText": "",
+          "desc": "여주산 고구마를 상압 증류한 소주. 고소하고 부드러운 고구마 풍미",
+          "priceBottle": "39,000",
+          "priceGlass": "",
+          "group": "고구마"
+        },
+        {
+          "id": "i55",
+          "name": "려 2013본",
+          "icon": "",
+          "spec": "41.5% · 10년 숙성 | 잔술 30ml",
+          "badge": "",
+          "badgeText": "",
+          "desc": "여주산 고구마 10년 숙성 원액. 임원십육지 감저소주 제법을 기반으로 만든 술. 나전칠기 패턴을 담은 섬세한 디자인",
+          "priceBottle": "",
+          "priceGlass": "13,000",
+          "group": "고구마"
+        },
         {
           "id": "i57",
           "name": "고운달 백자",
@@ -821,7 +778,8 @@
           "badgeText": "",
           "desc": "세계 최초 오미자 와이너리의 오미자 와인을 2회 상압 증류 후 문경 전통 도자기에서 3년 숙성. 오미자 본연의 맛과 향이 깊게 배어난 한국의 브랜디",
           "priceBottle": "390,000",
-          "priceGlass": "35,000"
+          "priceGlass": "35,000",
+          "group": "오미자"
         },
         {
           "id": "i58",
@@ -832,7 +790,56 @@
           "badgeText": "",
           "desc": "국내 최초 위스키 마스터블렌더(이종기 명인)가 만든 오미자 증류주. 오미자 와인을 2회 상압 증류 후 유러피안 오크통 숙성",
           "priceBottle": "230,000",
-          "priceGlass": "23,000"
+          "priceGlass": "23,000",
+          "group": "오미자"
+        },
+        {
+          "id": "i39",
+          "name": "이강주",
+          "icon": "🍐",
+          "spec": "19% · 375ml",
+          "badge": "",
+          "badgeText": "",
+          "desc": "조선 3대 명주. 배·생강·계피를 넣어 만든 증류주로 향긋하고 따뜻한 여운",
+          "priceBottle": "13,000",
+          "priceGlass": "",
+          "group": "조선 명주"
+        },
+        {
+          "id": "i40",
+          "name": "문배술",
+          "icon": "",
+          "spec": "25% · 375ml",
+          "badge": "award",
+          "badgeText": "남북정상 만찬주",
+          "desc": "150년 전통. 국산 수수·조·쌀을 증류해 달큰한 문배향과 깔끔한 끝맛이 일품. 남북 정상회담 만찬주로 사용",
+          "priceBottle": "19,000",
+          "priceGlass": "",
+          "group": "조선 명주"
+        },
+        {
+          "id": "i42",
+          "name": "왕주",
+          "icon": "👑",
+          "spec": "25% · 375ml",
+          "badge": "award",
+          "badgeText": "국가중요문화재",
+          "desc": "조선 왕실 궁중 비법을 3대째 이어온 명인이 재현한 궁중주. 명성황후 친정 민씨 가문의 가양주이자 궁중 진상주. 국가중요문화재 제56호이자 종묘대제의 제주",
+          "priceBottle": "31,000",
+          "priceGlass": "",
+          "group": "조선 명주"
+        },
+        {
+          "id": "i52",
+          "name": "무작",
+          "icon": "",
+          "spec": "53% · 상압증류 · 5년 숙성 | 잔술 30ml",
+          "badge": "",
+          "badgeText": "",
+          "desc": "옛 문헌의 '적선소주'를 재현. 조선 사대부 양반이 즐겼던 대표 소주. 상압 증류 후 5년 숙성",
+          "priceBottle": "",
+          "priceGlass": "23,000",
+          "group": "조선 명주"
         }
       ]
     },
