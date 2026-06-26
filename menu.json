@@ -670,18 +670,6 @@
           "priceBottle": "",
           "priceGlass": "55,000",
           "group": "쌀"
-        },
-        {
-          "id": "dong1",
-          "name": "동해소주",
-          "icon": "",
-          "spec": "",
-          "badge": "",
-          "badgeText": "",
-          "desc": "맑은 동해를 담은 증류식 소주. 부드럽고 깔끔하며 희석식과 차별화된 향긋한 청량감",
-          "priceBottle": "7,000",
-          "priceGlass": "",
-          "group": "쌀"
         }
       ]
     },
