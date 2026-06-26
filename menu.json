@@ -710,6 +710,18 @@
           "group": "보리"
         },
         {
+          "id": "i76",
+          "name": "황금보리",
+          "icon": "",
+          "spec": "17% · 375ml",
+          "badge": "new",
+          "badgeText": "신메뉴",
+          "desc": "황금보리의 깨끗함을 담은 황금보리소주",
+          "priceBottle": "19,000",
+          "priceGlass": "",
+          "group": "보리"
+        },
+        {
           "id": "i47",
           "name": "진맥소주",
           "icon": "🌾",
