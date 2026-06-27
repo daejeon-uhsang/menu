@@ -1,6 +1,176 @@
 {
   "sections": [
     {
+      "id": "f1",
+      "title": "주안상",
+      "layout": "default",
+      "note": "모든 메뉴는 당일 식재료 입고 상황에 따라 변동될 수 있습니다",
+      "items": [
+        {
+          "id": "f101",
+          "name": "백순대 내장볶음",
+          "icon": "🔥",
+          "spec": "간장 · 매콤양념 · 마라 택일",
+          "badge": "sig",
+          "badgeText": "시그니처",
+          "desc": "당일 수급 재료로 구성하는 오마카세식 내장볶음",
+          "priceBottle": "소 25,000 / 중 35,000",
+          "priceGlass": ""
+        },
+        {
+          "id": "f102",
+          "name": "↳ 삶은 간",
+          "icon": "",
+          "spec": "추가 토핑",
+          "badge": "",
+          "badgeText": "",
+          "desc": "",
+          "priceBottle": "",
+          "priceGlass": "+2,000"
+        },
+        {
+          "id": "f102b",
+          "name": "↳ 파스타 면사리",
+          "icon": "",
+          "spec": "추가 토핑",
+          "badge": "",
+          "badgeText": "",
+          "desc": "",
+          "priceBottle": "",
+          "priceGlass": "+2,000"
+        },
+        {
+          "id": "f110",
+          "name": "한우뭉티기",
+          "icon": "🐄",
+          "spec": "당일도축 온도체 한우",
+          "badge": "new",
+          "badgeText": "신메뉴",
+          "desc": "상주에서 당일 도축되어 한양으로 진상되는 온도체 한우뭉티기. 사후경직 전 쫀득한 결을 그대로 느껴보세요.",
+          "priceBottle": "중 49,000",
+          "priceGlass": ""
+        },
+        {
+          "id": "f108b",
+          "name": "한우 차돌 육사시미",
+          "icon": "🔪",
+          "spec": "한우 차돌박이 생고기",
+          "badge": "new",
+          "badgeText": "신메뉴",
+          "desc": "얇게 저민 한우 차돌박이를 날것 그대로 즐기는 한 점. 뭉티기 또는 치마살을 차돌박이로 감싸 드시면 두 가지 식감이 한 입에 어우러집니다.",
+          "priceBottle": "",
+          "priceGlass": "27,000"
+        },
+        {
+          "id": "f106",
+          "name": "궁중 한우 육회/육사시미",
+          "icon": "🥩",
+          "spec": "한우 도가니살 생고기",
+          "badge": "award",
+          "badgeText": "대표메뉴",
+          "desc": "궁중 전통 누룩으로 발효한 대전어상 특제 간장이 고기의 감칠맛을 끌어올립니다. 얇게 저민 배가 단맛과 아삭함을 더하고, 청란의 노른자와 방앗간에서 갓 짠 국내산 참기름이 마지막을 완성합니다.",
+          "priceBottle": "",
+          "priceGlass": "32,000"
+        },
+        {
+          "id": "f109",
+          "name": "궁중 숭채만두",
+          "icon": "🥟",
+          "spec": "예약 한정 판매",
+          "badge": "limited",
+          "badgeText": "예약한정",
+          "desc": "배추의 옛말 '숭채'. 동의보감에도 등장하며 대장금에서 장금이가 임금께 올린 궁중음식",
+          "priceBottle": "",
+          "priceGlass": "18,000"
+        }
+      ]
+    },
+    {
+      "id": "f2",
+      "title": "소안상",
+      "layout": "default",
+      "note": "가볍게 즐기는 궁중 사이드 안주",
+      "items": [
+        {
+          "id": "f201b",
+          "name": "미나리 조개 어묵탕",
+          "icon": "",
+          "spec": "울진 비단조개 · 청도 미나리 · 부산 프리미엄 어묵 3종",
+          "badge": "",
+          "badgeText": "",
+          "desc": "쌀가루 · 알래스카 연육 90% 이상 · 밀가루 無",
+          "priceBottle": "",
+          "priceGlass": "25,000"
+        },
+        {
+          "id": "f201",
+          "name": "통새우오징어부추전",
+          "icon": "🦐",
+          "spec": "새우 · 오징어",
+          "badge": "",
+          "badgeText": "",
+          "desc": "새우와 오징어 청양고추 양파 넣고 부친 통새우오징어 부추전",
+          "priceBottle": "",
+          "priceGlass": "19,000"
+        },
+        {
+          "id": "f202",
+          "name": "들기름 메밀면",
+          "icon": "🌿",
+          "spec": "",
+          "badge": "",
+          "badgeText": "",
+          "desc": "고소한 들기름으로 비벼낸 차가운 메밀면",
+          "priceBottle": "",
+          "priceGlass": "12,000"
+        },
+        {
+          "id": "f203",
+          "name": "우동",
+          "icon": "🍜",
+          "spec": "어묵 · 김치 · 매운 (선택)",
+          "badge": "",
+          "badgeText": "",
+          "desc": "",
+          "priceBottle": "",
+          "priceGlass": "12,000"
+        },
+        {
+          "id": "f204",
+          "name": "떡볶이",
+          "icon": "🍢",
+          "spec": "치즈사리 +2,000 · 면사리 +1,000",
+          "badge": "",
+          "badgeText": "",
+          "desc": "",
+          "priceBottle": "",
+          "priceGlass": "12,000"
+        },
+        {
+          "id": "f205",
+          "name": "번데기탕",
+          "icon": "🍲",
+          "spec": "",
+          "badge": "",
+          "badgeText": "",
+          "desc": "",
+          "priceBottle": "",
+          "priceGlass": "10,000"
+        },
+        {
+          "id": "f206",
+          "name": "명란마요 주먹밥",
+          "icon": "🍙",
+          "spec": "",
+          "badge": "",
+          "badgeText": "",
+          "desc": "",
+          "priceBottle": "",
+          "priceGlass": "6,000"
+        }
+      ]
+    },
+    {
       "id": "f3",
       "title": "궁중 디저트",
       "layout": "default",
