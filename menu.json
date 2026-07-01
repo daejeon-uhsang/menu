@@ -473,6 +473,17 @@
           "priceGlass": "6,000"
         },
         {
+          "id": "sunho1",
+          "name": "선호 생막걸리",
+          "icon": "",
+          "spec": "6% · 750ml",
+          "badge": "new",
+          "badgeText": "신메뉴",
+          "desc": "김포 금쌀로 빚은 무(無)아스파탐 드라이 생막걸리",
+          "priceBottle": "9,000",
+          "priceGlass": ""
+        },
+        {
           "id": "ihangtakju1",
           "name": "이항탁주 (利流탁酒)",
           "icon": "",
