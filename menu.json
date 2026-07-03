@@ -569,6 +569,17 @@
           "priceGlass": ""
         },
         {
+          "id": "malksaeng1",
+          "name": "맑은생술",
+          "icon": "",
+          "spec": "15% · 375ml",
+          "badge": "new",
+          "badgeText": "신메뉴",
+          "desc": "삼양주로 빚은 탁주의 맑은 부분만 걸러낸 술이며 부드러운 목넘김과 깔끔한 마무리. 무감미료 생약주",
+          "priceBottle": "35,000",
+          "priceGlass": ""
+        },
+        {
           "id": "_geefxu",
           "name": "청담(淸談)",
           "icon": "",
