@@ -547,6 +547,17 @@
           "priceGlass": ""
         },
         {
+          "id": "kyeol1",
+          "name": "결(kyeol)",
+          "icon": "",
+          "spec": "13% · 500ml",
+          "badge": "new",
+          "badgeText": "신메뉴",
+          "desc": "절제된 단맛과 산미의 밸런스가 좋은 술",
+          "priceBottle": "59,000",
+          "priceGlass": ""
+        },
+        {
           "id": "i27",
           "name": "마산정종",
           "icon": "",
