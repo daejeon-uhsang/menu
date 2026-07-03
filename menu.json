@@ -484,6 +484,17 @@
           "priceGlass": ""
         },
         {
+          "id": "botdeul1",
+          "name": "봇뜰 막걸리",
+          "icon": "",
+          "spec": "10% · 750ml",
+          "badge": "new",
+          "badgeText": "신메뉴",
+          "desc": "봇뜰의 뜻은 '보를 막아 놓은 뜰'. 직접 누룩을 띄우는 가양주 스타일의 막걸리로 단맛보다는 적당한 산미가 있어 음식과 페어링하기 좋은 막걸리",
+          "priceBottle": "15,000",
+          "priceGlass": ""
+        },
+        {
           "id": "ihangtakju1",
           "name": "이항탁주 (利流탁酒)",
           "icon": "",
