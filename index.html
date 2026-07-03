@@ -1292,11 +1292,11 @@ function applyMenu(data){
   else if(typeof renderMenu === 'function') renderMenu();
   else if(typeof renderAll === 'function') renderAll();
 }
-fetch('./menu.json')
+fetch('./menu.json?v=' + Date.now(), {cache: 'no-store'})
   .then(r => r.json())
   .then(applyMenu)
   .catch(() => {
-    fetch('https://raw.githubusercontent.com/daejeon-uhsang/menu/main/menu.json')
+    fetch('https://raw.githubusercontent.com/daejeon-uhsang/menu/main/menu.json?v=' + Date.now(), {cache: 'no-store'})
       .then(r => r.json())
       .then(applyMenu)
       .catch(err => {
