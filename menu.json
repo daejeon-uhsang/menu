@@ -718,6 +718,18 @@
           "group": "쌀"
         },
         {
+          "id": "hiyangsan2",
+          "name": "희양산",
+          "icon": "",
+          "spec": "53% | 잔술 30ml",
+          "badge": "new",
+          "badgeText": "신메뉴",
+          "desc": "경북 문경 유기농 재배한 쌀과 전통 누룩만을 사용하여 증류하였고 옹기에서 3년 이상 숙성한 원액들을 블렌딩한 증류식소주",
+          "priceBottle": "",
+          "priceGlass": "14,000",
+          "group": "쌀"
+        },
+        {
           "id": "i52",
           "name": "무작",
           "icon": "",
