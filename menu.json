@@ -1147,6 +1147,17 @@
           "priceGlass": "23,000"
         },
         {
+          "id": "mongro1",
+          "name": "추사 몽로 MONGRO CS",
+          "icon": "",
+          "spec": "59% | 잔술 30ml",
+          "badge": "new",
+          "badgeText": "신메뉴",
+          "desc": "국내 최초 스페인 템프라니요 레드와인 캐스크 숙성. 예산 사과만을 증류한 한정판 사과 브랜디",
+          "priceBottle": "",
+          "priceGlass": "21,000"
+        },
+        {
           "id": "byungport1",
           "name": "병영성의 기억 포트캐스크 No.1",
           "icon": "",
