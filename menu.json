@@ -993,6 +993,17 @@
           "priceGlass": "13,000"
         },
         {
+          "id": "mungkyungbaram1",
+          "name": "문경바람 오크 CS",
+          "icon": "",
+          "spec": "55% | 잔술 30ml",
+          "badge": "new",
+          "badgeText": "신메뉴",
+          "desc": "문경 오미나라 양조장의 오미자 와인과 고운달 오미자 브랜디가 머물렀던 최고급 오크통에서 숙성한 제품",
+          "priceBottle": "",
+          "priceGlass": "16,000"
+        },
+        {
           "id": "i59",
           "name": "추사오크 40%",
           "icon": "🍎",
