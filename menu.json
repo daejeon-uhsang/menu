@@ -1015,6 +1015,17 @@
           "priceGlass": "19,000"
         },
         {
+          "id": "mongro1",
+          "name": "추사 몽로 MONGRO CS",
+          "icon": "",
+          "spec": "59% | 잔술 30ml",
+          "badge": "new",
+          "badgeText": "신메뉴",
+          "desc": "국내 최초 스페인 템프라니요 레드와인 캐스크 숙성. 예산 사과만을 증류한 한정판 사과 브랜디",
+          "priceBottle": "",
+          "priceGlass": "21,000"
+        },
+        {
           "id": "i68",
           "name": "기원 이글",
           "icon": "🦅",
@@ -1145,17 +1156,6 @@
           "desc": "3가지 캐스크(PX·타우니포트·레드와인) 2~4년 숙성 블렌딩. 내추럴 컬러, 논칠필터",
           "priceBottle": "",
           "priceGlass": "23,000"
-        },
-        {
-          "id": "mongro1",
-          "name": "추사 몽로 MONGRO CS",
-          "icon": "",
-          "spec": "59% | 잔술 30ml",
-          "badge": "new",
-          "badgeText": "신메뉴",
-          "desc": "국내 최초 스페인 템프라니요 레드와인 캐스크 숙성. 예산 사과만을 증류한 한정판 사과 브랜디",
-          "priceBottle": "",
-          "priceGlass": "21,000"
         },
         {
           "id": "byungport1",
