@@ -76,9 +76,9 @@
           "id": "f109",
           "name": "궁중 숭채만두",
           "icon": "🥟",
-          "spec": "예약 한정 판매",
-          "badge": "limited",
-          "badgeText": "예약한정",
+          "spec": "",
+          "badge": "",
+          "badgeText": "",
           "desc": "배추의 옛말 '숭채'. 동의보감에도 등장하며 대장금에서 장금이가 임금께 올린 궁중음식",
           "priceBottle": "",
           "priceGlass": "18,000"
