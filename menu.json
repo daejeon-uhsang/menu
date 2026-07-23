@@ -580,6 +580,17 @@
           "priceGlass": ""
         },
         {
+          "id": "cheongbon2",
+          "name": "청혼 블루",
+          "icon": "",
+          "spec": "15% · 375ml",
+          "badge": "new",
+          "badgeText": "신메뉴",
+          "desc": "깔끔한 느낌의 맑은술. 적당한 산미와 기분좋은 깔끔한 과실향이 캐릭터가 강하지 않아 음식을 뒷받침",
+          "priceBottle": "29,000",
+          "priceGlass": ""
+        },
+        {
           "id": "cheongbon1",
           "name": "청혼 골드 과하주",
           "icon": "",
