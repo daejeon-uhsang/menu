@@ -580,6 +580,17 @@
           "priceGlass": ""
         },
         {
+          "id": "cheongbon1",
+          "name": "청혼 골드 과하주",
+          "icon": "",
+          "spec": "19.5% · 375ml",
+          "badge": "new",
+          "badgeText": "신메뉴",
+          "desc": "포트와인보다 100년 앞선 조선시대 과하주의 현대적인 재해석. 여름철 약주가 상하지 않도록 증류식 소주를 넣어 보존한 과하주",
+          "priceBottle": "39,000",
+          "priceGlass": ""
+        },
+        {
           "id": "malksaeng1",
           "name": "맑은생술",
           "icon": "",
