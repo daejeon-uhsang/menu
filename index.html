@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta name="color-scheme" content="only light">
-<meta name="supported-color-schemes" content="light">
+<meta name="color-scheme" content="light dark">
+<meta name="supported-color-schemes" content="light dark">
+<meta name="theme-color" content="#f8f0de">
+<meta name="darkreader-lock">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-5HZ7QFKDK9"></script>
 <script>
@@ -16,18 +18,22 @@
 <title>대전어상 전통주 메뉴</title>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{color-scheme:only light;
+:root{color-scheme:light dark;
   --ink:#180e00; --paper:#f8f0de; --paper2:#ede0c4;
   --crimson:#7a1414; --gold:#8a6218; --gold2:#b8820a;
   --muted:#6b5535; --div:#c4a878; --pine:#2a4a10;
   --bg:#c8b898;
 }
-html,body{color-scheme:only light!important;filter:none!important;}
+html,body{color-scheme:light dark;filter:none!important;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:var(--bg);font-family:'Noto Sans KR',sans-serif;font-weight:300;color:var(--ink);}
 @media(prefers-color-scheme:dark){
   :root{--ink:#180e00!important;--paper:#f8f0de!important;--paper2:#ede0c4!important;--crimson:#7a1414!important;--gold:#8a6218!important;--gold2:#b8820a!important;--muted:#6b5535!important;--div:#c4a878!important;--pine:#2a4a10!important;--bg:#c8b898!important;}
-  html,body{background:#c8b898!important;color:#180e00!important;color-scheme:only light!important;filter:none!important;}
+  html,body{background:#c8b898!important;color:#180e00!important;filter:none!important;}
+  /* 다크모드에서도 같은 밝은 화면: 입력창·버튼도 밝게 고정 */
+  input,textarea,select,button{background-color:#fffaf0;color:#180e00;}
+  .sec-chip{background:transparent;color:#180e00;}
+  .sec-chip.active{background:#7a1414;color:#fff;}
 }
 
 /* ADMIN BAR */
