@@ -567,6 +567,84 @@ body.admin-mode .add-sec-btn{display:block;}
   .art-credit b{font-family:'Nanum Myeongjo',serif;color:var(--ink);font-size:10px;letter-spacing:1px;}
 }
 @media print{.art-credit{display:none!important;}}
+
+/* QR 메뉴 가독성 — 화면 전용, A4 인쇄에는 적용하지 않음 */
+@media screen{
+  .page{font-weight:400;}
+  .section{margin-top:30px;padding-top:12px;}
+  .sec-head{gap:10px;margin-bottom:14px;}
+  .sec-title{font-size:20px;letter-spacing:2px;line-height:1.5;white-space:normal;text-align:center;}
+  .sec-line{min-width:12px;background:var(--gold);opacity:.65;}
+  .note{font-size:13px;line-height:1.8;padding:10px 12px;margin-bottom:14px;}
+  .group-head{font-size:14px;line-height:1.6;letter-spacing:1px;color:var(--gold);padding:20px 0 8px;}
+  .items .item{grid-template-columns:minmax(0,1fr) auto;padding:18px 0;gap:12px;}
+  .items>*:first-child{padding-top:18px;}
+  .item>div,.pitem>div{min-width:0;}
+  .iname,.ccard .iname{font-size:17px;line-height:1.6;gap:6px;margin-bottom:5px;letter-spacing:0;overflow-wrap:anywhere;}
+  .ispec{font-size:12px;line-height:1.7;color:#503a22;margin-bottom:6px;overflow-wrap:anywhere;}
+  .iregion{flex-basis:100%;font-family:'Noto Sans KR',sans-serif;font-size:12px;line-height:1.7;color:var(--gold);margin-left:0;font-weight:400;}
+  .idesc,.ccard .idesc{font-size:13px;line-height:1.85;color:#3e2e1c;word-break:keep-all;overflow-wrap:anywhere;margin-bottom:0;}
+  .iprice{padding-top:4px;text-align:right;min-width:76px;}
+  .pbottle,.ponly,.ccard .ponly{font-family:'Noto Sans KR',sans-serif;font-size:16px;font-weight:500;line-height:1.6;letter-spacing:0;font-variant-numeric:tabular-nums lining-nums;color:var(--ink);}
+  .pglass{font-size:12px;line-height:1.7;color:#503a22;margin-top:4px;font-variant-numeric:tabular-nums;letter-spacing:0;}
+  .punit{font-size:12px;color:#503a22;margin-left:3px;}
+  .badge,.soldout-badge{font-size:12px;font-weight:500;line-height:1.5;letter-spacing:0;padding:1px 6px;border-radius:2px;top:0;white-space:nowrap;background:rgba(248,240,222,.85);}
+  .badge,.bsig,.bnew,.bhot{color:var(--crimson);border:1px solid rgba(122,20,20,.55);}
+  .baward{color:var(--gold);border-color:var(--gold);}
+  .blimited,.soldout-badge{color:#503a22;border-color:var(--muted);}
+  .soldout-badge{margin-left:0;}
+  .item.is-soldout .iname,.pitem.is-soldout .iname,.ccard.is-soldout .iname,
+  .item.is-soldout .idesc,.pitem.is-soldout .idesc,.ccard.is-soldout .idesc,
+  .item.is-soldout .pbottle,.item.is-soldout .ponly,.pitem.is-soldout .pbottle,.pitem.is-soldout .ponly,.ccard.is-soldout .ponly{opacity:.75;}
+  .items-2col{gap:0 24px;}
+  .items-2col .item{padding-top:18px;padding-bottom:18px;gap:8px;}
+  .items-2col .iprice{text-align:right;align-self:flex-end;margin-top:0;}
+  .cocktail-grid{gap:12px;}
+  .ccard{padding:16px;}
+  .ccard .iprice{margin-top:10px;}
+  .pitem{grid-template-columns:20px minmax(0,1fr) auto;padding:18px 0;gap:10px;}
+  .pnum{font-size:16px;line-height:1.6;color:var(--gold);padding-top:4px;}
+  .ipairing{font-size:12px;line-height:1.75;color:var(--gold);margin-top:8px;}
+  .ipairing::before{font-size:12px;}
+  .tnote{margin-top:10px;padding-top:8px;}
+  .tnote-hd,.tnote-lbl,.tnote-dots{font-size:12px;line-height:1.6;}
+  .tnote-hd{letter-spacing:1px;}
+  .tnote-grid{gap:6px 12px;}
+  .tnote-dots{color:var(--gold);}
+  .search-bar{padding:12px 0;}
+  .search-wrap{min-height:48px;padding:0 4px 0 12px;gap:10px;}
+  .search-icon{font-size:16px;}
+  #menu-search{min-width:0;min-height:46px;font-family:'Noto Sans KR',sans-serif;font-size:16px;}
+  #menu-search::placeholder{font-size:13px;color:var(--muted);}
+  .search-clear{min-width:44px;min-height:44px;font-size:18px;}
+  .search-result-hint{font-size:12px;line-height:1.7;padding:6px 0;}
+  .review-bar{gap:8px;padding:12px 0;}
+  .review-btn{min-height:44px;padding:10px 14px;font-size:13px;letter-spacing:.3px;}
+  .review-btn:focus-visible,.search-clear:focus-visible{outline:2px solid var(--crimson);outline-offset:3px;}
+  .legend{flex-wrap:wrap;gap:4px 10px;font-size:12px;line-height:1.7;padding:10px 0;letter-spacing:0;}
+  .h-en,.h-sub{font-size:12px;line-height:1.8;}
+  .bi-tagline,.bi-body,.bi-promise-list li{font-size:13px;line-height:1.9;}
+  .bi-promise-title{font-size:14px;color:var(--gold);}
+  .footer{font-size:12px;line-height:1.9;letter-spacing:0;padding-top:14px;}
+  .art-credit{font-size:12px;line-height:1.85;letter-spacing:0;}
+  .art-credit b{font-size:13px;}
+}
+@media screen and (max-width:768px){
+  .sec-title{font-size:19px!important;letter-spacing:1px!important;}
+  .sec-head{flex-wrap:wrap;}
+  .sec-ctrls{flex-wrap:wrap;}
+  .items-2col,.cocktail-grid{grid-template-columns:minmax(0,1fr);gap:0;}
+  .items-2col .item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;border-right:none;padding:18px 0;border-bottom:1px solid var(--div);}
+  .items-2col .item:nth-child(even){padding-left:0;}
+  .items-2col .item:nth-child(2){border-top:none;}
+  .items-2col .item:last-child{border-bottom:1.5px solid var(--ink);}
+  .items-2col .iprice{align-self:start;}
+  .items-2col .group-head{grid-column:1/-1;}
+  .cocktail-grid{gap:12px;}
+  .ccard{padding:16px;}
+  .brand-intro{padding:24px 6px 20px;}
+  body.admin-mode .items-2col .item{padding-left:30px;}
+}
 </style>
 </head>
 <body>
@@ -957,8 +1035,7 @@ function buildSec(sec,si){
 }
 
 function buildItem(item,sec,idx){
-  const ic=item.icon?`<span class="iicon">${item.icon}</span>`:'';
-  const bd=item.badge?`<span class="badge ${{sig:'bsig',award:'baward',limited:'blimited',hot:'bhot'}[item.badge]||''}">${x(item.badgeText||item.badge)}</span>`:'';
+  const bd=item.badge?`<span class="badge ${{new:'bnew',sig:'bsig',award:'baward',limited:'blimited',hot:'bhot'}[item.badge]||''}">${x(item.badgeText||item.badge)}</span>`:'';
   const mvB=`<div class="item-mv" onclick="event.stopPropagation()"><button class="imv" onclick="moveItem('${sec.id}','${item.id}',-1)">▲</button><button class="imv" onclick="moveItem('${sec.id}','${item.id}',1)">▼</button></div>`;
   let el;
   const rbTxt=(item.region||item.brewery)?`<span class="iregion">${item.region?x(item.region):''}${item.region&&item.brewery?' · ':''}${item.brewery?x(item.brewery):''}</span>`:'';
@@ -968,13 +1045,13 @@ function buildItem(item,sec,idx){
   const tnTxt=tnHtml(item);
   if(sec.layout==='cocktail'){
     el=document.createElement('div');el.className='ccard'+soClass;
-    el.innerHTML=`<div class="ehint">✎</div>${mvB}<div class="iname">${ic}${x(item.name)} ${bd}${soTxt}${rbTxt}</div><div class="ispec">${x(item.spec)}</div><div class="idesc">${x(item.desc)}</div>${prTxt}${tnTxt}<div class="iprice"><span class="ponly">${pS(item)}</span></div>`;
+    el.innerHTML=`<div class="ehint">✎</div>${mvB}<div class="iname">${x(item.name)} ${bd}${soTxt}${rbTxt}</div><div class="ispec">${x(item.spec)}</div><div class="idesc">${x(item.desc)}</div>${prTxt}${tnTxt}<div class="iprice"><span class="ponly">${pS(item)}</span></div>`;
   }else if(sec.layout==='premium'){
     el=document.createElement('div');el.className='pitem'+soClass;
-    el.innerHTML=`<div class="ehint" style="right:2px;top:3px">✎</div>${mvB}<div class="pnum">${idx+1}</div><div><div class="iname">${ic}${x(item.name)} ${bd}${soTxt}${rbTxt}</div><div class="ispec">${x(item.spec)}</div><div class="idesc">${x(item.desc)}</div>${prTxt}${tnTxt}</div><div class="iprice">${pF(item)}</div>`;
+    el.innerHTML=`<div class="ehint" style="right:2px;top:3px">✎</div>${mvB}<div class="pnum">${idx+1}</div><div><div class="iname">${x(item.name)} ${bd}${soTxt}${rbTxt}</div><div class="ispec">${x(item.spec)}</div><div class="idesc">${x(item.desc)}</div>${prTxt}${tnTxt}</div><div class="iprice">${pF(item)}</div>`;
   }else{
     el=document.createElement('div');el.className='item'+soClass;
-    el.innerHTML=`<div class="ehint">✎ 수정</div>${mvB}<div><div class="iname">${ic}${x(item.name)} ${bd}${soTxt}${rbTxt}</div>${item.spec?`<div class="ispec">${x(item.spec)}</div>`:''}${item.desc?`<div class="idesc">${x(item.desc)}</div>`:''}${prTxt}${tnTxt}</div><div class="iprice">${pF(item)}</div>`;
+    el.innerHTML=`<div class="ehint">✎ 수정</div>${mvB}<div><div class="iname">${x(item.name)} ${bd}${soTxt}${rbTxt}</div>${item.spec?`<div class="ispec">${x(item.spec)}</div>`:''}${item.desc?`<div class="idesc">${x(item.desc)}</div>`:''}${prTxt}${tnTxt}</div><div class="iprice">${pF(item)}</div>`;
   }
   el.addEventListener('click',()=>{gtag('event','menu_item_click',{item_name:item.name,item_id:item.id,category_name:sec.title,category_id:sec.id});if(isAdmin)openEdit(item.id,sec.id);});
   return el;
