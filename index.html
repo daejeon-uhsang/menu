@@ -645,6 +645,21 @@ body.admin-mode .add-sec-btn{display:block;}
   .brand-intro{padding:24px 6px 20px;}
   body.admin-mode .items-2col .item{padding-left:30px;}
 }
+
+/* ── 섹션 바로가기 탭 (화면 전용) ── */
+@media screen{
+  .sec-nav{position:sticky;top:0;z-index:60;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;
+    padding:10px 12px;margin:10px -12px 4px;background:rgba(248,240,222,.97);
+    border-top:1px solid var(--div);border-bottom:1px solid var(--div);box-shadow:0 4px 10px rgba(24,14,0,.08);}
+  .sec-nav::-webkit-scrollbar{display:none;}
+  .sec-chip{flex:0 0 auto;min-height:40px;padding:8px 15px;border:1px solid var(--gold2);border-radius:20px;
+    background:transparent;color:var(--ink);font-family:'Nanum Myeongjo',serif;font-size:14px;font-weight:700;
+    letter-spacing:.5px;white-space:nowrap;cursor:pointer;}
+  .sec-chip.active{background:var(--crimson);border-color:var(--crimson);color:#fff;}
+  body.admin-mode .sec-nav{top:44px;}
+  html,body{overflow-x:clip;overflow-y:visible;}
+}
+@media print{.sec-nav{display:none!important;}}
 </style>
 </head>
 <body>
@@ -805,6 +820,7 @@ body.admin-mode .add-sec-btn{display:block;}
     </ol>
   </div>
 
+  <nav id="secnav" class="sec-nav" aria-label="메뉴 카테고리 바로가기"></nav>
   <div id="scon"></div>
 <div id="print-root" style="display:none"></div>
   <button class="add-sec-btn" onclick="document.getElementById('sec-modal').classList.add('open');setTimeout(()=>document.getElementById('s-name').focus(),80)">＋ 카테고리 추가</button>
@@ -880,7 +896,33 @@ function renderAll(){
   renderH();
   const c=document.getElementById('scon');c.innerHTML='';
   MD.sections.forEach((s,i)=>c.appendChild(buildSec(s,i)));
+  buildSecNav();
   buildPrintPages();
+}
+
+function buildSecNav(){
+  const nav=document.getElementById('secnav');if(!nav)return;
+  nav.innerHTML='';
+  if(window._secObs){window._secObs.disconnect();}
+  const chips={};
+  MD.sections.forEach(sec=>{
+    const b=document.createElement('button');b.type='button';b.className='sec-chip';b.textContent=sec.title;
+    b.addEventListener('click',()=>{
+      const el=document.querySelector('.section[data-sec="'+sec.id+'"]');if(!el)return;
+      const y=el.getBoundingClientRect().top+window.scrollY-nav.offsetHeight-8;
+      window.scrollTo({top:y,behavior:'smooth'});
+      try{gtag('event','category_nav',{category_name:sec.title,category_id:sec.id});}catch(e){}
+    });
+    nav.appendChild(b);chips[sec.id]=b;
+  });
+  const setActive=id=>{
+    Object.entries(chips).forEach(([k,b])=>b.classList.toggle('active',k===id));
+    const b=chips[id];if(b){nav.scrollTo({left:b.offsetLeft-nav.clientWidth/2+b.offsetWidth/2,behavior:'smooth'});}
+  };
+  window._secObs=new IntersectionObserver(es=>{
+    es.forEach(e=>{if(e.isIntersecting)setActive(e.target.getAttribute('data-sec'));});
+  },{rootMargin:'-20% 0px -70% 0px'});
+  document.querySelectorAll('.section[data-sec]').forEach(el=>window._secObs.observe(el));
 }
 
 function buildPrintPages(){
