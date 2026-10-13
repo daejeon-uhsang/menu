@@ -565,17 +565,6 @@
           "priceGlass": ""
         },
         {
-          "id": "jangsung01",
-          "name": "장성만리",
-          "icon": "",
-          "spec": "15% · 500ml",
-          "badge": "new",
-          "badgeText": "신메뉴",
-          "desc": "전남 장성군 내장산 국립공원 백양사에 위치한 해월도가에서 전남 지역의 농산물과 연꽃을 사용하여 빚고 항아리에 장기 숙성한 가양주",
-          "priceBottle": "79,000",
-          "priceGlass": ""
-        },
-        {
           "id": "dareureum1",
           "name": "다른오름",
           "icon": "",
