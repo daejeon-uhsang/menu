@@ -666,6 +666,14 @@ body.admin-mode .add-sec-btn{display:block;}
   html,body{overflow-x:clip;overflow-y:visible;}
 }
 @media print{.sec-nav{display:none!important;}}
+/* ── 붓글씨 서체 (화면 전용) ── */
+@font-face{font-family:'YiSunShin';src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/YiSunShinRegular.woff') format('woff');font-weight:400;font-display:swap;}
+@font-face{font-family:'ChosunGs';src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunGs.woff') format('woff');font-weight:400;font-display:swap;}
+@media screen{
+  .sec-title{font-family:'YiSunShin','Nanum Myeongjo',serif!important;font-weight:400!important;font-size:28px!important;letter-spacing:4px!important;}
+  .sec-chip{font-family:'YiSunShin','Nanum Myeongjo',serif!important;font-weight:400!important;font-size:15px!important;}
+  .iname{font-family:'ChosunGs','Nanum Myeongjo',serif!important;font-weight:400!important;font-size:20px!important;letter-spacing:.5px;}
+}
 </style>
 </head>
 <body>
