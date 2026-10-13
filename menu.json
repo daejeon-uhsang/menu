@@ -501,6 +501,17 @@
           "desc": "선조들이 즐겨 마시던 전북 완주 가양주 전통기법 그대로 살려 제조하여 쌀의 단맛과 산미의 적절한 밸런스",
           "priceBottle": "15,000",
           "priceGlass": ""
+        },
+        {
+          "id": "mullaebanga1",
+          "name": "문래방아 스파클링",
+          "icon": "",
+          "spec": "4.7% · 650ml",
+          "badge": "new",
+          "badgeText": "신메뉴",
+          "desc": "쌀, 방아잎, 레몬이 들어간 새콤달콤한 맛. 문래동에서 만든 천연 탄산 막걸리",
+          "priceBottle": "16,000",
+          "priceGlass": ""
         }
       ]
     },
