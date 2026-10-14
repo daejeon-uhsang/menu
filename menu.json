@@ -617,6 +617,17 @@
       "note": "병 판매 기본(375ml 전후) · 일부 프리미엄 소주는 잔술(30ml) 전용 · 고운달은 병(500ml)·잔술(30ml) 선택 가능 · 모곡은 병 구매 가능",
       "items": [
         {
+          "id": "donghae1",
+          "name": "동해소주",
+          "icon": "",
+          "spec": "",
+          "badge": "",
+          "badgeText": "",
+          "desc": "",
+          "priceBottle": "7,000",
+          "priceGlass": ""
+        },
+        {
           "id": "i36",
           "name": "해치소주",
           "icon": "🍶",
@@ -672,7 +683,7 @@
           "badge": "",
           "badgeText": "",
           "desc": "600년 전통 농암종택의 17대 종부가 전통 방식 그대로 빚는 술",
-          "priceBottle": "",
+          "priceBottle": "165,000",
           "priceGlass": "19,000",
           "group": "쌀"
         },
@@ -927,6 +938,18 @@
           "priceBottle": "31,000",
           "priceGlass": "",
           "group": "조선 명주"
+        },
+        {
+          "id": "gosori1",
+          "name": "고소리술",
+          "icon": "",
+          "spec": "",
+          "badge": "",
+          "badgeText": "",
+          "desc": "제주 좁쌀로 빚은 오메기술을 증류한 제주 전통 소주",
+          "priceBottle": "30,000",
+          "priceGlass": "",
+          "group": "좁쌀"
         }
       ]
     },
