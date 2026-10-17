@@ -2,7 +2,7 @@
 
 - index.html 의 <!--SEO-HEAD-->, <!--SEO-MENU--> 표시 구간을 다시 씀
   (SEO-MENU 는 #scon 안에 있어서, 화면은 JS가 menu.json으로 그릴 때 그대로 교체됨)
-- llms.txt, sitemap.xml 생성
+- llms.txt, sitemap.xml, faq.html(자주 묻는 질문, 원본 seo/faq.json) 생성
 사용: python3 seo/build_seo.py [menu.json 경로]   (pre-commit 훅이 자동 실행)
 """
 import datetime, html, json, pathlib, re, sys
@@ -97,6 +97,64 @@ def menu_block():
     return '\n'.join(out)
 
 
+def load_faq():
+    prices = {it['name']: price_text(it) for s in sections for it in s['items']}
+    def fill(m):
+        if not prices.get(m.group(1)): sys.exit(f'faq.json: 메뉴 "{m.group(1)}" 가격을 menu.json에서 찾지 못했습니다')
+        return prices[m.group(1)]
+    return [{'q': f['q'], 'a': re.sub(r'\{([^{}]+)\}', fill, f['a'])}
+            for f in json.loads((ROOT / 'seo' / 'faq.json').read_text(encoding='utf-8'))['items']]
+
+
+def faq_html(faq):
+    url = store['url'] + 'faq.html'
+    ld = json.dumps({'@context': 'https://schema.org', '@type': 'FAQPage', 'url': url, 'inLanguage': 'ko',
+                     'about': {'@type': 'Restaurant', 'name': store['name'], 'url': store['url']},
+                     'mainEntity': [{'@type': 'Question', 'name': f['q'], 'acceptedAnswer': {'@type': 'Answer', 'text': f['a']}} for f in faq]},
+                    ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
+    qa = '\n'.join(f'<section><h2>{e(f["q"])}</h2><p>{e(f["a"])}</p></section>' for f in faq)
+    title = f'{store["name"]} 자주 묻는 질문 · 신대방역 전통주 한식주점'
+    desc = f'{store["name"]} 영업시간, 오시는 길, 주차, 단체·대관, 예약, 포장, 콜키지, 어복쟁반·뭉티기·육회, 전통주 추천에 대한 답.'
+    return f'''<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{e(title)}</title>
+<meta name="description" content="{e(desc)}">
+<link rel="canonical" href="{e(url)}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{e(title)}">
+<meta property="og:description" content="{e(desc)}">
+<meta property="og:url" content="{e(url)}">
+<meta property="og:locale" content="ko_KR">
+<script type="application/ld+json">{ld}</script>
+<style>
+:root{{--ink:#180e00;--paper:#f8f0de;--muted:#6b5535;--div:#c4a878;--crimson:#7a1414}}
+@media (prefers-color-scheme:dark){{:root{{--ink:#f1e6cf;--paper:#1c150c;--muted:#bba783;--div:#5a4a30;--crimson:#e08a7a}}}}
+body{{margin:0;background:var(--paper);color:var(--ink);font:16px/1.75 'Noto Serif KR','Apple SD Gothic Neo',serif}}
+main{{max-width:40rem;margin:0 auto;padding:32px max(16px,env(safe-area-inset-right)) 48px max(16px,env(safe-area-inset-left))}}
+h1{{font-size:1.5rem;margin:0 0 4px;letter-spacing:.05em}}
+.sub{{color:var(--muted);margin:0 0 24px;font-size:.9rem}}
+section{{border-top:1px solid var(--div);padding:16px 0}}
+h2{{font-size:1.05rem;margin:0 0 6px;color:var(--crimson)}}
+p{{margin:0}}
+footer{{border-top:2px solid var(--ink);margin-top:16px;padding-top:12px;font-size:.85rem;color:var(--muted)}}
+a{{color:inherit}}
+</style>
+</head>
+<body>
+<main>
+<h1>{e(store["name"])} 자주 묻는 질문</h1>
+<p class="sub">{e(store["alternateName"])} · {e(store["address"]["addressLocality"])} {e(store["address"]["streetAddress"])} · {e(store["telephoneDisplay"])}</p>
+{qa}
+<footer><a href="./">메뉴판 보기</a> · 최종 갱신 {datetime.date.today().isoformat()}</footer>
+</main>
+</body>
+</html>
+'''
+
+
 def llms_txt():
     a, L = store['address'], []
     L += [f'# {store["name"]} ({store["alternateName"]})', '', f'> {store["description"]}', '',
@@ -106,6 +164,7 @@ def llms_txt():
     L += [f'- {n}' for n in store['notes']]
     L += ['- 예약: 네이버 예약', f'- 메뉴판: {store["url"]}', '']
     L += ['## 링크'] + [f'- {u}' for u in store['sameAs']] + ['']
+    L += ['## 자주 묻는 질문', f'전체: {store["url"]}faq.html'] + [f'- Q. {f["q"]}\n  A. {f["a"]}' for f in FAQ] + ['']
     for s in sections:
         L += [f'## {s["title"]}']
         if s.get('note'): L.append(oneline(s['note']))
@@ -126,15 +185,18 @@ def replace_block(text, tag, body):
     return pat.sub(lambda _: f'<!--{tag}-->\n{body}\n<!--/{tag}-->', text)
 
 
+FAQ = load_faq()
 idx = ROOT / 'index.html'
 t = idx.read_text(encoding='utf-8')
 t = replace_block(t, 'SEO-HEAD', head_block())
 t = replace_block(t, 'SEO-MENU', menu_block())
 idx.write_text(t, encoding='utf-8')
 (ROOT / 'llms.txt').write_text(llms_txt(), encoding='utf-8')
+(ROOT / 'faq.html').write_text(faq_html(FAQ), encoding='utf-8')
 today = datetime.date.today().isoformat()
 (ROOT / 'sitemap.xml').write_text(
     '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     f'<url><loc>{store["url"]}</loc><lastmod>{today}</lastmod></url>\n'
+    f'<url><loc>{store["url"]}faq.html</loc><lastmod>{today}</lastmod></url>\n'
     f'<url><loc>{store["url"]}llms.txt</loc><lastmod>{today}</lastmod></url>\n</urlset>\n', encoding='utf-8')
-print(f'SEO 갱신: 섹션 {len(sections)}개, 메뉴 {sum(len(s["items"]) for s in sections)}개')
+print(f'SEO 갱신: 섹션 {len(sections)}개, 메뉴 {sum(len(s["items"]) for s in sections)}개, FAQ {len(FAQ)}개')
