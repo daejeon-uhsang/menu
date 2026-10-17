@@ -125,3 +125,11 @@ CSS 클래스 `pg2`~`pg12`로 각 페이지 폰트·여백 조정.
 - `main` 브랜치에 push → GitHub Pages 자동 배포 (수분 내 반영)
 - 브라우저 캐시로 즉시 안 보일 수 있음 → Cmd+Shift+R (강력 새로고침)
 - `index.html`은 먼저 `./menu.json`을 fetch, 실패 시 GitHub raw URL로 폴백
+
+---
+
+## 검색엔진·AI용 정적 텍스트 (SEO/AEO/GEO)
+- `seo/build_seo.py`가 menu.json + `seo/store.json`(주소·영업시간·전화 등 가게 정보)으로 index.html의 `<!--SEO-HEAD-->`(메타·JSON-LD), `<!--SEO-MENU-->`(#scon 안 정적 메뉴 텍스트) 구간과 `llms.txt`, `sitemap.xml`을 다시 만든다.
+- pre-commit 훅이 menu.json/index.html/seo/ 커밋 때 자동 실행·스테이징한다(실패해도 커밋은 진행). 메뉴 수정 절차는 그대로 menu.json만 고치면 된다.
+- 영업시간·전화·주소가 바뀌면 `seo/store.json`도 고친다. 훅 원본 사본: `seo/pre-commit` (새 PC에서는 `.git/hooks/`에 복사).
+- 표시 구간 주석은 지우지 말 것. 손으로 구간 안을 고치지 말 것(다음 커밋 때 덮어씀).
