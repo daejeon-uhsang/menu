@@ -133,3 +133,4 @@ CSS 클래스 `pg2`~`pg12`로 각 페이지 폰트·여백 조정.
 - pre-commit 훅이 menu.json/index.html/seo/ 커밋 때 자동 실행·스테이징한다(실패해도 커밋은 진행). 메뉴 수정 절차는 그대로 menu.json만 고치면 된다.
 - 영업시간·전화·주소가 바뀌면 `seo/store.json`도 고친다. 훅 원본 사본: `seo/pre-commit` (새 PC에서는 `.git/hooks/`에 복사).
 - 표시 구간 주석은 지우지 말 것. 손으로 구간 안을 고치지 말 것(다음 커밋 때 덮어씀).
+- 자주 묻는 질문 `faq.html` ← `seo/faq.json`, 질문별 안내글 `guide/<slug>.html` ← `seo/guides.json`(approved=true만 배포). 문구 안 `{메뉴이름}`·`{병:메뉴이름}`·`{잔:메뉴이름}`은 menu.json 가격으로 자동 치환되고, 메뉴 이름이 바뀌어 못 찾으면 빌드가 멈춘다(그때 해당 json 문구를 고칠 것). 초안 미리보기: `python3 seo/build_seo.py --preview <폴더>`.
