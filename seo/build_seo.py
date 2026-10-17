@@ -8,7 +8,7 @@
 import datetime, html, json, pathlib, re, sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-menu = json.loads(pathlib.Path(sys.argv[1] if len(sys.argv) > 1 else ROOT / 'menu.json').read_text(encoding='utf-8'))
+menu = json.loads(pathlib.Path(sys.argv[1] if len(sys.argv) > 1 and sys.argv[1] != '--preview' else ROOT / 'menu.json').read_text(encoding='utf-8'))
 store = json.loads((ROOT / 'seo' / 'store.json').read_text(encoding='utf-8'))
 sections = [s for s in menu['sections'] if s.get('items')]
 e = lambda s: html.escape(str(s or ''), quote=True)
@@ -97,25 +97,39 @@ def menu_block():
     return '\n'.join(out)
 
 
+PRICES = {}
+for _s in sections:
+    for _it in _s['items']:
+        PRICES[_it['name']] = price_text(_it)
+        PRICES['병:' + _it['name']] = _it.get('priceBottle') or ''
+        PRICES['잔:' + _it['name']] = _it.get('priceGlass') or ''
+
+
+def fill(text, src):
+    """{메뉴이름} / {병:메뉴이름} / {잔:메뉴이름} → menu.json 가격"""
+    def one(m):
+        if not PRICES.get(m.group(1)): sys.exit(f'{src}: 메뉴 "{m.group(1)}" 가격을 menu.json에서 찾지 못했습니다')
+        return PRICES[m.group(1)]
+    return re.sub(r'\{([^{}]+)\}', one, text)
+
+
 def load_faq():
-    prices = {it['name']: price_text(it) for s in sections for it in s['items']}
-    def fill(m):
-        if not prices.get(m.group(1)): sys.exit(f'faq.json: 메뉴 "{m.group(1)}" 가격을 menu.json에서 찾지 못했습니다')
-        return prices[m.group(1)]
-    return [{'q': f['q'], 'a': re.sub(r'\{([^{}]+)\}', fill, f['a'])}
+    return [{'q': f['q'], 'a': fill(f['a'], 'faq.json')}
             for f in json.loads((ROOT / 'seo' / 'faq.json').read_text(encoding='utf-8'))['items']]
 
 
-def faq_html(faq):
-    url = store['url'] + 'faq.html'
-    ld = json.dumps({'@context': 'https://schema.org', '@type': 'FAQPage', 'url': url, 'inLanguage': 'ko',
-                     'about': {'@type': 'Restaurant', 'name': store['name'], 'url': store['url']},
-                     'mainEntity': [{'@type': 'Question', 'name': f['q'], 'acceptedAnswer': {'@type': 'Answer', 'text': f['a']}} for f in faq]},
-                    ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
-    qa = '\n'.join(f'<section><h2>{e(f["q"])}</h2><p>{e(f["a"])}</p></section>' for f in faq)
-    title = f'{store["name"]} 자주 묻는 질문 · 신대방역 전통주 한식주점'
-    desc = f'{store["name"]} 영업시간, 오시는 길, 주차, 단체·대관, 예약, 포장, 콜키지, 어복쟁반·뭉티기·육회, 전통주 추천에 대한 답.'
-    return f'''<!DOCTYPE html>
+def load_guides():
+    out = []
+    for g in json.loads((ROOT / 'seo' / 'guides.json').read_text(encoding='utf-8'))['items']:
+        g = dict(g, answer=fill(g['answer'], 'guides.json'),
+                 sections=[{'h': s['h'], 'p': [fill(x, 'guides.json') for x in s['p']]} for s in g['sections']])
+        out.append(g)
+    return out
+
+
+def page(title, desc, url, ld, h1, body, back='./'):
+    ld = json.dumps(ld, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
+    return f"""<!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -134,25 +148,56 @@ def faq_html(faq):
 @media (prefers-color-scheme:dark){{:root{{--ink:#f1e6cf;--paper:#1c150c;--muted:#bba783;--div:#5a4a30;--crimson:#e08a7a}}}}
 body{{margin:0;background:var(--paper);color:var(--ink);font:16px/1.75 'Noto Serif KR','Apple SD Gothic Neo',serif}}
 main{{max-width:40rem;margin:0 auto;padding:32px max(16px,env(safe-area-inset-right)) 48px max(16px,env(safe-area-inset-left))}}
-h1{{font-size:1.5rem;margin:0 0 4px;letter-spacing:.05em}}
+h1{{font-size:1.5rem;margin:0 0 4px;letter-spacing:.03em;text-wrap:balance}}
 .sub{{color:var(--muted);margin:0 0 24px;font-size:.9rem}}
+.lead{{font-size:1.05rem;margin:0 0 8px}}
 section{{border-top:1px solid var(--div);padding:16px 0}}
 h2{{font-size:1.05rem;margin:0 0 6px;color:var(--crimson)}}
-p{{margin:0}}
+p{{margin:0}} section p+p{{margin-top:6px}}
 footer{{border-top:2px solid var(--ink);margin-top:16px;padding-top:12px;font-size:.85rem;color:var(--muted)}}
 a{{color:inherit}}
 </style>
 </head>
 <body>
 <main>
-<h1>{e(store["name"])} 자주 묻는 질문</h1>
-<p class="sub">{e(store["alternateName"])} · {e(store["address"]["addressLocality"])} {e(store["address"]["streetAddress"])} · {e(store["telephoneDisplay"])}</p>
-{qa}
-<footer><a href="./">메뉴판 보기</a> · 최종 갱신 {datetime.date.today().isoformat()}</footer>
+<h1>{e(h1)}</h1>
+<p class="sub">{e(store["name"])} {e(store["alternateName"])} · {e(store["address"]["addressLocality"])} {e(store["address"]["streetAddress"])} · {e(store["telephoneDisplay"])}</p>
+{body}
+<footer><a href="{back}">메뉴판 보기</a> · <a href="{back}faq.html">자주 묻는 질문</a> · 최종 갱신 {datetime.date.today().isoformat()}</footer>
 </main>
 </body>
 </html>
-'''
+"""
+
+
+def biz():
+    return {'@type': 'Restaurant', 'name': store['name'], 'url': store['url'], 'telephone': store['telephone'],
+            'address': {'@type': 'PostalAddress', **store['address']}}
+
+
+def faq_html(faq):
+    url = store['url'] + 'faq.html'
+    ld = {'@context': 'https://schema.org', '@type': 'FAQPage', 'url': url, 'inLanguage': 'ko', 'about': biz(),
+          'mainEntity': [{'@type': 'Question', 'name': f['q'], 'acceptedAnswer': {'@type': 'Answer', 'text': f['a']}} for f in faq]}
+    body = '\n'.join(f'<section><h2>{e(f["q"])}</h2><p>{e(f["a"])}</p></section>' for f in faq)
+    if GUIDES:
+        body += '\n<section><h2>더 자세한 안내</h2>' + ''.join(f'<p><a href="guide/{g["slug"]}.html">{e(g["title"])}</a></p>' for g in GUIDES) + '</section>'
+    return page(f'{store["name"]} 자주 묻는 질문 · 신대방역 전통주 한식주점',
+                f'{store["name"]} 영업시간, 오시는 길, 주차, 단체·대관, 예약, 포장, 콜키지, 어복쟁반·뭉티기·육회, 전통주 추천에 대한 답.',
+                url, ld, f'{store["name"]} 자주 묻는 질문', body)
+
+
+def guide_html(g):
+    url = f'{store["url"]}guide/{g["slug"]}.html'
+    text = ' '.join([g['answer']] + [x for s in g['sections'] for x in s['p']])
+    ld = {'@context': 'https://schema.org', '@type': 'Article', 'headline': g['title'], 'url': url, 'inLanguage': 'ko',
+          'dateModified': datetime.date.today().isoformat(), 'author': {'@type': 'Organization', 'name': store['name'], 'url': store['url']},
+          'about': biz(), 'mainEntity': {'@type': 'Question', 'name': g['question'],
+                                         'acceptedAnswer': {'@type': 'Answer', 'text': g['answer']}}}
+    body = [f'<p class="lead"><strong>{e(g["question"])}</strong></p>', f'<p class="lead">{e(g["answer"])}</p>']
+    for s in g['sections']:
+        body.append(f'<section><h2>{e(s["h"])}</h2>' + ''.join(f'<p>{e(x)}</p>' for x in s['p']) + '</section>')
+    return page(g['title'], g['answer'][:150], url, ld, g['title'], '\n'.join(body), back='../')
 
 
 def llms_txt():
@@ -164,6 +209,7 @@ def llms_txt():
     L += [f'- {n}' for n in store['notes']]
     L += ['- 예약: 네이버 예약', f'- 메뉴판: {store["url"]}', '']
     L += ['## 링크'] + [f'- {u}' for u in store['sameAs']] + ['']
+    if GUIDES: L += ['## 질문별 안내'] + [f'- [{g["title"]}]({store["url"]}guide/{g["slug"]}.html): {g["answer"]}' for g in GUIDES] + ['']
     L += ['## 자주 묻는 질문', f'전체: {store["url"]}faq.html'] + [f'- Q. {f["q"]}\n  A. {f["a"]}' for f in FAQ] + ['']
     for s in sections:
         L += [f'## {s["title"]}']
@@ -186,6 +232,13 @@ def replace_block(text, tag, body):
 
 
 FAQ = load_faq()
+ALL_GUIDES = load_guides()
+if len(sys.argv) > 2 and sys.argv[1] == '--preview':
+    # 승인 전 초안 미리보기: 모든 글을 지정 폴더에만 씀 (저장소 파일은 건드리지 않음)
+    out = pathlib.Path(sys.argv[2]); (out / 'guide').mkdir(parents=True, exist_ok=True)
+    for g in ALL_GUIDES: (out / 'guide' / f'{g["slug"]}.html').write_text(guide_html(g), encoding='utf-8')
+    print(f'미리보기 {len(ALL_GUIDES)}개 → {out}/guide/'); sys.exit()
+GUIDES = [g for g in ALL_GUIDES if g.get('approved')]
 idx = ROOT / 'index.html'
 t = idx.read_text(encoding='utf-8')
 t = replace_block(t, 'SEO-HEAD', head_block())
@@ -193,10 +246,14 @@ t = replace_block(t, 'SEO-MENU', menu_block())
 idx.write_text(t, encoding='utf-8')
 (ROOT / 'llms.txt').write_text(llms_txt(), encoding='utf-8')
 (ROOT / 'faq.html').write_text(faq_html(FAQ), encoding='utf-8')
+gdir = ROOT / 'guide'; gdir.mkdir(exist_ok=True)
+keep = {f'{g["slug"]}.html' for g in GUIDES}
+for f in gdir.glob('*.html'):
+    if f.name not in keep: f.unlink()
+for g in GUIDES: (gdir / f'{g["slug"]}.html').write_text(guide_html(g), encoding='utf-8')
 today = datetime.date.today().isoformat()
+urls = ['', 'faq.html'] + [f'guide/{g["slug"]}.html' for g in GUIDES] + ['llms.txt']
 (ROOT / 'sitemap.xml').write_text(
     '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-    f'<url><loc>{store["url"]}</loc><lastmod>{today}</lastmod></url>\n'
-    f'<url><loc>{store["url"]}faq.html</loc><lastmod>{today}</lastmod></url>\n'
-    f'<url><loc>{store["url"]}llms.txt</loc><lastmod>{today}</lastmod></url>\n</urlset>\n', encoding='utf-8')
-print(f'SEO 갱신: 섹션 {len(sections)}개, 메뉴 {sum(len(s["items"]) for s in sections)}개, FAQ {len(FAQ)}개')
+    + ''.join(f'<url><loc>{store["url"]}{u}</loc><lastmod>{today}</lastmod></url>\n' for u in urls) + '</urlset>\n', encoding='utf-8')
+print(f'SEO 갱신: 섹션 {len(sections)}개, 메뉴 {sum(len(s["items"]) for s in sections)}개, FAQ {len(FAQ)}개, 안내글 {len(GUIDES)}/{len(ALL_GUIDES)}개')
