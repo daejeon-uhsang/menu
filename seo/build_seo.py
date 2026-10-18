@@ -129,6 +129,7 @@ def load_guides():
 
 def page(title, desc, url, ld, h1, body, back='./'):
     ptype = 'guide' if back == '../' else 'faq'
+    tel, teld = store.get('telephone', ''), store.get('telephoneDisplay', '')
     ld = json.dumps(ld, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
     return f"""<!DOCTYPE html>
 <html lang="ko">
@@ -188,14 +189,19 @@ section{{border-top:1px solid var(--div);padding:16px 0}}
 h2{{font-size:1.05rem;margin:0 0 6px;color:var(--crimson)}}
 p{{margin:0}} section p+p{{margin-top:6px}}
 footer{{border-top:2px solid var(--ink);margin-top:16px;padding-top:12px;font-size:.85rem;color:var(--muted)}}
+.cta{{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px}}
+.cta a{{flex:1 1 30%;min-width:96px;text-align:center;text-decoration:none;padding:11px 8px;border:1px solid var(--crimson);border-radius:10px;color:var(--crimson);font-weight:700;font-size:.92rem}}
+.cta a.main{{background:var(--crimson);color:var(--paper)}}
 a{{color:inherit}}
 </style>
 </head>
 <body>
 <main>
 <h1>{e(h1)}</h1>
+<div class="cta"><a class="main" href="https://m.booking.naver.com/booking/6/bizes/1058283">네이버 예약</a><a href="tel:{tel}">전화 {teld}</a><a href="https://map.naver.com/p/entry/place/1646646595">지도·길찾기</a></div>
 <p class="sub">{e(store["name"])} {e(store["alternateName"])} · {e(store["address"]["addressLocality"])} {e(store["address"]["streetAddress"])} · {e(store["telephoneDisplay"])}</p>
 {body}
+<div class="cta"><a class="main" href="https://m.booking.naver.com/booking/6/bizes/1058283">네이버 예약</a><a href="tel:{tel}">전화 {teld}</a><a href="https://map.naver.com/p/entry/place/1646646595">지도·길찾기</a></div>
 <footer><a href="{back}">메뉴판 보기</a> · <a href="{back}faq.html">자주 묻는 질문</a> · 최종 갱신 {datetime.date.today().isoformat()}<br>방문 통계를 위해 Google Analytics와 Microsoft Clarity를 사용합니다.</footer>
 </main>
 </body>
