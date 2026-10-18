@@ -13,6 +13,11 @@
   window.uhStaff=false;var uhStaff=false;try{if(/[?&]staff=1/.test(location.search))localStorage.setItem('uh_staff','1');if(/[?&]staff=0/.test(location.search))localStorage.removeItem('uh_staff');uhStaff=window.uhStaff=localStorage.getItem('uh_staff')==='1'||location.hostname!=='daejeon-uhsang.github.io';}catch(e){}
   gtag('config', 'G-5HZ7QFKDK9', uhStaff?{traffic_type:'internal'}:{});
 </script>
+<!-- Meta Pixel (데이터 세트 '대전어상') — 사장님·직원 기기(?staff=1)와 테스트 주소에서는 불러오지 않음 -->
+<script>
+if(!window.uhStaff){!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','947247381331447');fbq('track','PageView');}
+</script>
 <!-- Microsoft Clarity -->
 <script>
   (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -23,7 +28,7 @@
 /* 고객 여정 측정: 페이지 종류·유입 경로 태그, 바깥 링크·전화·검색 이벤트 (GA4 + Clarity 공통) */
 (function(){
   var ptype='guide';
-  function ev(n,p){try{gtag('event',n,p||{});}catch(e){} try{clarity('event',n);}catch(e){}}
+  function ev(n,p){try{gtag('event',n,p||{});}catch(e){} try{clarity('event',n);}catch(e){} try{if(window.fbq){var u=(p&&p.link_url)||'';if(n==='naver_click'&&/booking/.test(u))fbq('track','Lead');else if(n==='call_click')fbq('track','Contact');else if(n==='search')fbq('track','Search',{search_string:(p&&p.search_term)||''});}}catch(e){}}
   window.uhEv=ev;
   var ref='';try{ref=document.referrer?new URL(document.referrer).hostname:'';}catch(e){}
   var entry=!ref?'direct_or_qr':(ref===location.hostname?'internal':ref.replace(/^www\./,''));
@@ -72,7 +77,7 @@ a{color:inherit}
 <section><h2>종류별 특징</h2><p>막걸리·탁주: 쌀을 빚어 거르지 않거나 덜 걸러 탁한 술. 대전어상 메뉴 기준 4.7~10%이고 산미·단맛이 다양합니다. 대전어상 탁주는 잔(90ml) 6,000원으로도 드실 수 있습니다.</p><p>약주·청주: 맑게 거른 술. 대전어상 메뉴 기준 13~18.6%, 화이트와인처럼 드라이한 것부터 은은한 단맛까지 있습니다.</p><p>증류식 소주: 발효한 술을 증류한 술. 대전어상 메뉴 기준 17%부터 71.2%까지 폭이 넓고, 쌀·보리·고구마·밀 등 원료에 따라 향이 크게 다릅니다. 고도주는 30ml 잔술로 맛보기 좋습니다.</p></section>
 <section><h2>처음이면 이렇게</h2><p>약주·청주 3종 샘플러(18,000원) 또는 증류식 소주 3종 샘플러(20,000원)로 취향을 먼저 찾으세요.</p><p>조선 3대 명주를 한 번에: 조선 3대 명주 3잔(32,000원).</p><p>익숙한 맛부터: 전통주로 만든 하이볼(8,000~10,000원)도 있습니다.</p></section>
 <div class="cta"><a class="main" href="https://m.booking.naver.com/booking/6/bizes/1058283">네이버 예약</a><a href="tel:+82-507-1382-0414">전화 0507-1382-0414</a><a href="https://map.naver.com/p/entry/place/1646646595">지도·길찾기</a></div>
-<footer><a href="../">메뉴판 보기</a> · <a href="../faq.html">자주 묻는 질문</a> · 최종 갱신 2026-10-18<br>방문 통계를 위해 Google Analytics와 Microsoft Clarity를 사용합니다.</footer>
+<footer><a href="../">메뉴판 보기</a> · <a href="../faq.html">자주 묻는 질문</a> · 최종 갱신 2026-10-18<br>방문 통계와 광고 성과 측정을 위해 Google Analytics, Microsoft Clarity, Meta 픽셀을 사용합니다.</footer>
 </main>
 </body>
 </html>

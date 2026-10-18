@@ -127,9 +127,10 @@ def load_guides():
     return out
 
 
-def page(title, desc, url, ld, h1, body, back='./'):
-    ptype = 'guide' if back == '../' else 'faq'
+def page(title, desc, url, ld, h1, body, back='./', ptype=None, robots=''):
+    ptype = ptype or ('guide' if back == '../' else 'faq')
     tel, teld = store.get('telephone', ''), store.get('telephoneDisplay', '')
+    cta = '' if ptype == 'links' else '<div class="cta"><a class="main" href="https://m.booking.naver.com/booking/6/bizes/1058283">네이버 예약</a><a href="tel:' + tel + '">전화 ' + teld + '</a><a href="https://map.naver.com/p/entry/place/1646646595">지도·길찾기</a></div>'
     ld = json.dumps(ld, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
     return f"""<!DOCTYPE html>
 <html lang="ko">
@@ -146,6 +147,11 @@ def page(title, desc, url, ld, h1, body, back='./'):
   window.uhStaff=false;var uhStaff=false;try{{if(/[?&]staff=1/.test(location.search))localStorage.setItem('uh_staff','1');if(/[?&]staff=0/.test(location.search))localStorage.removeItem('uh_staff');uhStaff=window.uhStaff=localStorage.getItem('uh_staff')==='1'||location.hostname!=='daejeon-uhsang.github.io';}}catch(e){{}}
   gtag('config', 'G-5HZ7QFKDK9', uhStaff?{{traffic_type:'internal'}}:{{}});
 </script>
+<!-- Meta Pixel (데이터 세트 '대전어상') — 사장님·직원 기기(?staff=1)와 테스트 주소에서는 불러오지 않음 -->
+<script>
+if(!window.uhStaff){{!function(f,b,e,v,n,t,s){{if(f.fbq)return;n=f.fbq=function(){{n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)}};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','947247381331447');fbq('track','PageView');}}
+</script>
 <!-- Microsoft Clarity -->
 <script>
   (function(c,l,a,r,i,t,y){{c[a]=c[a]||function(){{(c[a].q=c[a].q||[]).push(arguments)}};
@@ -156,7 +162,7 @@ def page(title, desc, url, ld, h1, body, back='./'):
 /* 고객 여정 측정: 페이지 종류·유입 경로 태그, 바깥 링크·전화·검색 이벤트 (GA4 + Clarity 공통) */
 (function(){{
   var ptype={ptype!r};
-  function ev(n,p){{try{{gtag('event',n,p||{{}});}}catch(e){{}} try{{clarity('event',n);}}catch(e){{}}}}
+  function ev(n,p){{try{{gtag('event',n,p||{{}});}}catch(e){{}} try{{clarity('event',n);}}catch(e){{}} try{{if(window.fbq){{var u=(p&&p.link_url)||'';if(n==='naver_click'&&/booking/.test(u))fbq('track','Lead');else if(n==='call_click')fbq('track','Contact');else if(n==='search')fbq('track','Search',{{search_string:(p&&p.search_term)||''}});}}}}catch(e){{}}}}
   window.uhEv=ev;
   var ref='';try{{ref=document.referrer?new URL(document.referrer).hostname:'';}}catch(e){{}}
   var entry=!ref?'direct_or_qr':(ref===location.hostname?'internal':ref.replace(/^www\\./,''));
@@ -169,7 +175,7 @@ def page(title, desc, url, ld, h1, body, back='./'):
 }})();
 </script>
 <title>{e(title)}</title>
-<meta name="description" content="{e(desc)}">
+<meta name="description" content="{e(desc)}">{robots}
 <link rel="canonical" href="{e(url)}">
 <meta property="og:type" content="website">
 <meta property="og:title" content="{e(title)}">
@@ -198,11 +204,11 @@ a{{color:inherit}}
 <body>
 <main>
 <h1>{e(h1)}</h1>
-<div class="cta"><a class="main" href="https://m.booking.naver.com/booking/6/bizes/1058283">네이버 예약</a><a href="tel:{tel}">전화 {teld}</a><a href="https://map.naver.com/p/entry/place/1646646595">지도·길찾기</a></div>
+{cta}
 <p class="sub">{e(store["name"])} {e(store["alternateName"])} · {e(store["address"]["addressLocality"])} {e(store["address"]["streetAddress"])} · {e(store["telephoneDisplay"])}</p>
 {body}
-<div class="cta"><a class="main" href="https://m.booking.naver.com/booking/6/bizes/1058283">네이버 예약</a><a href="tel:{tel}">전화 {teld}</a><a href="https://map.naver.com/p/entry/place/1646646595">지도·길찾기</a></div>
-<footer><a href="{back}">메뉴판 보기</a> · <a href="{back}faq.html">자주 묻는 질문</a> · 최종 갱신 {datetime.date.today().isoformat()}<br>방문 통계를 위해 Google Analytics와 Microsoft Clarity를 사용합니다.</footer>
+{cta}
+<footer><a href="{back}">메뉴판 보기</a> · <a href="{back}faq.html">자주 묻는 질문</a> · 최종 갱신 {datetime.date.today().isoformat()}<br>방문 통계와 광고 성과 측정을 위해 Google Analytics, Microsoft Clarity, Meta 픽셀을 사용합니다.</footer>
 </main>
 </body>
 </html>
@@ -224,6 +230,23 @@ def faq_html(faq):
     return page(f'{store["name"]} 자주 묻는 질문 · 신대방역 전통주 한식주점',
                 f'{store["name"]} 영업시간, 오시는 길, 주차, 단체·대관, 예약, 포장, 콜키지, 어복쟁반·뭉티기·육회, 전통주 추천에 대한 답.',
                 url, ld, f'{store["name"]} 자주 묻는 질문', body)
+
+
+def links_html():
+    """인스타 프로필 링크용 '링크 모음'(우리 사이트라 GA4·Clarity·Meta 픽셀로 관찰 가능). 검색 색인 제외."""
+    url = store['url'] + 'links.html'
+    ld = {'@context': 'https://schema.org', '@type': 'WebPage', 'url': url, 'inLanguage': 'ko', 'about': biz()}
+    items = [('main', 'https://m.booking.naver.com/booking/6/bizes/1058283', '네이버 예약', '자리 바로 잡기 · 12명까지'),
+             ('', './', '메뉴판 보기', '안주 · 전통주 · 잔술 가격'),
+             ('', 'guide/eobok-jaengban.html', '어복쟁반 이야기', '한우 1++ No.9 양지·사태와 스지'),
+             ('', 'faq.html', '자주 묻는 질문', '주차 · 단체 · 콜키지 · 오시는 길'),
+             ('', 'https://m.place.naver.com/restaurant/1646646595', '네이버 플레이스', '리뷰 · 사진 · 길찾기'),
+             ('', 'https://place.map.kakao.com/2058260045', '카카오맵', '길찾기')]
+    body = '<p class="sub">' + e(store['description'].split('.')[0]) + '.</p>\n<div class="links">' + ''.join(
+        f'<a class="lk {c}" href="{h}"><b>{e(t)}</b><span>{e(d)}</span></a>' for c, h, t, d in items) + '</div>'
+    body += """<style>.links{display:grid;gap:10px;margin:18px 0}.lk{display:grid;gap:2px;text-decoration:none;padding:14px 16px;border:1px solid var(--div);border-radius:12px;color:var(--ink)}.lk b{font-size:1.02rem}.lk span{font-size:.85rem;color:var(--muted)}.lk.main{background:var(--crimson);border-color:var(--crimson);color:var(--paper)}.lk.main span{color:var(--paper);opacity:.85}</style>"""
+    return page(f'{store["name"]} 링크', f'{store["name"]} 예약·메뉴판·오시는 길', url, ld, f'{store["name"]} 大殿御床', body,
+                ptype='links', robots='\n<meta name="robots" content="noindex">')
 
 
 def guide_html(g):
@@ -285,6 +308,7 @@ t = replace_block(t, 'SEO-MENU', menu_block())
 idx.write_text(t, encoding='utf-8')
 (ROOT / 'llms.txt').write_text(llms_txt(), encoding='utf-8')
 (ROOT / 'faq.html').write_text(faq_html(FAQ), encoding='utf-8')
+(ROOT / 'links.html').write_text(links_html(), encoding='utf-8')
 gdir = ROOT / 'guide'; gdir.mkdir(exist_ok=True)
 keep = {f'{g["slug"]}.html' for g in GUIDES}
 for f in gdir.glob('*.html'):
