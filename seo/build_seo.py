@@ -130,6 +130,8 @@ def load_guides():
 def page(title, desc, url, ld, h1, body, back='./', ptype=None, robots=''):
     ptype = ptype or ('guide' if back == '../' else 'faq')
     tel, teld = store.get('telephone', ''), store.get('telephoneDisplay', '')
+    rs = store.get('reviewStats') or {}
+    trust = '' if ptype == 'links' or not rs else f'<p class="sub">네이버 방문자 리뷰 {rs["count"]}개 · 평점 {rs["score"]} ({rs["asOf"][5:].replace("-", "/")} 기준) · 월~토 새벽 2시까지</p>\n'
     cta = '' if ptype == 'links' else '<div class="cta"><a class="main" href="https://m.booking.naver.com/booking/6/bizes/1058283">네이버 예약</a><a href="tel:' + tel + '">전화 ' + teld + '</a><a href="https://map.naver.com/p/entry/place/1646646595">지도·길찾기</a></div>'
     ld = json.dumps(ld, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
     return f"""<!DOCTYPE html>
@@ -204,7 +206,7 @@ a{{color:inherit}}
 <body>
 <main>
 <h1>{e(h1)}</h1>
-{cta}
+{trust}{cta}
 <p class="sub">{e(store["name"])} {e(store["alternateName"])} · {e(store["address"]["addressLocality"])} {e(store["address"]["streetAddress"])} · {e(store["telephoneDisplay"])}</p>
 {body}
 {cta}
@@ -233,21 +235,38 @@ def faq_html(faq):
 
 
 def links_html():
-    """인스타 프로필 링크용 '링크 모음'(우리 사이트라 GA4·Clarity·Meta 픽셀로 관찰 가능). 검색 색인 제외."""
+    """인스타 프로필 링크용 랜딩 = 8일차 '팔리는 상세페이지' 7블록(히어로·문제·해결·증거·사회적 증거·이용법·반론+CTA).
+    가격은 menu.json에서 자동, 리뷰 수치는 store.json reviewStats(기준일 표기). 검색 색인 제외."""
     url = store['url'] + 'links.html'
     ld = {'@context': 'https://schema.org', '@type': 'WebPage', 'url': url, 'inLanguage': 'ko', 'about': biz()}
-    items = [('main', 'https://m.booking.naver.com/booking/6/bizes/1058283', '네이버 예약', '자리 바로 잡기 · 12명까지'),
-             ('', './', '메뉴판 보기', '안주 · 전통주 · 잔술 가격'),
-             ('', 'guide/eobok-jaengban.html', '어복쟁반 이야기', '한우 1++ No.9 양지·사태와 스지'),
-             ('', 'faq.html', '자주 묻는 질문', '주차 · 단체 · 콜키지 · 오시는 길'),
-             ('', 'https://m.place.naver.com/restaurant/1646646595', '네이버 플레이스', '리뷰 · 사진 · 길찾기'),
-             ('', 'https://place.map.kakao.com/2058260045', '카카오맵', '길찾기')]
-    body = '<p class="sub">' + e(store['description'].split('.')[0]) + '.</p>\n<div class="links">' + ''.join(
-        f'<a class="lk {c}" href="{h}"><b>{e(t)}</b><span>{e(d)}</span></a>' for c, h, t, d in items) + '</div>'
-    body += """<style>.links{display:grid;gap:10px;margin:18px 0}.lk{display:grid;gap:2px;text-decoration:none;padding:14px 16px;border:1px solid var(--div);border-radius:12px;color:var(--ink)}.lk b{font-size:1.02rem}.lk span{font-size:.85rem;color:var(--muted)}.lk.main{background:var(--crimson);border-color:var(--crimson);color:var(--paper)}.lk.main span{color:var(--paper);opacity:.85}</style>"""
+    rs = store.get('reviewStats') or {}
+    md = rs.get('asOf', '')[5:].replace('-', '/')
+    book = 'https://m.booking.naver.com/booking/6/bizes/1058283'
+    trust = f'네이버 방문자 리뷰 {rs.get("count")}개 · 평점 {rs.get("score")} <small>({md} 기준)</small>' if rs else ''
+    kw = ' · '.join(f'{e(k)} {n}' for k, n in rs.get('keywords', [])[:4])
+    body = f"""<p class="hero">신대방역에서 새벽 2시까지, 한우 1++ No.9로 끓인 어복쟁반과 전통주 잔술.</p>
+<p class="trust">{trust}</p>
+<a class="lk main" href="{book}"><b>네이버 예약</b><span>12명까지 바로 예약 · 13명 이상은 전화</span></a>
+<section><h2>2차 어디 갈지, 전통주는 뭘 고를지 고민이라면</h2>
+<p>국물이 당기면 <b>어복쟁반</b>(2~3인 {fill('{어복쟁반}', 'links')}원): 한우 1++ No.9 양지·사태와 스지, 청도 한재 미나리.</p>
+<p>술을 잘 몰라도 <b>잔술</b>로 조금씩(대전어상 탁주 90ml {fill('{잔:대전어상 탁주}', 'links')}원부터), 3종 샘플러(약주·청주 {fill('{전통주 샘플러(약주, 청주)}', 'links')}원)로 비교할 수 있고, 안주에 맞는 술을 골라 드립니다.</p></section>
+<section><h2>다녀간 손님들이 고른 키워드</h2><p>{kw}</p><p class="small">네이버 키워드 리뷰 누적 투표 수 · {md} 기준</p></section>
+<section><h2>이렇게 드셔 보세요</h2>
+<p>처음이라면: 어복쟁반 + 대전어상 탁주 잔술</p>
+<p>가볍게: 백순대 내장볶음 + 파스타 면사리(첫 주문 때 추가)</p>
+<p>목·금요일: 한우 뭉티기 입고(방문 전 전화 확인)</p></section>
+<section><h2>가기 전에</h2>
+<p>주차 2~3대 · 4인 테이블 5개(최대 20명) · 혼자면 다찌석 4석 · 포장 가능(배달 없음) · 월~토 17:00~02:00, 일 17:00~24:00</p></section>
+<div class="links">""" + ''.join(f'<a class="lk {c}" href="{h}"><b>{e(t)}</b><span>{e(d)}</span></a>' for c, h, t, d in [
+        ('main', book, '네이버 예약', '자리 바로 잡기'),
+        ('', 'tel:' + store.get('telephone', ''), '전화 ' + store.get('telephoneDisplay', ''), '13명 이상·대관·뭉티기 입고 문의'),
+        ('', './', '메뉴판 보기', '안주 · 전통주 · 잔술 가격'),
+        ('', 'guide/eobok-jaengban.html', '어복쟁반 이야기', '구성과 전통주 페어링'),
+        ('', 'faq.html', '자주 묻는 질문', '주차 · 단체 · 콜키지 · 오시는 길'),
+        ('', 'https://map.naver.com/p/entry/place/1646646595', '지도·길찾기', '신대방역 2번 출구 도보 9분')]) + '</div>'
+    body += """<style>.hero{font-size:1.12rem;font-weight:700;margin:6px 0 4px}.trust{color:var(--muted);margin:0 0 12px}.trust small{font-size:.8rem}.small{font-size:.8rem;color:var(--muted)}.links{display:grid;gap:10px;margin:18px 0}.lk{display:grid;gap:2px;text-decoration:none;padding:14px 16px;border:1px solid var(--div);border-radius:12px;color:var(--ink);margin:8px 0}.links .lk{margin:0}.lk b{font-size:1.02rem}.lk span{font-size:.85rem;color:var(--muted)}.lk.main{background:var(--crimson);border-color:var(--crimson);color:var(--paper)}.lk.main span{color:var(--paper);opacity:.85}</style>"""
     return page(f'{store["name"]} 링크', f'{store["name"]} 예약·메뉴판·오시는 길', url, ld, f'{store["name"]} 大殿御床', body,
                 ptype='links', robots='\n<meta name="robots" content="noindex">')
-
 
 def guide_html(g):
     url = f'{store["url"]}guide/{g["slug"]}.html'

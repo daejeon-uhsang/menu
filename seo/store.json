@@ -12,20 +12,80 @@
     "postalCode": "08767",
     "addressCountry": "KR"
   },
-  "geo": {"latitude": 37.48316873959897, "longitude": 126.91336113665362},
+  "geo": {
+    "latitude": 37.48316873959897,
+    "longitude": 126.91336113665362
+  },
   "hours": [
-    {"days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], "opens": "17:00", "closes": "02:00", "label": "월~토 17:00~02:00"},
-    {"days": ["Sunday"], "opens": "17:00", "closes": "24:00", "label": "일 17:00~24:00"}
+    {
+      "days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "opens": "17:00",
+      "closes": "02:00",
+      "label": "월~토 17:00~02:00"
+    },
+    {
+      "days": [
+        "Sunday"
+      ],
+      "opens": "17:00",
+      "closes": "24:00",
+      "label": "일 17:00~24:00"
+    }
   ],
-  "servesCuisine": ["한식", "전통주", "한식주점"],
+  "servesCuisine": [
+    "한식",
+    "전통주",
+    "한식주점"
+  ],
   "priceRange": "₩₩",
   "acceptsReservations": true,
-  "notes": ["배달은 하지 않으며 포장은 가능합니다", "주차 2~3대 가능", "콜키지 병당 20,000원", "단체 최대 20명(13명 이상·대관은 전화 또는 카카오톡 채널 '대전어상' 문의)"],
+  "notes": [
+    "배달은 하지 않으며 포장은 가능합니다",
+    "주차 2~3대 가능",
+    "콜키지 병당 20,000원",
+    "단체 최대 20명(13명 이상·대관은 전화 또는 카카오톡 채널 '대전어상' 문의)"
+  ],
   "sameAs": [
     "https://m.place.naver.com/restaurant/1646646595",
     "https://place.map.kakao.com/2058260045",
     "https://maps.google.com/?cid=3354619468550072121",
     "https://www.instagram.com/daejeon_uhsang/",
     "https://www.daangn.com/kr/local-profile/%EB%8C%80%EC%A0%84%EC%96%B4%EC%83%81-rv4om9qftrs2/"
-  ]
+  ],
+  "reviewStats": {
+    "source": "네이버 플레이스 방문자 리뷰",
+    "asOf": "2026-10-18",
+    "count": 193,
+    "score": 4.94,
+    "keywords": [
+      [
+        "음식이 맛있어요",
+        186
+      ],
+      [
+        "술이 다양해요",
+        120
+      ],
+      [
+        "특별한 메뉴가 있어요",
+        74
+      ],
+      [
+        "친절해요",
+        72
+      ],
+      [
+        "대화하기 좋아요",
+        53
+      ]
+    ],
+    "_설명": "8일차 신뢰 장치·사회적 증거. 숫자는 asOf 날짜와 함께만 표시. 갱신 시 날짜도 바꿀 것."
+  }
 }
