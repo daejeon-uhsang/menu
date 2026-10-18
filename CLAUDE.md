@@ -1,5 +1,10 @@
 # 대전어상 메뉴 프로젝트
 
+## Codex와 작업 공유
+- 규칙: `/Users/dhkim/daejeon-marketing/collab/PROTOCOL.md`. 시작 전 `python3 ~/daejeon-marketing/collab/bin/collab.py status`와 `AI_HANDOFF.md` 최근 기록 확인.
+- 파일 수정 전 `collab.py claim claude <파일> --task "..."`, 끝나면 `release`, 완료 기록은 `collab.py log claude ...`(AI_HANDOFF.md에 추가됨).
+- 다른 도구와 같은 파일을 동시에 편집하지 않고, 기존 미커밋 변경을 보존한다. Codex 검수 통과는 사장님 승인이 아니다.
+
 ## 프로젝트 개요
 대전어상(大廃漁床) 전통주 전문점의 메뉴판 관리 시스템.
 GitHub에 푸시하면 GitHub Pages를 통해 손님용 메뉴 웹페이지와 인쇄용 A4 페이지가 자동 반영됨.
