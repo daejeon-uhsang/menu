@@ -12,7 +12,7 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   /* 사장님·직원 기기: 주소에 ?staff=1 로 한 번 열면 이후 방문은 내부 트래픽으로 표시(GA 데이터 필터로 제외) */
-  window.uhStaff=false;var uhStaff=false;try{if(/[?&]staff=1/.test(location.search))localStorage.setItem('uh_staff','1');if(/[?&]staff=0/.test(location.search))localStorage.removeItem('uh_staff');uhStaff=window.uhStaff=localStorage.getItem('uh_staff')==='1';}catch(e){}
+  window.uhStaff=false;var uhStaff=false;try{if(/[?&]staff=1/.test(location.search))localStorage.setItem('uh_staff','1');if(/[?&]staff=0/.test(location.search))localStorage.removeItem('uh_staff');uhStaff=window.uhStaff=localStorage.getItem('uh_staff')==='1'||location.hostname!=='daejeon-uhsang.github.io';}catch(e){}
   gtag('config', 'G-5HZ7QFKDK9', uhStaff?{traffic_type:'internal'}:{});
 </script>
 <!-- Microsoft Clarity -->
