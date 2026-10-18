@@ -13,6 +13,28 @@
   gtag('js', new Date());
   gtag('config', 'G-5HZ7QFKDK9');
 </script>
+<!-- Microsoft Clarity -->
+<script>
+  (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","vw42wutjmo");
+</script>
+<script>
+/* 고객 여정 측정: 페이지 종류·유입 경로 태그, 바깥 링크·전화·검색 이벤트 (GA4 + Clarity 공통) */
+(function(){
+  var ptype='menu';
+  function ev(n,p){try{gtag('event',n,p||{});}catch(e){} try{clarity('event',n);}catch(e){}}
+  window.uhEv=ev;
+  var ref='';try{ref=document.referrer?new URL(document.referrer).hostname:'';}catch(e){}
+  var entry=!ref?'direct_or_qr':(ref===location.hostname?'internal':ref.replace(/^www\./,''));
+  try{clarity('set','page_type',ptype);clarity('set','entry',entry);}catch(e){}
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var h=a.getAttribute('href');
+    var k=h.indexOf('tel:')===0?'call_click':/naver\.me|booking\.naver|map\.naver/.test(h)?'naver_click':/instagram\.com/.test(h)?'instagram_click':/pf\.kakao|kakao\.com/.test(h)?'kakao_click':/faq\.html/.test(h)?'faq_click':/guide\//.test(h)?'guide_click':(/^https?:/.test(h)&&h.indexOf(location.hostname)<0)?'outbound_click':'';
+    if(k)ev(k,{link_url:h,page_type:ptype});
+  },true);
+})();
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>대전어상 전통주 메뉴</title>
@@ -807,7 +829,7 @@ body.admin-mode .add-sec-btn{display:block;}
   <div class="search-bar main-header-block">
     <div class="search-wrap">
       <span class="search-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b5535" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.2-4.2"/></svg></span>
-      <input type="text" id="menu-search" placeholder="메뉴 이름, 설명, 지역 검색…" oninput="filterMenu(this.value)" autocomplete="off">
+      <input type="text" id="menu-search" placeholder="메뉴 이름, 설명, 지역 검색…" oninput="filterMenu(this.value);clearTimeout(window._uhS);var _v=this.value.trim();if(_v.length>1)window._uhS=setTimeout(function(){uhEv('search',{search_term:_v})},1200)" autocomplete="off">
       <button class="search-clear" id="search-clear" onclick="clearSearch()" style="display:none" title="검색 초기화">✕</button>
     </div>
   </div>
@@ -1000,7 +1022,7 @@ body.admin-mode .add-sec-btn{display:block;}
     모든 메뉴는 당일 입고 상황에 따라 변동될 수 있습니다<br>
     음주는 19세 이상부터 | 임산부와 청소년은 음주를 삼가 주세요<br>
     문의 및 주류 추천은 직원에게 편하게 말씀해 주세요<br>
-    <a href="faq.html" style="color:inherit">자주 묻는 질문</a>
+    <a href="faq.html" style="color:inherit">자주 묻는 질문</a><br><span style="font-size:.85em;opacity:.75">방문 통계를 위해 Google Analytics와 Microsoft Clarity를 사용합니다.</span>
   </div>
   <div class="art-credit">
     <b>배경 그림</b><br>

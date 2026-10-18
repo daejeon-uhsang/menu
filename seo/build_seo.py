@@ -128,12 +128,43 @@ def load_guides():
 
 
 def page(title, desc, url, ld, h1, body, back='./'):
+    ptype = 'guide' if back == '../' else 'faq'
     ld = json.dumps(ld, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
     return f"""<!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5HZ7QFKDK9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+  gtag('config', 'G-5HZ7QFKDK9');
+</script>
+<!-- Microsoft Clarity -->
+<script>
+  (function(c,l,a,r,i,t,y){{c[a]=c[a]||function(){{(c[a].q=c[a].q||[]).push(arguments)}};
+  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);}})(window,document,"clarity","script","vw42wutjmo");
+</script>
+<script>
+/* 고객 여정 측정: 페이지 종류·유입 경로 태그, 바깥 링크·전화·검색 이벤트 (GA4 + Clarity 공통) */
+(function(){{
+  var ptype={ptype!r};
+  function ev(n,p){{try{{gtag('event',n,p||{{}});}}catch(e){{}} try{{clarity('event',n);}}catch(e){{}}}}
+  window.uhEv=ev;
+  var ref='';try{{ref=document.referrer?new URL(document.referrer).hostname:'';}}catch(e){{}}
+  var entry=!ref?'direct_or_qr':(ref===location.hostname?'internal':ref.replace(/^www\\./,''));
+  try{{clarity('set','page_type',ptype);clarity('set','entry',entry);}}catch(e){{}}
+  document.addEventListener('click',function(e){{
+    var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var h=a.getAttribute('href');
+    var k=h.indexOf('tel:')===0?'call_click':/naver\\.me|booking\\.naver|map\\.naver/.test(h)?'naver_click':/instagram\\.com/.test(h)?'instagram_click':/pf\\.kakao|kakao\\.com/.test(h)?'kakao_click':/faq\\.html/.test(h)?'faq_click':/guide\\//.test(h)?'guide_click':(/^https?:/.test(h)&&h.indexOf(location.hostname)<0)?'outbound_click':'';
+    if(k)ev(k,{{link_url:h,page_type:ptype}});
+  }},true);
+}})();
+</script>
 <title>{e(title)}</title>
 <meta name="description" content="{e(desc)}">
 <link rel="canonical" href="{e(url)}">
@@ -163,7 +194,7 @@ a{{color:inherit}}
 <h1>{e(h1)}</h1>
 <p class="sub">{e(store["name"])} {e(store["alternateName"])} · {e(store["address"]["addressLocality"])} {e(store["address"]["streetAddress"])} · {e(store["telephoneDisplay"])}</p>
 {body}
-<footer><a href="{back}">메뉴판 보기</a> · <a href="{back}faq.html">자주 묻는 질문</a> · 최종 갱신 {datetime.date.today().isoformat()}</footer>
+<footer><a href="{back}">메뉴판 보기</a> · <a href="{back}faq.html">자주 묻는 질문</a> · 최종 갱신 {datetime.date.today().isoformat()}<br>방문 통계를 위해 Google Analytics와 Microsoft Clarity를 사용합니다.</footer>
 </main>
 </body>
 </html>

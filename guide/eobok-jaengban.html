@@ -3,6 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5HZ7QFKDK9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-5HZ7QFKDK9');
+</script>
+<!-- Microsoft Clarity -->
+<script>
+  (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","vw42wutjmo");
+</script>
+<script>
+/* 고객 여정 측정: 페이지 종류·유입 경로 태그, 바깥 링크·전화·검색 이벤트 (GA4 + Clarity 공통) */
+(function(){
+  var ptype='guide';
+  function ev(n,p){try{gtag('event',n,p||{});}catch(e){} try{clarity('event',n);}catch(e){}}
+  window.uhEv=ev;
+  var ref='';try{ref=document.referrer?new URL(document.referrer).hostname:'';}catch(e){}
+  var entry=!ref?'direct_or_qr':(ref===location.hostname?'internal':ref.replace(/^www\./,''));
+  try{clarity('set','page_type',ptype);clarity('set','entry',entry);}catch(e){}
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var h=a.getAttribute('href');
+    var k=h.indexOf('tel:')===0?'call_click':/naver\.me|booking\.naver|map\.naver/.test(h)?'naver_click':/instagram\.com/.test(h)?'instagram_click':/pf\.kakao|kakao\.com/.test(h)?'kakao_click':/faq\.html/.test(h)?'faq_click':/guide\//.test(h)?'guide_click':(/^https?:/.test(h)&&h.indexOf(location.hostname)<0)?'outbound_click':'';
+    if(k)ev(k,{link_url:h,page_type:ptype});
+  },true);
+})();
+</script>
 <title>어복쟁반이란? 신대방역에서 한우 어복쟁반 먹는 곳</title>
 <meta name="description" content="어복쟁반은 넓은 놋쟁반에 삶은 소고기와 채소를 둘러 담고 육수를 부어 끓여 먹는 평양식 전골입니다. 대전어상(신대방역 2번 출구 도보 9분)은 한우 1++ No.9 양지·사태와 스지로 끓이며, 2~3인 기준 47,000원입니다.">
 <link rel="canonical" href="https://daejeon-uhsang.github.io/menu/guide/eobok-jaengban.html">
@@ -36,7 +66,7 @@ a{color:inherit}
 <section><h2>이름 이야기</h2><p>&#x27;어복(御腹)&#x27;, 임금의 배를 채울 만큼 귀한 상이었다는 이야기가 전해집니다. 평양에서 겨울에 여럿이 쟁반을 둘러앉아 먹던 음식으로 알려져 있습니다.</p></section>
 <section><h2>대전어상 어복쟁반 구성</h2><p>고기: 한우 1++ 중 마블링 최고 단계인 No.9 양지와 사태, 오래 삶아 쫀득한 스지.</p><p>채소: 버섯, 청도 한재 미나리.</p><p>먹는 법: 끓을수록 사태는 부드러워지고 스지는 쫀득해집니다. 천천히 끓이면서 건져 드세요.</p></section>
 <section><h2>어복쟁반과 전통주 페어링</h2><p>맑은 약주·청주: 국물의 담백한 감칠맛을 해치지 않고 깔끔하게 이어 줍니다. 처음이면 약주·청주 3종 샘플러(18,000원)로 비교해 보세요.</p><p>대전어상 탁주(병 19,000원, 잔 6,000원): 배의 단맛과 생강의 알싸한 끝맛이 고기 국물과 어울립니다.</p><p>증류식 소주: 기름진 양지·스지 뒤에 입을 정리해 줍니다. 30ml 잔술로 가볍게 곁들일 수 있습니다.</p><p>고르기 어려우면 전통주 소믈리에가 어복쟁반에 맞는 술을 추천해 드립니다.</p></section>
-<footer><a href="../">메뉴판 보기</a> · <a href="../faq.html">자주 묻는 질문</a> · 최종 갱신 2026-10-18</footer>
+<footer><a href="../">메뉴판 보기</a> · <a href="../faq.html">자주 묻는 질문</a> · 최종 갱신 2026-10-18<br>방문 통계를 위해 Google Analytics와 Microsoft Clarity를 사용합니다.</footer>
 </main>
 </body>
 </html>
