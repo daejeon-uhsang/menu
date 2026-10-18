@@ -11,7 +11,9 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-5HZ7QFKDK9');
+  /* 사장님·직원 기기: 주소에 ?staff=1 로 한 번 열면 이후 방문은 내부 트래픽으로 표시(GA 데이터 필터로 제외) */
+  window.uhStaff=false;var uhStaff=false;try{if(/[?&]staff=1/.test(location.search))localStorage.setItem('uh_staff','1');if(/[?&]staff=0/.test(location.search))localStorage.removeItem('uh_staff');uhStaff=window.uhStaff=localStorage.getItem('uh_staff')==='1';}catch(e){}
+  gtag('config', 'G-5HZ7QFKDK9', uhStaff?{traffic_type:'internal'}:{});
 </script>
 <!-- Microsoft Clarity -->
 <script>
@@ -27,7 +29,7 @@
   window.uhEv=ev;
   var ref='';try{ref=document.referrer?new URL(document.referrer).hostname:'';}catch(e){}
   var entry=!ref?'direct_or_qr':(ref===location.hostname?'internal':ref.replace(/^www\./,''));
-  try{clarity('set','page_type',ptype);clarity('set','entry',entry);}catch(e){}
+  try{clarity('set','page_type',ptype);clarity('set','entry',entry);if(window.uhStaff)clarity('set','internal','1');}catch(e){}
   document.addEventListener('click',function(e){
     var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var h=a.getAttribute('href');
     var k=h.indexOf('tel:')===0?'call_click':/naver\.me|booking\.naver|map\.naver/.test(h)?'naver_click':/instagram\.com/.test(h)?'instagram_click':/pf\.kakao|kakao\.com/.test(h)?'kakao_click':/faq\.html/.test(h)?'faq_click':/guide\//.test(h)?'guide_click':(/^https?:/.test(h)&&h.indexOf(location.hostname)<0)?'outbound_click':'';
