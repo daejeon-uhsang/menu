@@ -568,6 +568,10 @@ body.admin-mode .add-sec-btn{display:block;}
 
 /* 브랜드 소개 섹션 */
 .brand-intro{text-align:center;padding:22px 20px 18px;border-bottom:1.5px solid var(--ink);margin-bottom:4px;}
+.main-header-block.brand-intro.collapsed .bi-more{display:none;}
+.bi-toggle{display:none;}
+.main-header-block.brand-intro .bi-toggle{display:inline-block;margin:2px auto 0;padding:7px 14px;border:1px solid var(--div);border-radius:999px;background:transparent;color:var(--crimson);font:inherit;font-size:12px;letter-spacing:1px;cursor:pointer;}
+.main-header-block.brand-intro:not(.collapsed) .bi-toggle{margin-bottom:10px;}
 .bi-hanja{font-family:'Nanum Myeongjo',serif;font-size:22px;font-weight:800;letter-spacing:10px;color:var(--crimson);margin-bottom:3px;}
 .bi-korean{font-family:'Nanum Myeongjo',serif;font-size:13px;letter-spacing:6px;color:var(--muted);margin-bottom:10px;}
 .bi-divider{color:var(--gold2);font-size:9px;letter-spacing:6px;margin:8px 0;}
@@ -831,14 +835,15 @@ body.admin-mode .add-sec-btn{display:block;}
   <div class="search-bar main-header-block">
     <div class="search-wrap">
       <span class="search-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b5535" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.2-4.2"/></svg></span>
-      <input type="text" id="menu-search" placeholder="메뉴 이름, 설명, 지역 검색…" oninput="filterMenu(this.value);clearTimeout(window._uhS);var _v=this.value.trim();if(_v.length>1)window._uhS=setTimeout(function(){uhEv('search',{search_term:_v})},1200)" autocomplete="off">
+      <input type="text" id="menu-search" placeholder="메뉴 이름, 설명, 지역 검색…" oninput="filterMenu(this.value);clearTimeout(window._uhS);var _v=this.value.trim();if(_v.length>1)window._uhS=setTimeout(function(){uhEv('search',{search_term:_v,search_results:window._uhTotal||0});if(!window._uhTotal)uhEv('search_no_result',{search_term:_v})},1200)" autocomplete="off">
       <button class="search-clear" id="search-clear" onclick="clearSearch()" style="display:none" title="검색 초기화">✕</button>
     </div>
   </div>
   <div id="search-hint" class="search-result-hint" style="display:none"></div>
 
   <!-- 브랜드 소개 섹션 -->
-  <div class="brand-intro main-header-block">
+  <nav id="secnav" class="sec-nav" aria-label="메뉴 카테고리 바로가기"></nav>
+  <div class="brand-intro main-header-block collapsed" id="brand-intro">
     <div class="bi-hanja">大殿御床</div>
     <div class="bi-korean">대전어상</div>
     <div class="bi-divider">◆</div>
@@ -847,6 +852,8 @@ body.admin-mode .add-sec-btn{display:block;}
       御床은 임금의 수라상.<br>
       대전어상 — 왕의 공간에 차린 왕의 밥상.
     </p>
+    <button type="button" class="bi-toggle" id="bi-toggle" aria-expanded="false" aria-controls="bi-more">대전어상 이야기와 약속 보기 ▾</button>
+    <div class="bi-more" id="bi-more">
     <div class="bi-sub-title">대령숙수(待令熟手)</div>
     <p class="bi-body">
       조선의 궁중에는 오직 왕을 위해 요리하던 남자 요리사가 있었습니다.<br>
@@ -864,9 +871,9 @@ body.admin-mode .add-sec-btn{display:block;}
       <li>육수는 국내산 디포리·새우·제철 채소를 직접 끓여 만들며 음식 전반의 기반이 됩니다. 우동의 유부 역시 매장에서 직접 조려냅니다.</li>
       <li>전통주는 절기에 맞는 술을 대령숙수가 직접 선별하여 전국 각지에서 진상되는 술로 채워지고 있습니다. 취향을 말씀해 주시면 오늘의 수라상에 가장 어울리는 술을 추천해드리며, 잔술로 주문 가능합니다.</li>
     </ol>
+    </div>
   </div>
 
-  <nav id="secnav" class="sec-nav" aria-label="메뉴 카테고리 바로가기"></nav>
   <div id="scon"><!--SEO-MENU-->
 <div class="seo-static">
 <h1>대전어상 메뉴</h1>
@@ -1429,6 +1436,7 @@ function filterMenu(q){
   });
   hint.style.display='';
   hint.textContent=total?`${total}개 메뉴를 찾았습니다`:'검색 결과가 없습니다';
+  window._uhTotal=total;
 }
 function clearSearch(){
   const inp=document.getElementById('menu-search');
@@ -1663,6 +1671,18 @@ wcs_add["wa"] = "1912eb5bd129400";
 if(window.wcs) {
   wcs_do();
 }
+</script>
+
+<script>
+/* QR 메뉴 관찰: 소개 펼치기, 카테고리 화면 노출(페이지당 1회) */
+(function(){
+  var bt=document.getElementById('bi-toggle'),bx=document.getElementById('brand-intro');
+  if(bt&&bx)bt.addEventListener('click',function(){var c=bx.classList.toggle('collapsed');bt.setAttribute('aria-expanded',String(!c));bt.textContent=c?'대전어상 이야기와 약속 보기 ▾':'접기 ▴';if(!c&&window.uhEv)uhEv('story_open',{page_type:'menu'});});
+  var seen={},tm=0;
+  function check(){tm=0;var h=window.innerHeight;document.querySelectorAll('#scon .section[data-sec]').forEach(function(el){var r=el.getBoundingClientRect();if(r.top<h*0.7&&el.offsetParent!==null){var id=el.getAttribute('data-sec');if(seen[id])return;seen[id]=1;var t=el.querySelector('.sec-title');if(window.uhEv)uhEv('section_view',{category_id:id,category_name:t?t.textContent:id});}});}
+  window.addEventListener('scroll',function(){if(!tm)tm=setTimeout(check,150);},{passive:true});
+  setTimeout(check,1500);
+})();
 </script>
 </body>
 </html>
