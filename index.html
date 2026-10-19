@@ -292,6 +292,7 @@ body.admin-mode .add-sec-btn{display:block;}
 .som-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:3px}.som-bar i{height:6px;border-radius:3px;background:var(--div)}.som-bar i.on{background:var(--gold2)}
 .som-row{display:grid;grid-template-columns:38px 1fr;gap:6px;font-size:11.5px;line-height:1.5}.som-v{color:var(--ink)}
 .som-pair .som-v{color:var(--crimson)}
+.som-poster{width:100%;max-width:360px;height:auto;display:block;margin:0 auto 4px;border:1px solid var(--div)}
 .som-est{font-size:10px;color:var(--muted);margin-top:2px}
 .som-sep{height:1px;background:var(--div);margin:2px 0}
 .som-hist .som-v{font-size:11px;color:var(--muted)}
@@ -1381,11 +1382,11 @@ function x(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/
 function tnDots(v){let s='';for(let i=1;i<=5;i++)s+=i<=v?'●':'○';return s;}
 function tnHtml(item){
   const rows=[];
-  if(item.tSweet)rows.push(1);if(item.tSour)rows.push(1);if(item.tBody)rows.push(1);if(item.tCarb)rows.push(1);if(item.tUmami)rows.push(1);if(item.sRice||item.sNuruk||item.sHistory)rows.push(1);
+  if(item.sPoster)rows.push(1);if(item.tSweet)rows.push(1);if(item.tSour)rows.push(1);if(item.tBody)rows.push(1);if(item.tCarb)rows.push(1);if(item.tUmami)rows.push(1);if(item.sRice||item.sNuruk||item.sHistory)rows.push(1);
   if(!rows.length)return '';
   const prof=(item.region||item.brewery?`<div class="som-row"><span class="som-k">산지</span><span class="som-v">${x([item.region,item.brewery].filter(Boolean).join(' · '))}</span></div>`:'')+(item.sRice?`<div class="som-row"><span class="som-k">쌀</span><span class="som-v">${x(item.sRice)}</span></div>`:'')+(item.sNuruk?`<div class="som-row"><span class="som-k">누룩</span><span class="som-v">${x(item.sNuruk)}</span></div>`:'')+(item.sHistory?`<div class="som-row som-hist"><span class="som-k">이야기</span><span class="som-v">${x(item.sHistory)}</span></div>`:'');
   // 사장님 10/19: 막걸리·약주는 눌러서 펼치는 소믈리에 카드
-  return `<div class="sommelier"><button type="button" class="som-tg" aria-expanded="false">소믈리에 노트 <span class="som-ar">▾</span></button><div class="som-body" hidden>${somScale(item)}${item.tAroma?`<div class="som-row"><span class="som-k">향</span><span class="som-v">${x(item.tAroma)}</span></div>`:''}${item.tNote?`<div class="som-row"><span class="som-k">맛</span><span class="som-v">${x(item.tNote)}</span></div>`:''}${item.pairing?`<div class="som-row som-pair"><span class="som-k">어울림</span><span class="som-v">${x(item.pairing)}</span></div>`:''}${prof?`<div class="som-sep"></div>${prof}`:''}${item.tEst?`<div class="som-est">※ 맛 지표는 ${item.tEst==='house'?'매장 기준':'양조장·판매처·시음기 평을 모은'} 참고값입니다</div>`:''}</div></div>`;
+  return `<div class="sommelier"><button type="button" class="som-tg" aria-expanded="false">소믈리에 노트 <span class="som-ar">▾</span></button><div class="som-body" hidden>${item.sPoster?`<img class="som-poster" src="${x(item.sPoster)}" alt="${x(item.name)} 포스터" loading="lazy">`:''}${somScale(item)}${item.tAroma?`<div class="som-row"><span class="som-k">향</span><span class="som-v">${x(item.tAroma)}</span></div>`:''}${item.tNote?`<div class="som-row"><span class="som-k">맛</span><span class="som-v">${x(item.tNote)}</span></div>`:''}${item.pairing?`<div class="som-row som-pair"><span class="som-k">어울림</span><span class="som-v">${x(item.pairing)}</span></div>`:''}${prof?`<div class="som-sep"></div>${prof}`:''}${item.tEst?`<div class="som-est">※ 맛 지표는 ${item.tEst==='house'?'매장 기준':'양조장·판매처·시음기 평을 모은'} 참고값입니다</div>`:''}</div></div>`;
 }
 function somBar(lbl,lo,hi,v,max){if(v==null||v==='')return '';const n=parseInt(v)||0;let d='';for(let i=1;i<=max;i++)d+=`<i class="${i<=n?'on':''}"></i>`;return `<div class="som-scale"><span class="som-k">${lbl}</span><span class="som-lo">${lo}</span><span class="som-bar">${d}</span><span class="som-hi">${hi}</span></div>`;}
 function pairBoxHtml(item){
