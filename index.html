@@ -171,7 +171,7 @@ body{background:var(--bg);font-family:'Noto Sans KR',sans-serif;font-weight:300;
 }
 .h-divline::before,.h-divline::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold2),transparent);}
 .h-divline span{color:var(--gold2);font-size:10px;letter-spacing:2px;}
-.h-sub{font-family:'Nanum Myeongjo',serif;font-size:10px;color:var(--muted);letter-spacing:3px;}
+.h-sub{font-family:'Nanum Myeongjo',serif;font-size:10px;color:var(--muted);letter-spacing:2px;}
 
 /* 클릭 수정 힌트 (admin) */
 body.admin-mode .h-en,body.admin-mode .h-title,body.admin-mode .h-sub{cursor:pointer;outline:1.5px dashed var(--gold);outline-offset:2px;}
@@ -335,7 +335,7 @@ body.admin-mode .add-sec-btn{display:block;}
   .pband,.pband-b{margin-left:-14px;margin-right:-14px;}
   .h-title{font-size:22px!important;letter-spacing:4px!important;}
   .h-en{letter-spacing:3px!important;white-space:normal;}
-  .h-sub{letter-spacing:2px!important;}
+  .h-sub{letter-spacing:1px!important;}
   .sec-title{font-size:13px!important;letter-spacing:3px!important;white-space:normal;}
   .idesc{max-width:100%!important;}
   .items .item{grid-template-columns:1fr auto;gap:8px;}
@@ -827,7 +827,7 @@ body.admin-mode .add-sec-btn{display:block;}
     <div class="h-crown" style="display:none">♛</div>
     <div style="margin:3px 0 4px;display:none"><span class="h-title" id="h-title" id="h-title-wrap">대전어상주류 메뉴</span></div>
     <div class="h-divline"><span>御 床</span></div>
-    <span class="h-sub" id="h-sub" id="h-sub-wrap">조선의 술, 현대의 감각으로 빚다</span>
+    <span class="h-sub" id="h-sub" id="h-sub-wrap">일월오봉도 아래, 임금께 올리는 술과 음식</span>
   </div>
   <div class="pband-b main-header-block"></div>
   <div class="legend main-header-block">
@@ -1583,7 +1583,7 @@ function buildCustomerHTML(dj){
     +'var h=MD.header||{};'
     +'document.getElementById("th-en").textContent=h.en||"Traditional Korean Liquor";'
     +'document.getElementById("th-title").innerHTML="<span class=\\"acc\\">\u{B300}\u{C804}\u{C5B4}\u{C0C1}</span>\u{C8FC}\u{B958} \u{BA54}\u{B274}";'
-    +'document.getElementById("th-sub").textContent=h.sub||"\u{C870}\u{C120}\u{C758} \u{C220}, \u{D604}\u{B300}\u{C758} \u{AC10}\u{AC01}\u{C73C}\u{B85C} \u{BE5A}\u{B2E4}";'
+    +'document.getElementById("th-sub").textContent=h.sub||"\u{C77C}\u{C6D4}\u{C624}\u{BD09}\u{B3C4} \u{C544}\u{B798}, \u{C784}\u{AE08}\u{AED8} \u{C62C}\u{B9AC}\u{B294} \u{C220}\u{ACFC} \u{C74C}\u{C2DD}";'
     +'document.getElementById("ft").textContent=(h.title||"\u{B300}\u{C804}\u{C5B4}\u{C0C1}")+" \u5927\u5EC3\u6F01\u5E8A";'
     +'var nav=document.getElementById("nav");nav.innerHTML="";'
     +'var mn=document.getElementById("main");mn.innerHTML="";'
