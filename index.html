@@ -271,7 +271,9 @@ body.admin-mode .add-sec-btn{display:block;}
 .pb-chips{display:flex;flex-wrap:wrap;gap:6px}
 .pb-chip{font:inherit;font-size:11.5px;padding:6px 10px;min-height:32px;border:1px solid var(--gold2);background:var(--paper);color:var(--ink);border-radius:16px;cursor:pointer}
 .pb-chip.on{background:var(--gold2);color:#fff}
-.pb-pick{display:grid;gap:3px;padding-top:4px}
+.pb-pick{display:grid;gap:3px;padding:6px 0;border-top:1px dashed var(--div)}
+.pb-pick:first-child{border-top:none}
+.pb-best{justify-self:start;font-size:10px;color:#fff;background:var(--crimson);padding:1px 6px;border-radius:2px}
 .pb-name{font-size:13px;font-weight:700;color:var(--ink)}
 .pb-price{font-size:11px;color:var(--muted)}
 .pb-spec{font-size:11px;font-weight:400;color:var(--muted)}
@@ -1396,9 +1398,10 @@ function pairBoxHtml(item){
   return `<div class="sommelier pairbox"><button type="button" class="som-tg" aria-expanded="false">어울리는 술 <span class="som-ar">▾</span></button><div class="som-body" hidden><div class="pb-q">어떤 술로 드실까요?</div><div class="pb-chips">${chips}</div><div class="pb-ans"></div></div></div>`;
 }
 function pairAnswer(item,cat){
-  const r=(item.pairDrinks||{})[cat]; if(!r)return '';
-  const d=findItem(r.id); const price=d?(d.priceGlass&&d.priceBottle?`병 ${x(d.priceBottle)} · 잔 ${x(d.priceGlass)}`:x(d.priceBottle||d.priceGlass||'')):'';
-  return `<div class="pb-pick"><div class="pb-name">${x(d?d.name:r.name)}${d&&d.spec?` <span class="pb-spec">${x(String(d.spec).split('·')[0].trim())}</span>`:''}</div>${price?`<div class="pb-price">${price}</div>`:''}<div class="pb-why">${x(r.why||'')}</div>${d?`<button type="button" class="pb-go" data-go="${x(r.id)}">메뉴에서 보기 →</button>`:''}</div>`;
+  let rs=(item.pairDrinks||{})[cat]; if(!rs)return ''; if(!Array.isArray(rs))rs=[rs];
+  // 사장님 10/20: 카테고리마다 여러 개(1순위가 맨 앞)
+  return rs.map((r,n)=>{const d=findItem(r.id);if(!d||d.soldout)return '';const price=d.priceGlass&&d.priceBottle?`병 ${x(d.priceBottle)} · 잔 ${x(d.priceGlass)}`:x(d.priceBottle||d.priceGlass||'');
+    return `<div class="pb-pick">${n===0?'<span class="pb-best">추천</span>':''}<div class="pb-name">${x(d.name)}${(()=>{const sp=d.spec?String(d.spec).split('·')[0].trim():'';return sp&&!String(d.name).includes(sp)?` <span class="pb-spec">${x(sp)}</span>`:'';})()}</div>${price?`<div class="pb-price">${price}</div>`:''}<div class="pb-why">${x(r.why||'')}</div><button type="button" class="pb-go" data-go="${x(r.id)}">메뉴에서 보기 →</button></div>`;}).join('');
 }
 function findItem(id){for(const sec of (MD.sections||[]))for(const it of sec.items)if(it.id===id)return it;return null;}
 function somScale(it){return somBar('당도','드라이','달콤',it.tSweet,5)+somBar('산미','낮음','높음',it.tSour,5)+somBar('바디','가벼움','묵직',it.tBody,5)+(it.tCarb?somBar('탄산','없음','강함',it.tCarb,5):'')+(it.tUmami?somBar('감칠맛','약함','강함',it.tUmami,5):'');}
