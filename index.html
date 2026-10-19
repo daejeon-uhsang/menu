@@ -284,6 +284,20 @@ body.admin-mode .add-sec-btn{display:block;}
 .items .item.has-bottle{grid-template-columns:44px 1fr auto}
 .bottle-th{width:44px;height:66px;object-fit:contain;align-self:start;margin-top:2px}
 .som-bottle{width:120px;height:180px;object-fit:contain;display:block;margin:0 auto 4px}
+.map-btn{display:block;margin:4px auto 10px;font:inherit;font-size:12px;letter-spacing:1px;color:var(--gold2);background:transparent;border:1px solid var(--gold2);padding:6px 14px;border-radius:16px;cursor:pointer;min-height:34px}
+.mm-box{position:relative;background:var(--paper);width:min(94vw,520px);max-height:90vh;overflow:auto;padding:16px 16px 12px;border:1px solid var(--div)}
+.mm-close{position:absolute;top:6px;right:8px;font-size:18px;background:none;border:none;color:var(--ink);cursor:pointer;min-width:36px;min-height:36px}
+.mm-title{font-family:'Nanum Myeongjo',serif;font-size:18px;font-weight:700;color:var(--ink)}
+.mm-sub{font-size:11px;color:var(--muted);margin:2px 0 8px}
+.mm-map{background:#efe6d0;border:1px solid var(--div)}.mm-svg{width:100%;height:auto;display:block}
+.mm-pin circle{fill:#7a1414;stroke:#fff;stroke-width:1.2}.mm-pin text{font-size:9px;fill:#fff;font-weight:700;pointer-events:none}.mm-pin{cursor:pointer}
+.mm-store rect{fill:#b8820a}.mm-store text{font-size:9px;fill:#fff}
+.mm-list{display:grid;gap:6px;margin-top:10px}
+.mm-row{display:grid;grid-template-columns:24px 1fr;gap:8px;padding:6px 4px;border-bottom:1px dashed var(--div)}
+.mm-no{width:22px;height:22px;border-radius:50%;background:#7a1414;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center}.mm-h{background:#b8820a}
+.mm-reg{font-size:11px;color:var(--muted);margin-bottom:2px}
+.mm-item{display:inline-block;font:inherit;font-size:12.5px;color:var(--ink);background:none;border:none;padding:3px 8px 3px 0;cursor:pointer;text-decoration:underline;text-decoration-color:var(--div)}
+.mm-foot{font-size:10px;color:var(--muted);margin-top:8px}.mm-load{padding:30px;text-align:center;color:var(--muted)}
 .sommelier{margin-top:6px}
 #print-root .sommelier{display:none}
 @media print{.sommelier{display:none}}
@@ -765,6 +779,7 @@ body.admin-mode .add-sec-btn{display:block;}
 
 
 <!-- ITEM EDIT MODAL -->
+<div class="modal-overlay" id="map-modal" role="dialog" aria-label="산지 지도"><div class="mm-box"><button type="button" class="mm-close" aria-label="닫기" onclick="document.getElementById('map-modal').classList.remove('open')">✕</button><div class="mm-body"></div></div></div>
 <div class="modal-overlay" id="edit-modal">
   <div class="mbox">
     <h3 id="edit-title">메뉴 수정</h3>
@@ -1322,6 +1337,7 @@ function buildSec(sec,si){
   const _l2=document.createElement('div');_l2.className='sec-line';h.appendChild(_l2);
   el.appendChild(h);
   if(sec.note){const n=document.createElement('div');n.className='note';n.textContent=sec.note;el.appendChild(n);}
+  if(MAP_SECS.includes(sec.id)){const mb=document.createElement('button');mb.type='button';mb.className='map-btn';mb.innerHTML='산지 지도 보기 <span aria-hidden="true">→</span>';mb.addEventListener('click',e=>{e.stopPropagation();openSoolMap(sec);});el.appendChild(mb);}
   let w;
   if(sec.layout==='2col'){w=document.createElement('div');w.className='items-2col';}
   else if(sec.layout==='cocktail'){w=document.createElement('div');w.className='cocktail-grid';}
@@ -1405,6 +1421,29 @@ function pairAnswer(item,cat){
   // 사장님 10/20: 카테고리마다 여러 개(1순위가 맨 앞)
   return rs.map((r,n)=>{const d=findItem(r.id);if(!d||d.soldout)return '';const price=d.priceGlass&&d.priceBottle?`병 ${x(d.priceBottle)} · 잔 ${x(d.priceGlass)}`:x(d.priceBottle||d.priceGlass||'');
     return `<div class="pb-pick">${n===0?'<span class="pb-best">추천</span>':''}<div class="pb-name">${x(d.name)}${(()=>{const sp=d.spec?String(d.spec).split('·')[0].trim():'';return sp&&!String(d.name).includes(sp)?` <span class="pb-spec">${x(sp)}</span>`:'';})()}</div>${price?`<div class="pb-price">${price}</div>`:''}<div class="pb-why">${x(r.why||'')}</div><button type="button" class="pb-go" data-go="${x(r.id)}">메뉴에서 보기 →</button></div>`;}).join('');
+}
+
+// 사장님 10/20: 술 섹션마다 '산지 지도 보기' — 벽 포스터와 같은 지도·번호
+const MAP_SECS=['s4','s6','s7','s10','s11'];
+let _mapData=null,_mapSvg=null;
+async function loadMap(){if(!_mapData){const[a,b]=await Promise.all([fetch('art/sool/map/pins.json').then(r=>r.json()),fetch('art/sool/map/korea_base.svg').then(r=>r.text())]);_mapData=a;_mapSvg=b;}}
+async function openSoolMap(sec){
+  const ov=document.getElementById('map-modal');ov.classList.add('open');
+  const body=ov.querySelector('.mm-body');body.innerHTML='<div class="mm-load">지도를 불러오는 중…</div>';
+  gtag('event','sool_map_open',{category_id:sec.id,category_name:sec.title});
+  try{await loadMap();}catch(e){body.innerHTML='<div class="mm-load">지도를 불러오지 못했습니다.</div>';return;}
+  const P=_mapData.posters.find(p=>p.sections.includes(sec.id));const ids=new Set(sec.items.map(i=>i.id));
+  const pins=(P?P.pins:[]).map(p=>({...p,ids:p.ids.filter(i=>ids.has(i))})).filter(p=>p.ids.length);
+  const st=_mapData.store||{x:187.3,y:126.5};
+  let svg=_mapSvg.replace('<svg ','<svg class="mm-svg" ');
+  const marks=pins.map(p=>`<g class="mm-pin" data-no="${p.no}" tabindex="0"><circle cx="${p.x}" cy="${p.y}" r="9"/><text x="${p.x}" y="${p.y+3.4}" text-anchor="middle">${p.no}</text></g>`).join('')+`<g class="mm-store"><rect x="${st.x-7}" y="${st.y-7}" width="14" height="14"/><text x="${st.x}" y="${st.y+3.5}" text-anchor="middle">大</text></g>`;
+  svg=svg.replace('</svg>',marks+'</svg>');
+  const items=Object.fromEntries(sec.items.map(i=>[i.id,i]));
+  const list=pins.map(p=>`<div class="mm-row" data-no="${p.no}"><span class="mm-no">${p.no}</span><div><div class="mm-reg">${x(p.region)}${p.est_all?' *':''}</div>${p.ids.map(i=>`<button type="button" class="mm-item" data-go="${x(i)}">${x(items[i].name)}</button>`).join('')}</div></div>`).join('');
+  const house=(P&&P.house&&ids.has(P.house))?`<div class="mm-row"><span class="mm-no mm-h">大</span><div><div class="mm-reg">대전어상 하우스</div><button type="button" class="mm-item" data-go="${x(P.house)}">${x(items[P.house].name)}</button></div></div>`:'';
+  body.innerHTML=`<div class="mm-title">${x(sec.title)} 산지 지도</div><div class="mm-sub">${pins.reduce((a,p)=>a+p.ids.length,0)}종 · ${pins.length}개 시군 — 번호를 누르면 그 지역 술로 이동합니다</div><div class="mm-map">${svg}</div><div class="mm-list">${house}${list}</div><div class="mm-foot">* 위치 추정 · 지도: Natural Earth(퍼블릭 도메인) · 매장 벽 지도와 같은 번호</div>`;
+  body.querySelectorAll('.mm-pin').forEach(g=>g.addEventListener('click',()=>{const r=body.querySelector(`.mm-row[data-no="${g.dataset.no}"]`);if(r){r.scrollIntoView({behavior:'smooth',block:'nearest'});r.classList.add('flash');setTimeout(()=>r.classList.remove('flash'),1600);}}));
+  body.querySelectorAll('.mm-item').forEach(b=>b.addEventListener('click',()=>{ov.classList.remove('open');const t=document.querySelector(`[data-item-id="${b.dataset.go}"]`);if(t){t.scrollIntoView({behavior:'smooth',block:'center'});t.classList.add('flash');setTimeout(()=>t.classList.remove('flash'),1600);}gtag('event','sool_map_go',{drink_id:b.dataset.go});}));
 }
 function findItem(id){for(const sec of (MD.sections||[]))for(const it of sec.items)if(it.id===id)return it;return null;}
 function somScale(it){return somBar('당도','드라이','달콤',it.tSweet,5)+somBar('산미','낮음','높음',it.tSour,5)+somBar('바디','가벼움','묵직',it.tBody,5)+(it.tCarb?somBar('탄산','없음','강함',it.tCarb,5):'')+(it.tUmami?somBar('감칠맛','약함','강함',it.tUmami,5):'');}
