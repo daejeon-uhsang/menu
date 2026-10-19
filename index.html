@@ -281,6 +281,9 @@ body.admin-mode .add-sec-btn{display:block;}
 .pb-go{justify-self:start;font:inherit;font-size:11px;color:var(--gold2);background:none;border:none;padding:4px 0;cursor:pointer;text-decoration:underline}
 .flash{animation:flashbg 1.6s ease}
 @keyframes flashbg{0%,40%{background:rgba(184,130,10,.18)}100%{background:transparent}}
+.items .item.has-bottle{grid-template-columns:44px 1fr auto}
+.bottle-th{width:44px;height:66px;object-fit:contain;align-self:start;margin-top:2px}
+.som-bottle{width:120px;height:180px;object-fit:contain;display:block;margin:0 auto 4px}
 .sommelier{margin-top:6px}
 #print-root .sommelier{display:none}
 @media print{.sommelier{display:none}}
@@ -1355,8 +1358,8 @@ function buildItem(item,sec,idx){
     el=document.createElement('div');el.className='pitem'+soClass;
     el.innerHTML=`<div class="ehint" style="right:2px;top:3px">✎</div>${mvB}<div class="pnum">${idx+1}</div><div><div class="iname">${x(item.name)} ${bd}${soTxt}${rbTxt}</div><div class="ispec">${x(item.spec)}</div><div class="idesc">${x(item.desc)}</div>${prTxt}${tnTxt}</div><div class="iprice">${pF(item)}</div>`;
   }else{
-    el=document.createElement('div');el.className='item'+soClass;
-    el.innerHTML=`<div class="ehint">✎ 수정</div>${mvB}<div><div class="iname">${x(item.name)} ${bd}${soTxt}${rbTxt}</div>${item.spec?`<div class="ispec">${x(item.spec)}</div>`:''}${item.desc?`<div class="idesc">${x(item.desc)}</div>`:''}${prTxt}${tnTxt}</div><div class="iprice">${pF(item)}</div>`;
+    el=document.createElement('div');el.className='item'+soClass+(item.sImg?' has-bottle':'');
+    el.innerHTML=`<div class="ehint">✎ 수정</div>${mvB}${item.sImg?`<img class="bottle-th" src="${x(item.sImg)}" alt="" loading="lazy">`:''}<div><div class="iname">${x(item.name)} ${bd}${soTxt}${rbTxt}</div>${item.spec?`<div class="ispec">${x(item.spec)}</div>`:''}${item.desc?`<div class="idesc">${x(item.desc)}</div>`:''}${prTxt}${tnTxt}</div><div class="iprice">${pF(item)}</div>`;
   }
   el.dataset.itemId=item.id;
   el.addEventListener('click',e=>{
@@ -1384,11 +1387,11 @@ function x(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/
 function tnDots(v){let s='';for(let i=1;i<=5;i++)s+=i<=v?'●':'○';return s;}
 function tnHtml(item){
   const rows=[];
-  if(item.sPoster)rows.push(1);if(item.tSweet)rows.push(1);if(item.tSour)rows.push(1);if(item.tBody)rows.push(1);if(item.tCarb)rows.push(1);if(item.tUmami)rows.push(1);if(item.sRice||item.sNuruk||item.sHistory)rows.push(1);
+  if(item.sPoster||item.sImg)rows.push(1);if(item.tSweet)rows.push(1);if(item.tSour)rows.push(1);if(item.tBody)rows.push(1);if(item.tCarb)rows.push(1);if(item.tUmami)rows.push(1);if(item.sRice||item.sNuruk||item.sHistory)rows.push(1);
   if(!rows.length)return '';
   const prof=(item.region||item.brewery?`<div class="som-row"><span class="som-k">산지</span><span class="som-v">${x([item.region,item.brewery].filter(Boolean).join(' · '))}</span></div>`:'')+(item.sRice?`<div class="som-row"><span class="som-k">쌀</span><span class="som-v">${x(item.sRice)}</span></div>`:'')+(item.sNuruk?`<div class="som-row"><span class="som-k">누룩</span><span class="som-v">${x(item.sNuruk)}</span></div>`:'')+(item.sHistory?`<div class="som-row som-hist"><span class="som-k">이야기</span><span class="som-v">${x(item.sHistory)}</span></div>`:'');
   // 사장님 10/19: 막걸리·약주는 눌러서 펼치는 소믈리에 카드
-  return `<div class="sommelier"><button type="button" class="som-tg" aria-expanded="false">소믈리에 노트 <span class="som-ar">▾</span></button><div class="som-body" hidden>${item.sPoster?`<img class="som-poster" src="${x(item.sPoster)}" alt="${x(item.name)} 포스터" loading="lazy">`:''}${somScale(item)}${item.tAroma?`<div class="som-row"><span class="som-k">향</span><span class="som-v">${x(item.tAroma)}</span></div>`:''}${item.tNote?`<div class="som-row"><span class="som-k">맛</span><span class="som-v">${x(item.tNote)}</span></div>`:''}${item.pairing?`<div class="som-row som-pair"><span class="som-k">어울림</span><span class="som-v">${x(item.pairing)}</span></div>`:''}${prof?`<div class="som-sep"></div>${prof}`:''}${item.tEst?`<div class="som-est">※ 맛 지표는 ${item.tEst==='house'?'매장 기준':'양조장·판매처·시음기 평을 모은'} 참고값입니다</div>`:''}</div></div>`;
+  return `<div class="sommelier"><button type="button" class="som-tg" aria-expanded="false">소믈리에 노트 <span class="som-ar">▾</span></button><div class="som-body" hidden>${item.sImg&&!item.sPoster?`<img class="som-bottle" src="${x(item.sImg)}" alt="${x(item.name)}" loading="lazy">`:''}${item.sPoster?`<img class="som-poster" src="${x(item.sPoster)}" alt="${x(item.name)} 포스터" loading="lazy">`:''}${somScale(item)}${item.tAroma?`<div class="som-row"><span class="som-k">향</span><span class="som-v">${x(item.tAroma)}</span></div>`:''}${item.tNote?`<div class="som-row"><span class="som-k">맛</span><span class="som-v">${x(item.tNote)}</span></div>`:''}${item.pairing?`<div class="som-row som-pair"><span class="som-k">어울림</span><span class="som-v">${x(item.pairing)}</span></div>`:''}${prof?`<div class="som-sep"></div>${prof}`:''}${item.tEst?`<div class="som-est">※ 맛 지표는 ${item.tEst==='house'?'매장 기준':'양조장·판매처·시음기 평을 모은'} 참고값입니다</div>`:''}</div></div>`;
 }
 function somBar(lbl,lo,hi,v,max){if(v==null||v==='')return '';const n=parseInt(v)||0;let d='';for(let i=1;i<=max;i++)d+=`<i class="${i<=n?'on':''}"></i>`;return `<div class="som-scale"><span class="som-k">${lbl}</span><span class="som-lo">${lo}</span><span class="som-bar">${d}</span><span class="som-hi">${hi}</span></div>`;}
 function pairBoxHtml(item){
