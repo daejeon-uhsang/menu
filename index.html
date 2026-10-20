@@ -1547,9 +1547,9 @@ async function botAnswer(q){const G=MD.orderGuide||[];const F=await botFaq();let
   const fq=[].concat(q.faq||[]);fq.forEach(k=>{const f=F.find(z=>z.q===k);if(f)out+=`<p>${x(f.a)}</p>`;});
   (q.g||[]).forEach(id=>{const g=G.find(z=>z.id===id);if(g)out+=ogCard(g);});
   botSay(out||'아직 준비된 답이 없어요. 직원에게 물어봐 주세요.');}
-async function botMask(t){t=t.replace(/\S+@\S+/g,'***').replace(/[+(]?\d[\d\s().+\-]{4,}\d/g,'***');  // 괄호·점·공백·국가번호 섞인 번호까지
+function botMask(t){t=t.replace(/\S+@\S+/g,'***').replace(/[+(]?\d[\d\s().+\-]{4,}\d/g,'***');  // 괄호·점·공백·국가번호 섞인 번호까지
   return ((t.match(/\d/g)||[]).length>=6)?t.replace(/\d/g,'*'):t;}  // 남은 숫자가 6개 이상이면 숫자는 모두 가림
-function botFree(text){const t=text.trim().slice(0,80);if(!t)return;botSay(x(t),'u');
+async function botFree(text){const t=text.trim().slice(0,80);if(!t)return;botSay(x(t),'u');
   const F=await botFaq();const words=t.replace(/[?.!~,]/g,' ').split(/\s+/).filter(w=>w.length>=2);
   const score=s=>words.reduce((n,w)=>n+(s.includes(w)?1:0),0);
   let best=null,bs=0;F.forEach(f=>{const v=score(f.q)*2+score(f.a);if(v>bs){bs=v;best=f;}});
