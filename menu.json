@@ -2383,7 +2383,47 @@
           "desc": "강원 속초 설악프로방스 배꽃마을에서 만든 '바다한잔 동해소주'. 쌀 증류 원액을 더해 17.5도로 부드럽게 맞춘 강원도 지역 소주",
           "priceBottle": "7,000",
           "priceGlass": "",
-          "sImg": "art/sool/bottle/donghae1.webp"
+          "sImg": "art/sool/bottle/donghae1.webp",
+          "region": "강원 속초",
+          "brewery": "설악프로방스 배꽃마을",
+          "sMaterial": "쌀 증류주 22.09% + 해양심층수(정제수) 71.89% + 주정 5.66% + 감미료(에리스리톨·결정과당·과당옥수수시럽·효소처리스테비아)",
+          "tAroma": "은은한 쌀향, 약한 단향",
+          "tNote": "단맛이 먼저 오는 부드러운 17.5도, 일반 소주에 가까움",
+          "sAxA": 1,
+          "sAxT": 1,
+          "sAromaTags": [
+            "곡물(약함)"
+          ],
+          "sServe": {
+            "main": "차게(냉장) 스트레이트",
+            "alt": [
+              "록"
+            ],
+            "temp": "5~10도"
+          },
+          "sPairFood": [
+            {
+              "id": "f101",
+              "why": "부드러운 17.5도로 편하게"
+            },
+            {
+              "id": "gomtang01",
+              "why": "부드러워 식사와 편안"
+            },
+            {
+              "id": "f201b",
+              "why": "17.5도 부드러움이 국물과"
+            },
+            {
+              "id": "f109",
+              "why": "부드러운 도수로 만두와 편안"
+            },
+            {
+              "id": "f203",
+              "why": "부드러운 도수가 국물과 편안"
+            }
+          ],
+          "tEst": "soju1020"
         },
         {
           "id": "i36",
@@ -2396,7 +2436,44 @@
           "priceBottle": "25,000",
           "priceGlass": "",
           "group": "쌀",
-          "sImg": "art/sool/bottle/i36.webp"
+          "sImg": "art/sool/bottle/i36.webp",
+          "region": "충북 충주 엄정면",
+          "brewery": "농업회사법인 해치소주(주)",
+          "sMaterial": "찹쌀(국내산), 누룩, 효모, 정제효소제, 정제수",
+          "sDistill": "상압",
+          "tAroma": "고소한 곡물향, 은은한 풀향",
+          "tNote": "22도인데 물처럼 부드럽고 끝이 깔끔",
+          "sAxA": 2,
+          "sAxT": 2,
+          "sAromaTags": [
+            "곡물",
+            "풀"
+          ],
+          "sServe": {
+            "main": "차게 스트레이트",
+            "alt": [
+              "록",
+              "소다(하이볼)"
+            ],
+            "temp": "8~12도"
+          },
+          "sPairFood": [
+            {
+              "id": "eobok01",
+              "why": "쌀향·풀향이 미나리와"
+            },
+            {
+              "id": "f106",
+              "why": "은은한 풀향이 참기름과"
+            },
+            {
+              "id": "f201b",
+              "why": "풀향이 미나리와 어울림"
+            }
+          ],
+          "tEst": "soju1020",
+          "sjNuruk": "전통 누룩(판매처 설명: 개량 누룩·코지 아님)",
+          "sStarter": "sangap"
         },
         {
           "id": "i41",
@@ -2409,7 +2486,39 @@
           "priceBottle": "29,000",
           "priceGlass": "",
           "group": "쌀",
-          "sImg": "art/sool/bottle/i41.webp"
+          "sImg": "art/sool/bottle/i41.webp",
+          "region": "충북 충주",
+          "brewery": "농업회사법인 다농바이오",
+          "sMaterial": "국내산(충주) 쌀, 입국, 효모, 정제수 — 쌀 삼양주",
+          "sDistill": "상압(독일 코테 18단 증류기, 생산책임자 인터뷰)",
+          "sAging": "옹기 6개월 이상(판매처 설명 1곳)",
+          "tAroma": "배·사과 과실향, 꽃향, 은은한 바닐라",
+          "tNote": "탄내·누룩내 적은 상압, 산뜻하고 부드러운 쌀 소주",
+          "sAxA": 4,
+          "sAxT": 2,
+          "sAromaTags": [
+            "과실·꽃",
+            "곡물"
+          ],
+          "sServe": {
+            "main": "차게 스트레이트",
+            "alt": [
+              "록"
+            ],
+            "temp": "8~12도"
+          },
+          "sPairFood": [
+            {
+              "id": "f108b",
+              "why": "깔끔한 쌀 증류주가 기름과"
+            },
+            {
+              "id": "f206",
+              "why": "깔끔한 쌀 증류주가 밥과"
+            }
+          ],
+          "tEst": "soju1020",
+          "sjNuruk": "입국(43도 제품 원재료 표기 기준, 25도 라벨 확인 필요)"
         },
         {
           "id": "i44",
@@ -2422,7 +2531,46 @@
           "priceBottle": "29,000",
           "priceGlass": "",
           "group": "쌀",
-          "sImg": "art/sool/bottle/i44.webp"
+          "sImg": "art/sool/bottle/i44.webp",
+          "region": "경기 파주",
+          "brewery": "미음넷증류소 농업회사법인(주)",
+          "sMaterial": "쌀 증류식 소주 원액(쌀: 국내산·파주), 정제수",
+          "sDistill": "상압(동 증류기, 단식 2회 이상 — 언론 인용 블로그)",
+          "tAroma": "화사한 향, 밀키한 쌀 단향",
+          "tNote": "고소하고 담백한 쌀맛, 피니시 짧고 깔끔",
+          "sAxA": 4,
+          "sAxT": 2,
+          "sAromaTags": [
+            "꽃·과실",
+            "곡물"
+          ],
+          "sServe": {
+            "main": "차게 스트레이트",
+            "alt": [
+              "록"
+            ],
+            "temp": "8~12도"
+          },
+          "sPairFood": [
+            {
+              "id": "eobok01",
+              "why": "구수한 풍미가 육수와"
+            },
+            {
+              "id": "gomtang01",
+              "why": "구수함이 곰탕 국물과"
+            },
+            {
+              "id": "f203",
+              "why": "구수함이 우동 국물과"
+            },
+            {
+              "id": "f203b",
+              "why": "구수함이 김치 국물과"
+            }
+          ],
+          "tEst": "soju1020",
+          "sjNuruk": "입국(증류소 투어 블로그: 27·45·59.5는 입국만 사용)"
         },
         {
           "id": "i46",
@@ -2435,7 +2583,37 @@
           "priceBottle": "39,000",
           "priceGlass": "",
           "group": "쌀",
-          "sImg": "art/sool/bottle/i46.webp"
+          "sImg": "art/sool/bottle/i46.webp",
+          "region": "충북 청주",
+          "brewery": "농업회사법인 조은술세종(주)",
+          "sMaterial": "유기농 쌀(국내산), 토종 효모 N9, 초정 광천수",
+          "sDistill": "감압(저온)",
+          "tAroma": "멜론·참외 같은 단향, 화사한 쌀향",
+          "tNote": "차갑게 화사, 미지근하면 알싸하고 구수",
+          "sAxA": 4,
+          "sAxT": 3,
+          "sAromaTags": [
+            "꽃·과실",
+            "곡물"
+          ],
+          "sServe": {
+            "main": "차게 스트레이트(화사한 향) / 상온(구수함)",
+            "alt": [
+              "록"
+            ],
+            "temp": "8~15도"
+          },
+          "sPairFood": [
+            {
+              "id": "f110",
+              "why": "깔끔한 쌀향이 결 살림"
+            },
+            {
+              "id": "f106",
+              "why": "깔끔한 쌀향이 간장 맛과"
+            }
+          ],
+          "tEst": "soju1020"
         },
         {
           "id": "i51",
@@ -2448,7 +2626,28 @@
           "priceBottle": "165,000",
           "priceGlass": "19,000",
           "group": "쌀",
-          "sImg": "art/sool/bottle/i51.webp"
+          "sImg": "art/sool/bottle/i51.webp",
+          "region": "경북 안동",
+          "brewery": "농암종택(17대 종부)",
+          "sMaterial": "물, 쌀, 전통 누룩",
+          "sDistill": "상압(도기 소줏고리 11시간 이상, 무여과 병입)",
+          "tAroma": "곡물·누룩향, 시간이 지나며 깊어지는 향",
+          "tNote": "감미가 풍부하고 부드러운 맛과 향",
+          "sAxA": 3,
+          "sAxT": 3,
+          "sAromaTags": [
+            "곡물",
+            "숙성"
+          ],
+          "sServe": {
+            "main": "상온 스트레이트(잔술 30ml)",
+            "alt": [
+              "물 몇 방울"
+            ],
+            "temp": "15~20도"
+          },
+          "tEst": "soju1020",
+          "sjNuruk": "전통 누룩"
         },
         {
           "id": "hiyangsan1",
@@ -2461,7 +2660,40 @@
           "priceBottle": "",
           "priceGlass": "7,000",
           "group": "쌀",
-          "sImg": "art/sool/bottle/hiyangsan1.webp"
+          "sImg": "art/sool/bottle/hiyangsan1.webp",
+          "region": "경북 문경",
+          "brewery": "두술도가",
+          "sMaterial": "유기농 우렁이쌀(문경 희양산 작목반), 전통 밀누룩",
+          "sDistill": "상압 2회",
+          "sAging": "옹기 3년 이상 숙성 원액 블렌딩",
+          "tAroma": "곡물·견과의 고소한 향, 누룩향",
+          "tNote": "부드러운 단맛에 고소함, 기분 좋은 알싸함",
+          "sAxA": 3,
+          "sAxT": 4,
+          "sAromaTags": [
+            "곡물·견과",
+            "누룩"
+          ],
+          "sServe": {
+            "main": "상온 스트레이트(잔술 30ml)",
+            "alt": [
+              "록",
+              "물 몇 방울"
+            ],
+            "temp": "15~20도"
+          },
+          "sPairFood": [
+            {
+              "id": "gomtang01",
+              "why": "잔술 한 잔, 쌀향이 국물과"
+            },
+            {
+              "id": "f202",
+              "why": "잔술, 쌀향이 들기름과"
+            }
+          ],
+          "tEst": "soju1020",
+          "sjNuruk": "전통 밀누룩"
         },
         {
           "id": "i50",
@@ -2474,7 +2706,35 @@
           "priceBottle": "79,000",
           "priceGlass": "",
           "group": "쌀",
-          "sImg": "art/sool/bottle/i50.webp"
+          "sImg": "art/sool/bottle/i50.webp",
+          "region": "충북 충주",
+          "brewery": "담을술공방",
+          "sMaterial": "쌀",
+          "sDistill": "상압(동 증류기)",
+          "sAging": "숙성 전용 옹기 항아리 3년",
+          "tAroma": "곡물의 고소·구수한 향, 은은한 향긋함",
+          "tNote": "화려한 듯 차분, 단맛과 구수함, 부드러운 목넘김",
+          "sAxA": 3,
+          "sAxT": 3,
+          "sAromaTags": [
+            "곡물",
+            "숙성(옹기)"
+          ],
+          "sServe": {
+            "main": "상온 스트레이트",
+            "alt": [
+              "록"
+            ],
+            "temp": "15~20도"
+          },
+          "sPairFood": [
+            {
+              "id": "f106b",
+              "why": "항아리 숙성 쌀향이 고기와"
+            }
+          ],
+          "tEst": "soju1020",
+          "sjNuruk": "전통 누룩(블로그 1곳)"
         },
         {
           "id": "i53",
@@ -2487,7 +2747,32 @@
           "priceBottle": "",
           "priceGlass": "19,000",
           "group": "쌀",
-          "sImg": "art/sool/bottle/i53.webp"
+          "sImg": "art/sool/bottle/i53.webp",
+          "region": "전남 해남",
+          "brewery": "해창주조장",
+          "sMaterial": "해창 막걸리 18도(해남산 유기농 찹쌀·멥쌀) 증류",
+          "sDistill": "상압(판매처 상품명 표기)",
+          "tAroma": "선명한 구수함, 곡물의 고소함",
+          "tNote": "고소함 중심에 씁쓸함 약간, 도수에 비해 부담 적은 목넘김",
+          "sAxA": 2,
+          "sAxT": 4,
+          "sAromaTags": [
+            "곡물"
+          ],
+          "sServe": {
+            "main": "상온 스트레이트(잔술 30ml)",
+            "alt": [
+              "물 몇 방울"
+            ],
+            "temp": "15~20도"
+          },
+          "sPairFood": [
+            {
+              "id": "f108b",
+              "why": "고도주가 기름기 깔끔히"
+            }
+          ],
+          "tEst": "soju1020"
         },
         {
           "id": "i49",
@@ -2500,7 +2785,25 @@
           "priceBottle": "59,000",
           "priceGlass": "",
           "group": "쌀",
-          "sImg": "art/sool/bottle/i49.webp"
+          "sImg": "art/sool/bottle/i49.webp",
+          "region": "서울",
+          "brewery": "삼해소주(故 김택상 명인 69호 → 김현종 대표)",
+          "sMaterial": "정제수, 찹쌀, 멥쌀, 누룩(직접 디딘)",
+          "tAroma": "누룽지 같은 곡물향, 배·참외 박과류, 꽃향",
+          "tNote": "진한 누룩향과 고소함, 45도에도 부드럽고 힘 있는 여운",
+          "sAxA": 4,
+          "sAxT": 4,
+          "sAromaTags": [
+            "곡물·누룩",
+            "과실·꽃"
+          ],
+          "sServe": {
+            "main": "상온 스트레이트",
+            "alt": [],
+            "temp": "15~20도"
+          },
+          "tEst": "soju1020",
+          "sjNuruk": "직접 디딘 누룩"
         },
         {
           "id": "hiyangsan2",
@@ -2513,7 +2816,35 @@
           "priceBottle": "",
           "priceGlass": "14,000",
           "group": "쌀",
-          "sImg": "art/sool/bottle/hiyangsan2.webp"
+          "sImg": "art/sool/bottle/hiyangsan2.webp",
+          "region": "경북 문경",
+          "brewery": "두술도가",
+          "sMaterial": "유기농 우렁이쌀(문경 희양산 작목반), 전통 밀누룩",
+          "sDistill": "상압 2회",
+          "sAging": "옹기 3년 이상 숙성 원액 블렌딩",
+          "tAroma": "청아하고 절제된 곡물향",
+          "tNote": "53도의 힘 위에 맑고 절제된 풍미, 긴 여운",
+          "sAxA": 3,
+          "sAxT": 4,
+          "sAromaTags": [
+            "곡물",
+            "누룩"
+          ],
+          "sServe": {
+            "main": "상온 스트레이트 소량(잔술 30ml)",
+            "alt": [
+              "물 몇 방울(가수)"
+            ],
+            "temp": "15~20도"
+          },
+          "sPairFood": [
+            {
+              "id": "f106b",
+              "why": "누룩 고도주가 고기 단맛 살림"
+            }
+          ],
+          "tEst": "soju1020",
+          "sjNuruk": "전통 밀누룩"
         },
         {
           "id": "i52",
@@ -2526,7 +2857,39 @@
           "priceBottle": "",
           "priceGlass": "23,000",
           "group": "쌀",
-          "sImg": "art/sool/bottle/i52.webp"
+          "sImg": "art/sool/bottle/i52.webp",
+          "region": "강원 춘천",
+          "brewery": "전통주조 예술",
+          "sMaterial": "찹쌀, 멥쌀, 직접 디딘 누룩",
+          "sDistill": "상압",
+          "sAging": "옹기 5년",
+          "tAroma": "다채로운 곡물향, 고소한 견과향",
+          "tNote": "숙성된 장 같은 깊은 맛, 당도·산미 낮고 바디 묵직",
+          "sAxA": 3,
+          "sAxT": 5,
+          "sAromaTags": [
+            "곡물·견과",
+            "숙성(옹기)"
+          ],
+          "sServe": {
+            "main": "상온 스트레이트 소량(잔술 30ml)",
+            "alt": [
+              "물 몇 방울(가수)"
+            ],
+            "temp": "15~20도"
+          },
+          "sPairFood": [
+            {
+              "id": "f110",
+              "why": "숙성 고도주가 고기 단맛과"
+            },
+            {
+              "id": "f106b",
+              "why": "숙성 고도주가 고기 단맛과"
+            }
+          ],
+          "tEst": "soju1020",
+          "sjNuruk": "직접 디딘 누룩"
         },
         {
           "id": "i56",
@@ -2539,7 +2902,29 @@
           "priceBottle": "",
           "priceGlass": "55,000",
           "group": "쌀",
-          "sImg": "art/sool/bottle/i56.webp"
+          "sImg": "art/sool/bottle/i56.webp",
+          "region": "서울",
+          "brewery": "삼해소주",
+          "sMaterial": "삼해소주에 삼해주 일부를 섞어 재증류(쌀·누룩)",
+          "sDistill": "재증류(방식 미확인)",
+          "sAging": "옹기 술춘 숙성(기간 미확인)",
+          "tAroma": "구운 쌀·누룽지, 참외·멜론",
+          "tNote": "71.2도에도 매끄럽고 화려한 풍미, 깔끔한 단맛",
+          "sAxA": 5,
+          "sAxT": 4,
+          "sAromaTags": [
+            "과실(박과류)",
+            "곡물(누룽지)"
+          ],
+          "sServe": {
+            "main": "상온 스트레이트 아주 소량(잔술 30ml, 나눠 마시기)",
+            "alt": [
+              "물 몇 방울(가수)"
+            ],
+            "temp": "15~20도"
+          },
+          "tEst": "soju1020",
+          "sjNuruk": "직접 디딘 누룩(삼해소주 기준)"
         },
         {
           "id": "i76",
@@ -2552,7 +2937,42 @@
           "priceBottle": "19,000",
           "priceGlass": "",
           "group": "보리",
-          "sImg": "art/sool/bottle/i76.webp"
+          "sImg": "art/sool/bottle/i76.webp",
+          "region": "충남 홍성",
+          "brewery": "황금보리(유) 농업회사법인",
+          "sMaterial": "보리(국내산) 39.9%, 누룩(국내산) 외",
+          "tAroma": "옅은 보리향, 산뜻함",
+          "tNote": "보리차처럼 가볍고 깔끔, 알코올 자극 적음",
+          "sAxA": 1,
+          "sAxT": 1,
+          "sAromaTags": [
+            "곡물(보리)"
+          ],
+          "sServe": {
+            "main": "차게 스트레이트",
+            "alt": [
+              "록",
+              "소다(하이볼)"
+            ],
+            "temp": "5~10도"
+          },
+          "sPairFood": [
+            {
+              "id": "f201b",
+              "why": "깨끗한 보리맛이 국물과"
+            },
+            {
+              "id": "f203",
+              "why": "깨끗한 보리맛이 국물과"
+            },
+            {
+              "id": "f203b",
+              "why": "깨끗한 보리맛이 김치와"
+            }
+          ],
+          "tEst": "soju1020",
+          "sjNuruk": "누룩(국내산)",
+          "sStarter": "basic"
         },
         {
           "id": "i48",
@@ -2565,7 +2985,43 @@
           "priceBottle": "39,000",
           "priceGlass": "",
           "group": "보리",
-          "sImg": "art/sool/bottle/i48.webp"
+          "sImg": "art/sool/bottle/i48.webp",
+          "region": "전남 강진 병영면",
+          "brewery": "병영양조장(김견식 명인 61호, 별세 후 자녀 운영)",
+          "sMaterial": "보리(찰보리쌀·국내산) 증류식 소주 원액, 정제수",
+          "sAging": "밑술 3주 이상 숙성 후 증류(제품 숙성 기간 미확인)",
+          "tAroma": "구수한 보리향, 누룩향",
+          "tNote": "40도에도 부드럽고, 알싸하고 깔끔한 마무리",
+          "sAxA": 2,
+          "sAxT": 3,
+          "sAromaTags": [
+            "곡물(보리)",
+            "누룩"
+          ],
+          "sServe": {
+            "main": "상온 스트레이트",
+            "alt": [
+              "록",
+              "따뜻한 물(오유와리, 제안)"
+            ],
+            "temp": "15~20도"
+          },
+          "sPairFood": [
+            {
+              "id": "f101",
+              "why": "알싸한 보리향이 볶음과"
+            },
+            {
+              "id": "f108b",
+              "why": "알싸·깔끔한 끝이 기름 정리"
+            },
+            {
+              "id": "f201",
+              "why": "알싸한 끝이 전 기름 정리"
+            }
+          ],
+          "tEst": "soju1020",
+          "sjNuruk": "손수 빚은 누룩"
         },
         {
           "id": "i54",
@@ -2578,7 +3034,35 @@
           "priceBottle": "130,000",
           "priceGlass": "17,000",
           "group": "보리",
-          "sImg": "art/sool/bottle/i54.webp"
+          "sImg": "art/sool/bottle/i54.webp",
+          "region": "강원 홍천 모곡리",
+          "brewery": "마마스팜(마용옥) × 술익는집",
+          "sMaterial": "홍천산 쌀, 홍천산 보리, 누룩, 증류원액 100%, 정제수",
+          "sDistill": "상압",
+          "sAging": "무유약 옹기 1년(블로그 1곳)",
+          "tAroma": "구수한 누룩향, 잣·견과향",
+          "tNote": "조청 같은 단맛에 쌉쌀함, 53도의 진득한 바디",
+          "sAxA": 3,
+          "sAxT": 5,
+          "sAromaTags": [
+            "곡물·견과",
+            "누룩"
+          ],
+          "sServe": {
+            "main": "상온 스트레이트 소량(잔술 30ml)",
+            "alt": [
+              "물 몇 방울(가수)"
+            ],
+            "temp": "15~20도"
+          },
+          "sPairFood": [
+            {
+              "id": "f110",
+              "why": "알싸한 보리향이 고기맛 정리"
+            }
+          ],
+          "tEst": "soju1020",
+          "sjNuruk": "직접 빚은 누룩(배치2: 향온곡)"
         },
         {
           "id": "i47",
@@ -2591,7 +3075,44 @@
           "priceBottle": "40,000",
           "priceGlass": "",
           "group": "밀",
-          "sImg": "art/sool/bottle/i47.webp"
+          "sImg": "art/sool/bottle/i47.webp",
+          "region": "경북 안동 도산면",
+          "brewery": "밀과노닐다(맹개술도가)",
+          "sMaterial": "유기농 통밀(맹개마을 자가 재배), 누룩(국산 밀), 정제수",
+          "sDistill": "상압",
+          "sAging": "토굴 숙성 6개월~2년(블로그 1곳)",
+          "tAroma": "고소한 밀·빵향, 꽃향",
+          "tNote": "밀 특유의 단맛과 고소함, 따뜻한 열감",
+          "sAxA": 3,
+          "sAxT": 2,
+          "sAromaTags": [
+            "곡물(밀·빵)",
+            "꽃"
+          ],
+          "sServe": {
+            "main": "차게 스트레이트",
+            "alt": [
+              "록"
+            ],
+            "temp": "8~12도"
+          },
+          "sPairFood": [
+            {
+              "id": "eobok01",
+              "why": "고소한 밀향이 진한 육수와"
+            },
+            {
+              "id": "f202",
+              "why": "고소한 밀향이 메밀과"
+            },
+            {
+              "id": "f203b",
+              "why": "고소한 밀향이 유부와"
+            }
+          ],
+          "tEst": "soju1020",
+          "sjNuruk": "밀누룩",
+          "sStarter": "sangap"
         },
         {
           "id": "i37",
@@ -2604,7 +3125,44 @@
           "priceBottle": "29,000",
           "priceGlass": "",
           "group": "사과",
-          "sImg": "art/sool/bottle/i37.webp"
+          "sImg": "art/sool/bottle/i37.webp",
+          "region": "충남 예산",
+          "brewery": "농업회사법인 예산사과와인(주)",
+          "sMaterial": "사과 증류원액(예산 사과), 정제수",
+          "sDistill": "감압",
+          "sAging": "스테인리스 탱크 안정화(오크 숙성 없음)",
+          "tAroma": "자연스러운 사과향",
+          "tNote": "맑고 부드러운 사과 풍미, 25도인데 잘 넘어감",
+          "sAxA": 4,
+          "sAxT": 1,
+          "sAromaTags": [
+            "과실(사과)"
+          ],
+          "sServe": {
+            "main": "차게 스트레이트",
+            "alt": [
+              "록",
+              "소다(하이볼)"
+            ],
+            "temp": "5~10도"
+          },
+          "sPairFood": [
+            {
+              "id": "f109",
+              "why": "맑은 사과향이 담백함과"
+            },
+            {
+              "id": "f202",
+              "why": "맑은 사과향이 들기름과 산뜻"
+            },
+            {
+              "id": "f302",
+              "why": "사과향이 단맛을 산뜻하게"
+            }
+          ],
+          "tEst": "soju1020",
+          "sjNuruk": "해당 없음(사과와인 발효)",
+          "sStarter": "basic"
         },
         {
           "id": "chusibek1",
@@ -2617,7 +3175,38 @@
           "priceBottle": "28,000",
           "priceGlass": "",
           "group": "사과",
-          "sImg": "art/sool/bottle/chusibek1.webp"
+          "sImg": "art/sool/bottle/chusibek1.webp",
+          "region": "충남 예산",
+          "brewery": "농업회사법인 예산사과와인(주)",
+          "sMaterial": "예산 사과 증류원액",
+          "sAging": "오크통 숙성(기간 미확인)",
+          "tAroma": "사과향에 오크·바닐라",
+          "tNote": "은은한 사과향과 묵직한 바닐라, 깔끔한 끝",
+          "sAxA": 4,
+          "sAxT": 2,
+          "sAromaTags": [
+            "과실(사과)",
+            "숙성(오크)"
+          ],
+          "sServe": {
+            "main": "상온 스트레이트",
+            "alt": [
+              "록"
+            ],
+            "temp": "12~18도"
+          },
+          "sPairFood": [
+            {
+              "id": "f204",
+              "why": "바닐라향이 매운맛을 감쌈"
+            },
+            {
+              "id": "f302",
+              "why": "바닐라향이 아이스크림과"
+            }
+          ],
+          "tEst": "soju1020",
+          "sjNuruk": "해당 없음"
         },
         {
           "id": "i43",
@@ -2630,7 +3219,41 @@
           "priceBottle": "39,000",
           "priceGlass": "",
           "group": "고구마",
-          "sImg": "art/sool/bottle/i43.webp"
+          "sImg": "art/sool/bottle/i43.webp",
+          "region": "경기 여주",
+          "brewery": "술아원",
+          "sMaterial": "고구마 증류원액(여주산 100%), 정제수",
+          "tAroma": "시원한 꽃향, 은은한 고구마",
+          "tNote": "찐고구마보다 꽃향이 먼저, 깔끔하고 부드러움",
+          "sAxA": 3,
+          "sAxT": 2,
+          "sAromaTags": [
+            "꽃",
+            "곡물(고구마)"
+          ],
+          "sServe": {
+            "main": "차게 스트레이트",
+            "alt": [
+              "록",
+              "따뜻한 물(오유와리, 제안)"
+            ],
+            "temp": "8~12도"
+          },
+          "sPairFood": [
+            {
+              "id": "f201",
+              "why": "고구마 고소함이 전과"
+            },
+            {
+              "id": "f204",
+              "why": "고구마 단맛이 매운맛과"
+            },
+            {
+              "id": "f206",
+              "why": "고구마 고소함이 명란마요와"
+            }
+          ],
+          "tEst": "soju1020"
         },
         {
           "id": "mukri1",
@@ -2643,7 +3266,38 @@
           "priceBottle": "70,000",
           "priceGlass": "7,000",
           "group": "고구마",
-          "sImg": "art/sool/bottle/mukri1.webp"
+          "sImg": "art/sool/bottle/mukri1.webp",
+          "region": "인천 남동구(원료 강화)",
+          "brewery": "농업회사법인 (유)송도향",
+          "sMaterial": "강화 고구마, 강화섬쌀, 물",
+          "sDistill": "고구마 상압 + 쌀 감압, 2회 증류 후 블렌딩",
+          "tAroma": "고구마 단향, 플로럴·허브, 풀향",
+          "tNote": "찐고구마 단맛, 40도인데 물처럼 넘어가는 묵직함",
+          "sAxA": 4,
+          "sAxT": 3,
+          "sAromaTags": [
+            "꽃·허브",
+            "곡물(고구마)"
+          ],
+          "sServe": {
+            "main": "상온 스트레이트(잔술 30ml)",
+            "alt": [
+              "록",
+              "따뜻한 물(오유와리, 제안)"
+            ],
+            "temp": "15~20도"
+          },
+          "sPairFood": [
+            {
+              "id": "f201",
+              "why": "잔술, 플로럴함이 전 고소함과"
+            },
+            {
+              "id": "f206",
+              "why": "잔술, 플로럴함이 마요와"
+            }
+          ],
+          "tEst": "soju1020"
         },
         {
           "id": "i55",
@@ -2656,7 +3310,29 @@
           "priceBottle": "",
           "priceGlass": "13,000",
           "group": "고구마",
-          "sImg": "art/sool/bottle/i55.webp"
+          "sImg": "art/sool/bottle/i55.webp",
+          "region": "경기 여주",
+          "brewery": "국순당여주명주",
+          "sMaterial": "여주 고구마 + 여주 쌀 증류원액, 정제수",
+          "sDistill": "려 라인: 고구마 상압 + 쌀 감압 블렌딩",
+          "sAging": "10년 숙성(2013년 증류 원액), 논칠필터드",
+          "tAroma": "찐고구마, 고구마줄기, 꽃·풀향",
+          "tNote": "알싸하다가 끝에 달달함, 다시 올라오는 고구마",
+          "sAxA": 4,
+          "sAxT": 4,
+          "sAromaTags": [
+            "곡물(찐고구마)",
+            "꽃·풀",
+            "숙성"
+          ],
+          "sServe": {
+            "main": "상온 스트레이트(잔술 30ml)",
+            "alt": [
+              "록"
+            ],
+            "temp": "15~20도"
+          },
+          "tEst": "soju1020"
         },
         {
           "id": "i58",
@@ -2669,7 +3345,35 @@
           "priceBottle": "230,000",
           "priceGlass": "23,000",
           "group": "오미자",
-          "sImg": "art/sool/bottle/i58.webp"
+          "sImg": "art/sool/bottle/i58.webp",
+          "region": "경북 문경",
+          "brewery": "오미나라 / 농업회사법인 (주)제이엘(이종기 명인)",
+          "sMaterial": "오미자 와인(문경 오미자·설탕·효모) 증류원액 100%",
+          "sDistill": "상압 2회(샤랑트식 동 증류기)",
+          "sAging": "유러피안 오크통 숙성(기간 미확인)",
+          "tAroma": "오미자 새콤함, 오크·바닐라·스파이스",
+          "tNote": "위스키 같은 우디함, 끝에 카라멜 같은 단맛",
+          "sAxA": 5,
+          "sAxT": 4,
+          "sAromaTags": [
+            "과실(오미자)",
+            "숙성(오크)"
+          ],
+          "sServe": {
+            "main": "상온 스트레이트",
+            "alt": [
+              "록"
+            ],
+            "temp": "15~20도"
+          },
+          "sPairFood": [
+            {
+              "id": "f302",
+              "why": "오크 숙성 오미자가 베리와"
+            }
+          ],
+          "tEst": "soju1020",
+          "sjNuruk": "해당 없음(효모 발효)"
         },
         {
           "id": "i57",
@@ -2682,7 +3386,33 @@
           "priceBottle": "390,000",
           "priceGlass": "35,000",
           "group": "오미자",
-          "sImg": "art/sool/bottle/i57.webp"
+          "sImg": "art/sool/bottle/i57.webp",
+          "region": "경북 문경",
+          "brewery": "오미나라 / 농업회사법인 (주)제이엘(이종기 명인)",
+          "sMaterial": "오미자 와인(문경 오미자·설탕·효모) 증류원액 100%",
+          "sDistill": "상압 2회(동 증류기)",
+          "sAging": "문경 백자 항아리 3년",
+          "tAroma": "오미자 새콤달콤한 향, 허브",
+          "tNote": "무색 투명, 오미자 본연의 맛과 향이 깊게",
+          "sAxA": 5,
+          "sAxT": 4,
+          "sAromaTags": [
+            "과실(오미자)",
+            "허브"
+          ],
+          "sServe": {
+            "main": "상온 스트레이트",
+            "alt": [],
+            "temp": "15~20도"
+          },
+          "sPairFood": [
+            {
+              "id": "f301",
+              "why": "오미자 브랜디가 정과와"
+            }
+          ],
+          "tEst": "soju1020",
+          "sjNuruk": "해당 없음(효모 발효)"
         },
         {
           "id": "i39",
@@ -2695,7 +3425,47 @@
           "priceBottle": "13,000",
           "priceGlass": "",
           "group": "조선 명주",
-          "sImg": "art/sool/bottle/i39.webp"
+          "sImg": "art/sool/bottle/i39.webp",
+          "region": "전북 전주",
+          "brewery": "농업회사법인 (유)이강주(조정형 명인, 식품명인 9호)",
+          "sMaterial": "쌀(국산), 정맥(보리쌀), 배, 생강, 울금, 계피, 꿀, 누룩, 효모, 정제수",
+          "sDistill": "전통 소주에 배·생강 등을 넣음(증류 방식 미확인)",
+          "tAroma": "배의 청량함, 생강·계피",
+          "tNote": "미황색, 생강의 알싸함 뒤 꿀 같은 부드러운 단맛",
+          "sAxA": 4,
+          "sAxT": 2,
+          "sAromaTags": [
+            "과실(배)",
+            "약재·향신(생강·계피)"
+          ],
+          "sServe": {
+            "main": "차게 스트레이트",
+            "alt": [
+              "록",
+              "따뜻하게(데움, 제안)"
+            ],
+            "temp": "8~12도"
+          },
+          "sPairFood": [
+            {
+              "id": "f101",
+              "why": "생강·계피 향이 볶음 기름 정리"
+            },
+            {
+              "id": "f106",
+              "why": "배·생강향이 육회 속 배와"
+            },
+            {
+              "id": "f204",
+              "why": "배 단향이 매운맛 달램"
+            },
+            {
+              "id": "f301",
+              "why": "배·생강·계피가 정과와"
+            }
+          ],
+          "tEst": "soju1020",
+          "sjNuruk": "누룩"
         },
         {
           "id": "i40",
@@ -2708,7 +3478,39 @@
           "priceBottle": "19,000",
           "priceGlass": "",
           "group": "조선 명주",
-          "sImg": "art/sool/bottle/i40.webp"
+          "sImg": "art/sool/bottle/i40.webp",
+          "region": "경기 김포",
+          "brewery": "문배주양조원(이기춘 식품명인 7호)",
+          "sMaterial": "조, 수수(찰수수), 쌀 증류원액(국산), 효모, 국, 정제수",
+          "sDistill": "감압(문배술 40 기준 블로그)",
+          "tAroma": "배를 넣지 않은 문배(돌배) 과실향",
+          "tNote": "청아하고 맑은 단향, 곡물의 은근한 고소함",
+          "sAxA": 4,
+          "sAxT": 2,
+          "sAromaTags": [
+            "과실(문배)",
+            "곡물"
+          ],
+          "sServe": {
+            "main": "차게 스트레이트",
+            "alt": [
+              "록"
+            ],
+            "temp": "8~12도"
+          },
+          "sPairFood": [
+            {
+              "id": "f109",
+              "why": "깔끔한 끝맛이 담백한 만두와"
+            },
+            {
+              "id": "f301",
+              "why": "문배향이 약과 단맛과"
+            }
+          ],
+          "tEst": "soju1020",
+          "sjNuruk": "국(누룩)",
+          "sStarter": "basic"
         },
         {
           "id": "i42",
@@ -2721,7 +3523,23 @@
           "priceBottle": "31,000",
           "priceGlass": "",
           "group": "조선 명주",
-          "sImg": "art/sool/bottle/i42.webp"
+          "sImg": "art/sool/bottle/i42.webp",
+          "region": "충남 논산 가야곡",
+          "brewery": "(주)민속주 왕주(남상란 명인, 식품명인 13호)",
+          "tAroma": "생강·강냉이를 닮은 향(1곳)",
+          "sAxA": 2,
+          "sAxT": 2,
+          "sAromaTags": [
+            "약재·향신(추정)"
+          ],
+          "sServe": {
+            "main": "차게 스트레이트",
+            "alt": [
+              "록"
+            ],
+            "temp": "8~12도"
+          },
+          "tEst": "soju1020"
         },
         {
           "id": "gosori1",
@@ -2734,9 +3552,30 @@
           "priceBottle": "30,000",
           "priceGlass": "",
           "group": "좁쌀",
-          "sImg": "art/sool/bottle/gosori1.webp"
+          "sImg": "art/sool/bottle/gosori1.webp",
+          "region": "제주 애월",
+          "brewery": "제주샘 영농조합법인(제주샘주)",
+          "sMaterial": "오메기술(차조) 증류 — 40도 라벨 기준 백미·입국·차조·누룩·효모·정제효소·효소처리스테비아",
+          "tAroma": "고소한 곡물향, 향은 약함",
+          "tNote": "이름처럼 고소하고 29도치고 부드러움",
+          "sAxA": 2,
+          "sAxT": 2,
+          "sAromaTags": [
+            "곡물(고소)"
+          ],
+          "sServe": {
+            "main": "차게 스트레이트",
+            "alt": [
+              "록",
+              "따뜻한 물(오유와리, 제안)"
+            ],
+            "temp": "8~12도"
+          },
+          "tEst": "soju1020",
+          "sjNuruk": "입국+누룩(40도 라벨 기준)"
         }
-      ]
+      ],
+      "legend": "상압 — 전통 방식. 원료와 누룩 향이 진하고 구수하며 여운이 깁니다 · 감압 — 낮은 온도로 증류해 깔끔하고 가볍습니다"
     },
     {
       "id": "s11",
