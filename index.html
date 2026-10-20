@@ -298,6 +298,42 @@ body.admin-mode .add-sec-btn{display:block;}
 .mm-reg{font-size:11px;color:var(--muted);margin-bottom:2px}
 .mm-item{display:inline-block;font:inherit;font-size:12.5px;color:var(--ink);background:none;border:none;padding:3px 8px 3px 0;cursor:pointer;text-decoration:underline;text-decoration-color:var(--div)}
 .mm-foot{font-size:10px;color:var(--muted);margin-top:8px}.mm-load{padding:30px;text-align:center;color:var(--muted)}
+/* T88 주문 가이드 (10/20 사장님 승인안) */
+.og{margin:14px 0 6px;padding:0 0 4px}
+.og-h{display:flex;align-items:baseline;gap:8px;padding:0 18px;margin-bottom:8px}
+.og-h b{font-size:17px;color:var(--ink)}
+.og-h span{font-size:12px;color:#6b5a3e}
+.og-row{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 18px 10px;scrollbar-width:none}
+.og-row::-webkit-scrollbar{display:none}
+.og-card{flex:0 0 82%;max-width:330px;scroll-snap-align:start;background:var(--paper2,#fbf6ea);border:1px solid var(--div);border-radius:10px;padding:14px 14px 12px;display:flex;flex-direction:column;gap:8px}
+.og-t{font-size:16px;font-weight:700;color:var(--crimson)}
+.og-s{font-size:12.5px;color:#5c4a30;line-height:1.45;margin-top:-4px}
+.og-steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.og-steps li{display:grid;grid-template-columns:1fr auto;gap:2px 8px;align-items:baseline}
+.og-go{all:unset;cursor:pointer;font-size:14px;font-weight:600;color:var(--ink);text-decoration:underline;text-decoration-color:var(--div);text-underline-offset:3px;min-height:28px;display:inline-flex;align-items:center}
+.og-go:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.og-p{font-size:13px;color:#3d2f1c;font-variant-numeric:tabular-nums;white-space:nowrap}
+.og-n{grid-column:1/-1;font-size:11.5px;color:#6b5a3e;line-height:1.4}
+.og-sum{border-top:1px dashed var(--div);padding-top:7px;display:flex;justify-content:space-between;font-size:13px;color:#3d2f1c}
+.og-sum b{font-size:15px;color:var(--ink)}
+.og-tip{font-size:11.5px;color:#6b5a3e;line-height:1.45}
+.og-foot{padding:0 18px;font-size:11px;color:#7a6a50}
+@media print{.og{display:none!important}}
+.bot-fab{position:fixed;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:1400;font:inherit;font-size:13.5px;font-weight:600;padding:11px 16px;min-height:44px;border-radius:24px;border:1px solid #7a5208;background:#7a1414;color:#fff8ea;box-shadow:0 3px 12px rgba(0,0,0,.25);cursor:pointer}
+.bot-sheet{position:fixed;left:0;right:0;bottom:0;z-index:1600;max-height:82vh;display:flex;flex-direction:column;background:var(--paper,#f7f0e1);border-top:2px solid #7a5208;border-radius:16px 16px 0 0;box-shadow:0 -6px 24px rgba(0,0,0,.25);padding:0 0 env(safe-area-inset-bottom,0px)}
+.bot-sheet[hidden]{display:none!important}
+.bot-hd{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--div)}
+.bot-hd b{font-size:15px;color:#7a1414}.bot-x{all:unset;cursor:pointer;font-size:18px;width:44px;height:44px;display:grid;place-items:center;color:#5c4a30}
+.bot-log{overflow-y:auto;padding:12px 14px;display:flex;flex-direction:column;gap:10px;flex:1;min-height:120px}
+.bot-m{font-size:13.5px;line-height:1.55;color:#3d2f1c;max-width:92%}.bot-m p{margin:0 0 6px}
+.bot-m.u{align-self:flex-end;background:#7a1414;color:#fff8ea;padding:7px 12px;border-radius:14px 14px 2px 14px}
+.bot-m.a{align-self:flex-start}.bot-m .og-card{max-width:none;margin-top:4px}
+.bot-qs{display:flex;gap:6px;overflow-x:auto;padding:8px 14px;border-top:1px solid var(--div);scrollbar-width:none}
+.bot-q{flex:0 0 auto;font:inherit;font-size:13px;padding:8px 12px;min-height:40px;border-radius:20px;border:1px solid #7a5208;background:#fffaf0;color:#7a5208;cursor:pointer}
+.bot-in{display:flex;gap:6px;padding:6px 14px 4px}.bot-in input{flex:1;min-width:0;font:inherit;font-size:16px;padding:9px 12px;border:1px solid var(--div);border-radius:10px;background:#fff}
+.bot-in button{font:inherit;font-size:13px;padding:0 14px;border-radius:10px;border:0;background:#7a5208;color:#fff}
+.bot-foot{font-size:10.5px;color:#7a6a50;padding:2px 14px 10px}
+@media print{.bot-fab,.bot-sheet{display:none!important}}
 /* T70 UX(10/20): 상자 전체 폭·탭 44px·대비 */
 .items .item .sommelier{grid-column:1/-1}
 .som-tg,.map-btn,.pb-chip,.pb-go{min-height:44px!important;font-size:13px!important}
@@ -949,6 +985,7 @@ body.admin-mode .add-sec-btn{display:block;}
     </div>
   </div>
 
+  <section id="order-guide" class="og" aria-label="이렇게 시켜 보세요" hidden></section>
   <div id="scon"><!--SEO-MENU-->
 <div class="seo-static">
 <h1>대전어상 메뉴</h1>
@@ -1183,6 +1220,7 @@ function renderAll(){
   const c=document.getElementById('scon');c.innerHTML='';
   MD.sections.forEach((s,i)=>{if(!isAdmin&&!(s.items&&s.items.length))return;c.appendChild(buildSec(s,i));});
   buildSecNav();
+  renderGuide();
   buildPrintPages();
 }
 
@@ -1462,6 +1500,70 @@ function cleanSvg(src){  // Codex R51: 정규식 대신 DOM allowlist 정제
   (function walk(el){for(const c of [...el.children]){const t=c.nodeName.toLowerCase();if(t==='style'){if(c.children.length||/@import|url\s*\(|expression|behavior|<|\\/i.test(c.textContent))c.remove();continue;}if(!OK_TAG.has(t)){c.remove();continue;}walk(c);}
     for(const a of [...el.attributes]){const n=a.name.toLowerCase(),v=a.value;if(!OK_ATTR.has(n)||/url\s*\(\s*['"]?\s*(?!#)/i.test(v)||/javascript:/i.test(v))el.removeAttribute(a.name);}})(root);
   root.setAttribute('class','mm-svg korea-base');return new XMLSerializer().serializeToString(root);}
+function ogPrice(it,st){  // T88: menu.json 가격 문자열에서 크기·잔 선택
+  const raw=String((st.glass?it.priceGlass:(it.priceBottle||it.priceGlass))||'');
+  let m=st.size?raw.match(new RegExp(st.size+'\\s*([\\d,]+)')):raw.match(/([\d,]{3,})/);
+  return m?parseInt(m[1].replace(/,/g,''),10):0;}
+function ogCard(g){let sum=0,ok=true;const won=n=>n.toLocaleString('ko-KR');
+  const li=g.steps.map(st=>{const it=findItem(st.id);if(!it){ok=false;return '';}
+    const q=st.qty||1,pr=ogPrice(it,st);sum+=pr*q;
+    const nm=it.name.replace(/^↳\s*/,'+ ')+(st.size?' '+st.size:'')+(st.glass?' 잔술':'')+(q>1?' × '+q:'');
+    return `<li><button type="button" class="og-go" data-go="${x(st.id)}">${x(nm)}</button><span class="og-p">${won(pr*q)}원</span>${st.note?`<span class="og-n">${x(st.note)}</span>`:''}</li>`;}).join('');
+  if(!ok)return '';
+  const per=g.perPerson?` <span>(${g.perPerson}명이면 1인 ${won(Math.round(sum/g.perPerson/100)*100)}원)</span>`:'';
+  return `<div class="og-card" data-g="${x(g.id)}"><div class="og-t">${x(g.title)}</div><div class="og-s">${x(g.sub||'')}</div><ol class="og-steps">${li}</ol><div class="og-sum"><span>합계 · 단품 가격 그대로</span><b>${won(sum)}원${per}</b></div>${(g.tips||[]).map(t=>`<div class="og-tip">${x(t)}</div>`).join('')}</div>`;}
+let _faq=null;
+async function botFaq(){if(_faq)return _faq;try{const r=await fetch('./seo/faq.json?v='+Date.now());const d=await r.json();
+  const priceOf=nm=>{for(const sec of MD.sections)for(const it of sec.items)if(it.name===nm)return String(it.priceGlass||it.priceBottle||'').replace(/원$/,'');return null;};
+  _faq=(d.items||[]).map(f=>({q:f.q,a:String(f.a).replace(/\{([^}]+)\}/g,(m,n)=>priceOf(n)??m)}));}catch(e){_faq=[];}return _faq;}
+// T92 1단계: 질문 버튼형 도우미 — 메뉴판(menu.json)·FAQ 안에서만 답한다. 질문은 GA4로 기록(빅데이터)
+const BOT_Q=[
+ {id:'two',t:'둘이 왔어요',g:['g1','g5']},
+ {id:'solo',t:'혼자 왔어요',g:['g3']},
+ {id:'group',t:'서넛이 왔어요',g:['g4']},
+ {id:'second',t:'2차로 왔어요',g:['g2']},
+ {id:'first',t:'전통주가 처음이에요',faq:'전통주를 잘 몰라도 괜찮을까요?',g:['g2']},
+ {id:'sungchae',t:'숭채만두는 어떻게 주문해요?',faq:'숭채만두는 어떻게 주문하나요?'},
+ {id:'mungti',t:'뭉티기 있어요?',faq:'한우 뭉티기는 언제 먹을 수 있나요?'},
+ {id:'udon',t:'우동 있어요?',faq:'우동도 있나요?'},
+ {id:'parking',t:'주차·영업시간',faq:['주차할 수 있나요?','대전어상 영업시간은 어떻게 되나요?']},
+ {id:'staff',t:'직원에게 물어볼래요'}];
+function botLog(ev,p){try{gtag('event',ev,p);}catch(e){}try{if(window.clarity)clarity('event',ev);}catch(e){}}
+function botSay(html,who){const log=document.getElementById('bot-log');const d=document.createElement('div');d.className='bot-m '+(who||'a');d.innerHTML=html;log.appendChild(d);log.scrollTo({top:Math.max(0,d.offsetTop-log.offsetTop-(who==='u'?0:44)),behavior:'smooth'});
+  d.querySelectorAll('.og-go').forEach(b=>b.addEventListener('click',()=>{const t=document.querySelector(`[data-item-id="${CSS.escape(b.dataset.go)}"]`);botLog('bot_go_item',{item_id:b.dataset.go});
+    if(t){botClose();t.scrollIntoView({behavior:'smooth',block:'center'});t.classList.add('flash');setTimeout(()=>t.classList.remove('flash'),1600);showBack(document.getElementById('bot-fab'),'질문 도우미');}}));}
+async function botAnswer(q){const G=MD.orderGuide||[];const F=await botFaq();let out='';
+  if(q.id==='staff'){out='바쁘지 않을 때 직원을 불러 주세요. 술은 취향(달달한/드라이한/탄산)을 말씀해 주시면 골라 드립니다.';}
+  const fq=[].concat(q.faq||[]);fq.forEach(k=>{const f=F.find(z=>z.q===k);if(f)out+=`<p>${x(f.a)}</p>`;});
+  (q.g||[]).forEach(id=>{const g=G.find(z=>z.id===id);if(g)out+=ogCard(g);});
+  botSay(out||'아직 준비된 답이 없어요. 직원에게 물어봐 주세요.');}
+async function botFree(text){const t=text.trim().slice(0,80);if(!t)return;botSay(x(t),'u');
+  const F=await botFaq();const words=t.replace(/[?.!~,]/g,' ').split(/\s+/).filter(w=>w.length>=2);
+  const score=s=>words.reduce((n,w)=>n+(s.includes(w)?1:0),0);
+  let best=null,bs=0;F.forEach(f=>{const v=score(f.q)*2+score(f.a);if(v>bs){bs=v;best=f;}});
+  const items=[];for(const sec of MD.sections)for(const it of sec.items){if(it.name.startsWith('↳'))continue;if(words.some(w=>it.name.includes(w)))items.push(it);}
+  let out='';if(best&&bs>=2)out+=`<p>${x(best.a)}</p>`;
+  if(items.length)out+='<p>메뉴판에서 찾았어요:</p>'+items.slice(0,4).map(it=>`<div><button type="button" class="og-go" data-go="${x(it.id)}">${x(it.name)}</button> <span class="og-p">${x(it.priceGlass||it.priceBottle||'')}원</span></div>`).join('');
+  botLog(out?'bot_free_hit':'bot_free_miss',{q_text:t});
+  botSay(out||'그 질문은 아직 답을 준비하지 못했어요. 직원에게 물어봐 주세요. (질문은 다음 답변 준비에 쓰입니다)');}
+function botOpen(){const s=document.getElementById('bot-sheet');s.hidden=false;document.getElementById('bot-fab').setAttribute('aria-expanded','true');botLog('bot_open',{});
+  if(!s.dataset.init){s.dataset.init=1;botSay('어떤 자리세요? 아래에서 고르시거나 짧게 물어봐 주세요.');}}
+function botClose(){document.getElementById('bot-sheet').hidden=true;document.getElementById('bot-fab').setAttribute('aria-expanded','false');}
+function renderGuide(){
+  const sec=document.getElementById('order-guide');if(sec)sec.hidden=true;  // 카드 나열 대신 도우미(사장님 10/20)
+  if(isAdmin||!(MD&&MD.orderGuide&&MD.orderGuide.length)||document.getElementById('bot-fab'))return;
+  const fab=document.createElement('button');fab.id='bot-fab';fab.type='button';fab.className='bot-fab';fab.setAttribute('aria-expanded','false');fab.setAttribute('aria-controls','bot-sheet');
+  fab.innerHTML='<span aria-hidden="true">🍶</span> 뭐 시킬지 고민되세요?';document.body.appendChild(fab);
+  const sh=document.createElement('div');sh.id='bot-sheet';sh.className='bot-sheet';sh.hidden=true;sh.setAttribute('role','dialog');sh.setAttribute('aria-label','질문 도우미');
+  sh.innerHTML=`<div class="bot-hd"><b>대전어상 질문 도우미</b><button type="button" class="bot-x" aria-label="닫기">✕</button></div><div class="bot-log" id="bot-log" aria-live="polite"></div>
+   <div class="bot-qs">${BOT_Q.map(q=>`<button type="button" class="bot-q" data-q="${q.id}">${x(q.t)}</button>`).join('')}</div>
+   <form class="bot-in"><input type="text" maxlength="80" placeholder="예: 주차 / 단체 / 하이볼" aria-label="질문 입력"><button type="submit">보내기</button></form>
+   <div class="bot-foot">메뉴판·자주 묻는 질문 안에서만 답합니다 · 19세 미만에게는 술을 팔지 않습니다</div>`;
+  document.body.appendChild(sh);
+  fab.addEventListener('click',()=>sh.hidden?botOpen():botClose());sh.querySelector('.bot-x').addEventListener('click',botClose);
+  sh.querySelectorAll('.bot-q').forEach(b=>b.addEventListener('click',()=>{const q=BOT_Q.find(z=>z.id===b.dataset.q);botSay(x(q.t),'u');botLog('bot_question',{q_id:q.id});botAnswer(q);}));
+  sh.querySelector('form').addEventListener('submit',e=>{e.preventDefault();const i=e.target.querySelector('input');botFree(i.value);i.value='';});
+}
 function showBack(fromEl,name){let b=document.getElementById('back-btn');if(!b){b=document.createElement('button');b.id='back-btn';b.type='button';b.className='back-btn';document.body.appendChild(b);}
   b.textContent='← '+name+'(으)로 돌아가기';b.hidden=false;b.onclick=()=>{fromEl.scrollIntoView({behavior:'smooth',block:'center'});b.hidden=true;try{gtag('event','pairing_back',{item_name:name});}catch(e){}};clearTimeout(window._bk);window._bk=setTimeout(()=>{b.hidden=true;},15000);}
 function findItem(id){for(const sec of (MD.sections||[]))for(const it of sec.items)if(it.id===id)return it;return null;}
