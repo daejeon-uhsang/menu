@@ -1,2 +1,10 @@
 preview/
 .DS_Store
+
+# 10/20 사장님 승인: 내부 문서·관리 도구는 공개 저장소·사이트에서 제외(로컬에만 보관)
+CLAUDE.md
+AGENTS.md
+*.py
+seo/pre-commit
+대전어상_메뉴관리*.html
+대전어상_다운로드.html
