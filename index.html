@@ -298,6 +298,13 @@ body.admin-mode .add-sec-btn{display:block;}
 .mm-reg{font-size:11px;color:var(--muted);margin-bottom:2px}
 .mm-item{display:inline-block;font:inherit;font-size:12.5px;color:var(--ink);background:none;border:none;padding:3px 8px 3px 0;cursor:pointer;text-decoration:underline;text-decoration-color:var(--div)}
 .mm-foot{font-size:10px;color:var(--muted);margin-top:8px}.mm-load{padding:30px;text-align:center;color:var(--muted)}
+/* T70 UX(10/20): 상자 전체 폭·탭 44px·대비 */
+.items .item .sommelier{grid-column:1/-1}
+.som-tg,.map-btn,.pb-chip,.pb-go{min-height:44px!important;font-size:13px!important}
+.som-tg,.map-btn{color:#7a5208!important;border-color:#7a5208!important;font-weight:600}
+.pb-go{color:#7a5208!important}
+
+.back-btn{position:fixed;left:max(12px,env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:1500;font:inherit;font-size:13px;padding:10px 14px;min-height:44px;border-radius:22px;border:1px solid #7a5208;background:var(--paper);color:#7a1414;box-shadow:0 2px 8px rgba(0,0,0,.2);cursor:pointer}
 .sommelier{margin-top:6px}
 #print-root .sommelier{display:none}
 @media print{.sommelier{display:none}}
@@ -1103,7 +1110,7 @@ body.admin-mode .add-sec-btn{display:block;}
     <p class="sv-text">네이버 플레이스에 대전어상을 저장해 두시면,<br>뭉티기 입고와 새 메뉴 소식을 바로 찾아보실 수 있습니다.</p>
     <div class="sv-btns">
       <a class="sv-btn" href="https://m.place.naver.com/restaurant/1646646595/home" target="_blank" rel="noopener">네이버에서 저장하기</a>
-      <a class="sv-btn main" href="https://m.booking.naver.com/booking/6/bizes/1058283" target="_blank" rel="noopener">다음 자리 예약하기</a>
+      <a class="sv-btn main" href="https://m.booking.naver.com/booking/6/bizes/1058283?utm_source=qrmenu&amp;utm_medium=referral&amp;utm_campaign=footer" target="_blank" rel="noopener">다음 자리 예약하기</a>
     </div>
     <p class="sv-note">뭉티기는 들어오는 날이 달라질 수 있어, 오시기 전 매장 전화로 입고를 확인해 주세요.<br>플레이스 화면의 '저장' 버튼을 누르면 됩니다. 12명까지 네이버 예약, 13명 이상은 전화로 문의해 주세요.</p>
   </section>
@@ -1375,7 +1382,7 @@ function buildItem(item,sec,idx){
     el.innerHTML=`<div class="ehint" style="right:2px;top:3px">✎</div>${mvB}<div class="pnum">${idx+1}</div><div><div class="iname">${x(item.name)} ${bd}${soTxt}${rbTxt}</div><div class="ispec">${x(item.spec)}</div><div class="idesc">${x(item.desc)}</div>${prTxt}${tnTxt}</div><div class="iprice">${pF(item)}</div>`;
   }else{
     el=document.createElement('div');el.className='item'+soClass+(item.sImg?' has-bottle':'');
-    el.innerHTML=`<div class="ehint">✎ 수정</div>${mvB}${item.sImg?`<img class="bottle-th" src="${x(item.sImg)}" alt="" loading="lazy">`:''}<div><div class="iname">${x(item.name)} ${bd}${soTxt}${rbTxt}</div>${item.spec?`<div class="ispec">${x(item.spec)}</div>`:''}${item.desc?`<div class="idesc">${x(item.desc)}</div>`:''}${prTxt}${tnTxt}</div><div class="iprice">${pF(item)}</div>`;
+    el.innerHTML=`<div class="ehint">✎ 수정</div>${mvB}${item.sImg?`<img class="bottle-th" src="${x(item.sImg)}" alt="" loading="lazy">`:''}<div><div class="iname">${x(item.name)} ${bd}${soTxt}${rbTxt}</div>${item.spec?`<div class="ispec">${x(item.spec)}</div>`:''}${item.desc?`<div class="idesc">${x(item.desc)}</div>`:''}${prTxt}</div><div class="iprice">${pF(item)}</div>${tnTxt}`;
   }
   el.dataset.itemId=item.id;
   el.addEventListener('click',e=>{
@@ -1383,7 +1390,7 @@ function buildItem(item,sec,idx){
       const chip=e.target.closest('.pb-chip');
       if(chip){e.stopPropagation();const box=chip.closest('.pairbox');box.querySelectorAll('.pb-chip').forEach(c=>c.classList.toggle('on',c===chip));box.querySelector('.pb-ans').innerHTML=pairAnswer(item,chip.dataset.cat);gtag('event','pairing_pick',{item_name:item.name,category:chip.dataset.cat});return;}
       const go=e.target.closest('.pb-go');
-      if(go){e.stopPropagation();const t=document.querySelector(`[data-item-id="${CSS.escape(go.dataset.go)}"]`);if(t){t.scrollIntoView({behavior:'smooth',block:'center'});t.classList.add('flash');setTimeout(()=>t.classList.remove('flash'),1600);}gtag('event','pairing_go',{item_name:item.name,drink_id:go.dataset.go});return;}
+      if(go){e.stopPropagation();const t=document.querySelector(`[data-item-id="${CSS.escape(go.dataset.go)}"]`);if(t){t.scrollIntoView({behavior:'smooth',block:'center'});t.classList.add('flash');setTimeout(()=>t.classList.remove('flash'),1600);showBack(el,item.name);}gtag('event','pairing_go',{item_name:item.name,drink_id:go.dataset.go});return;}
       if(e.target.closest('.som-body'))return;
     }
     const som=e.target.closest('.sommelier')||el.querySelector('.sommelier');
@@ -1438,7 +1445,7 @@ async function openSoolMap(sec){
   const num=v=>{const n=Number(v);return Number.isFinite(n)?n:0;};  // Codex R49: 좌표·번호는 숫자만
   pins.forEach(p=>{p.x=num(p.x);p.y=num(p.y);p.no=num(p.no);});
   let svg=_mapSvg.replace(/<script[\s\S]*?<\/script>/gi,'').replace(/\son\w+\s*=\s*("[^"]*"|'[^']*')/gi,'').replace('<svg ','<svg class="mm-svg" ');
-  const marks=pins.map(p=>`<g class="mm-pin" data-no="${p.no}" tabindex="0"><circle cx="${p.x}" cy="${p.y}" r="9"/><text x="${p.x}" y="${p.y+3.4}" text-anchor="middle">${p.no}</text></g>`).join('')+`<g class="mm-store"><rect x="${st.x-7}" y="${st.y-7}" width="14" height="14"/><text x="${st.x}" y="${st.y+3.5}" text-anchor="middle">大</text></g>`;
+  const marks=pins.map(p=>`<g class="mm-pin" data-no="${p.no}" tabindex="0"><circle cx="${p.x}" cy="${p.y}" r="11"/><text x="${p.x}" y="${p.y+3.4}" text-anchor="middle">${p.no}</text></g>`).join('')+`<g class="mm-store"><rect x="${st.x-7}" y="${st.y-7}" width="14" height="14"/><text x="${st.x}" y="${st.y+3.5}" text-anchor="middle">大</text></g>`;
   svg=svg.replace('</svg>',marks+'</svg>');
   const items=Object.fromEntries(sec.items.map(i=>[i.id,i]));
   const list=pins.map(p=>`<div class="mm-row" data-no="${p.no}"><span class="mm-no">${p.no}</span><div><div class="mm-reg">${x(p.region)}${p.est_all?' *':''}</div>${p.ids.map(i=>`<button type="button" class="mm-item" data-go="${x(i)}">${x(items[i].name)}</button>`).join('')}</div></div>`).join('');
@@ -1447,6 +1454,8 @@ async function openSoolMap(sec){
   body.querySelectorAll('.mm-pin').forEach(g=>g.addEventListener('click',()=>{const r=body.querySelector(`.mm-row[data-no="${CSS.escape(g.dataset.no)}"]`);if(r){r.scrollIntoView({behavior:'smooth',block:'nearest'});r.classList.add('flash');setTimeout(()=>r.classList.remove('flash'),1600);}}));
   body.querySelectorAll('.mm-item').forEach(b=>b.addEventListener('click',()=>{ov.classList.remove('open');const t=document.querySelector(`[data-item-id="${CSS.escape(b.dataset.go)}"]`);if(t){t.scrollIntoView({behavior:'smooth',block:'center'});t.classList.add('flash');setTimeout(()=>t.classList.remove('flash'),1600);}gtag('event','sool_map_go',{drink_id:b.dataset.go});}));
 }
+function showBack(fromEl,name){let b=document.getElementById('back-btn');if(!b){b=document.createElement('button');b.id='back-btn';b.type='button';b.className='back-btn';document.body.appendChild(b);}
+  b.textContent='← '+name+'(으)로 돌아가기';b.hidden=false;b.onclick=()=>{fromEl.scrollIntoView({behavior:'smooth',block:'center'});b.hidden=true;try{gtag('event','pairing_back',{item_name:name});}catch(e){}};clearTimeout(window._bk);window._bk=setTimeout(()=>{b.hidden=true;},15000);}
 function findItem(id){for(const sec of (MD.sections||[]))for(const it of sec.items)if(it.id===id)return it;return null;}
 function somScale(it){return somBar('당도','드라이','달콤',it.tSweet,5)+somBar('산미','낮음','높음',it.tSour,5)+somBar('바디','가벼움','묵직',it.tBody,5)+(it.tCarb?somBar('탄산','없음','강함',it.tCarb,5):'')+(it.tUmami?somBar('감칠맛','약함','강함',it.tUmami,5):'');}
 function updateTnDisplay(wrap){
