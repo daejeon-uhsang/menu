@@ -1829,8 +1829,9 @@ if(window.wcs) {
   if(bt&&bx)bt.addEventListener('click',function(){var c=bx.classList.toggle('collapsed');bt.setAttribute('aria-expanded',String(!c));bt.textContent=c?'대전어상 이야기와 약속 보기 ▾':'접기 ▴';if(!c&&window.uhEv)uhEv('story_open',{page_type:'menu'});});
   var seen={},tm=0;
   var since={};  // Codex R52·R53: 지나가기만 한 섹션은 세지 않는다 — 화면 가운데 띠(30~70%)에 1초 이상 머문 섹션만 section_view
-  function check(){tm=0;var h=window.innerHeight,now=Date.now(),wait=0;document.querySelectorAll('#scon .section[data-sec]').forEach(function(el){var id=el.getAttribute('data-sec');if(seen[id])return;var r=el.getBoundingClientRect();if(r.top<h*0.7&&r.bottom>h*0.3&&el.offsetParent!==null){if(!since[id]){since[id]=now;wait=1;return;}if(now-since[id]<1000){wait=1;return;}seen[id]=1;var t=el.querySelector('.sec-title');if(window.uhEv)uhEv('section_view',{category_id:id,category_name:t?t.textContent:id});}else delete since[id];});if(wait&&!tm)tm=setTimeout(check,1050);}
-  window.addEventListener('scroll',function(){if(!tm)tm=setTimeout(check,150);},{passive:true});
+  function check(){tm=0;var h=window.innerHeight,now=Date.now(),wait=0;document.querySelectorAll('#scon .section[data-sec]').forEach(function(el){var id=el.getAttribute('data-sec');if(seen[id])return;var r=el.getBoundingClientRect();if(r.top<h*0.7&&r.bottom>h*0.3&&el.offsetParent!==null){if(!since[id]){since[id]=now;wait=1;return;}if(now-since[id]<1000){wait=1;return;}seen[id]=1;var t=el.querySelector('.sec-title');if(window.uhEv)uhEv('section_view',{category_id:id,category_name:t?t.textContent:id});}else delete since[id];});if(wait){clearTimeout(tm);tm=setTimeout(check,1050);}}
+  window.addEventListener('scroll',function(){clearTimeout(tm);tm=setTimeout(check,150);},{passive:true});  // Codex R59: 1초 대기 중에도 스크롤마다 다시 검사해 띠 이탈을 놓치지 않게
+  document.addEventListener('visibilitychange',function(){if(document.hidden){since={};clearTimeout(tm);tm=0;}else{tm=setTimeout(check,150);}});  // 백그라운드 탭 시간은 체류로 세지 않음
   setTimeout(check,1500);
 })();
 </script>
