@@ -2098,13 +2098,6 @@
       ]
     },
     {
-      "id": "s5",
-      "title": "맥주",
-      "layout": "list",
-      "note": "",
-      "items": []
-    },
-    {
       "id": "s4",
       "title": "막걸리 · 탁주",
       "layout": "list",
@@ -3033,6 +3026,69 @@
           "priceBottle": "",
           "priceGlass": "27,000",
           "sImg": "art/sool/bottle/byungport1.webp"
+        }
+      ]
+    },
+    {
+      "id": "s5",
+      "title": "일반 주류",
+      "layout": "list",
+      "note": "같은 소주라도 쌀로 빚은 증류식 소주는 어떠세요? 증류식 소주 잔술 7,000원부터",
+      "items": [
+        {
+          "id": "gs1",
+          "name": "참이슬",
+          "icon": "",
+          "spec": "소주",
+          "badge": "",
+          "badgeText": "",
+          "desc": "",
+          "priceBottle": "5,000",
+          "priceGlass": ""
+        },
+        {
+          "id": "gs2",
+          "name": "새로",
+          "icon": "",
+          "spec": "소주",
+          "badge": "",
+          "badgeText": "",
+          "desc": "",
+          "priceBottle": "5,000",
+          "priceGlass": ""
+        },
+        {
+          "id": "gs3",
+          "name": "진로",
+          "icon": "",
+          "spec": "소주",
+          "badge": "",
+          "badgeText": "",
+          "desc": "",
+          "priceBottle": "5,000",
+          "priceGlass": ""
+        },
+        {
+          "id": "gb1",
+          "name": "카스",
+          "icon": "",
+          "spec": "맥주",
+          "badge": "",
+          "badgeText": "",
+          "desc": "",
+          "priceBottle": "5,000",
+          "priceGlass": ""
+        },
+        {
+          "id": "gb2",
+          "name": "테라 제로",
+          "icon": "",
+          "spec": "무알코올 맥주",
+          "badge": "",
+          "badgeText": "",
+          "desc": "운전하시는 분, 술을 드시지 않는 분도 함께 건배하실 수 있습니다",
+          "priceBottle": "5,000",
+          "priceGlass": ""
         }
       ]
     }
