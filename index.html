@@ -354,7 +354,7 @@ body.admin-mode .add-sec-btn{display:block;}
 .sj-tags{display:flex;flex-wrap:wrap;gap:4px}.sj-tag{font-size:11px;padding:2px 7px;border-radius:10px;background:#7a5208;color:#fff8ea}
 .sj-note{font-size:13px;line-height:1.5;color:#3d2f1c}
 .sj-temp{font-size:11px;color:#6b5a3e;border:1px solid var(--div);border-radius:8px;padding:0 5px;margin-left:4px;white-space:nowrap}
-.sj-foods{display:flex;flex-wrap:wrap;gap:5px}.sj-food{font-size:12px!important;min-height:32px!important;padding:4px 10px}
+.sj-foods{display:flex;flex-wrap:wrap;gap:0 12px;align-items:center}.sj-foods .sj-food{min-height:40px!important;padding:0 2px!important;margin:0!important}.sj-food{font-size:12px!important;min-height:32px!important;padding:4px 10px}
 .sj-est{font-size:10.5px;color:#7a6a50}
 .sj-mid::after{content:"";display:none}
 @media (min-width:430px){.sj-l.l,.sj-l.r{display:block}.sj-mid{grid-template-columns:132px minmax(0,1fr);margin-left:44px}}
@@ -365,6 +365,15 @@ body.admin-mode .add-sec-btn{display:block;}
 .sj-nx-q{font-size:11.5px;color:#6b5a3e;align-self:center;margin-right:2px}
 .guide-links{display:flex;flex-wrap:wrap;gap:6px 12px;justify-content:center;padding:14px 18px 90px;font-size:12px}.guide-links b{width:100%;text-align:center;color:#6b5a3e;font-size:12px}.guide-links a{color:#7a5208}
 @media print{.guide-links{display:none}}
+.sj-info{display:flex;flex-direction:column;gap:2px}
+.sj-info .som-row{grid-template-columns:44px 1fr}.sj-info .som-k{min-width:0}
+.sj-sub{font-size:12px;color:#6b5a3e}
+.sj-dist{display:inline-block;font-size:11.5px;font-weight:700;padding:1px 8px;border-radius:10px;color:#fff;vertical-align:1px}
+.sj-mapwrap{display:flex;flex-direction:column;align-items:center;gap:2px;margin:6px 0 4px}
+.sj-mapwrap .sj-map{position:relative;width:132px;padding:14px 6px 18px}
+.sj-mapwrap .sj-l{position:absolute;left:50%;transform:translateX(-50%);font-size:9.5px;color:#6b5a3e;white-space:nowrap}
+.sj-mapwrap .sj-l.t{top:0}.sj-mapwrap .sj-l.b{bottom:2px}
+.sj-cap{font-size:10.5px;color:#7a6a50}
 /* T70 UX(10/20): 상자 전체 폭·탭 44px·대비 */
 .items .item .sommelier{grid-column:1/-1}
 .som-tg,.map-btn,.pb-chip,.pb-go{min-height:44px!important;font-size:13px!important}
@@ -1482,32 +1491,30 @@ function tnHtml(item){
   const rows=[];
   if(item.sPoster||item.sImg)rows.push(1);if(item.tSweet)rows.push(1);if(item.tSour)rows.push(1);if(item.tBody)rows.push(1);if(item.tCarb)rows.push(1);if(item.tUmami)rows.push(1);if(item.sRice||item.sNuruk||item.sHistory)rows.push(1);if(item.sAxA||item.sMaterial)rows.push(1);
   if(!rows.length)return '';
+  const isSj=!!(item.sAxA||item.sMaterial);  // 10/20: 소주 노트는 sojuHtml이 향·맛을 한 번만, 산지는 메뉴 머리에만
   const prof=(item.region||item.brewery?`<div class="som-row"><span class="som-k">산지</span><span class="som-v">${x([item.region,item.brewery].filter(Boolean).join(' · '))}</span></div>`:'')+(item.sRice?`<div class="som-row"><span class="som-k">쌀</span><span class="som-v">${x(item.sRice)}</span></div>`:'')+(item.sNuruk?`<div class="som-row"><span class="som-k">누룩</span><span class="som-v">${x(item.sNuruk)}</span></div>`:'')+(item.sHistory?`<div class="som-row som-hist"><span class="som-k">이야기</span><span class="som-v">${x(item.sHistory)}</span></div>`:'');
   // 사장님 10/19: 막걸리·약주는 눌러서 펼치는 소믈리에 카드
-  return `<div class="sommelier"><button type="button" class="som-tg" aria-expanded="false">소믈리에 노트 <span class="som-ar">▾</span></button><div class="som-body" hidden>${item.sImg&&!item.sPoster?`<img class="som-bottle" src="${x(item.sImg)}" alt="${x(item.name)}" loading="lazy">`:''}${item.sPoster?`<img class="som-poster" src="${x(item.sPoster)}" alt="${x(item.name)} 포스터" loading="lazy">`:''}${somScale(item)}${sojuHtml(item)}${item.tAroma?`<div class="som-row"><span class="som-k">향</span><span class="som-v">${x(item.tAroma)}</span></div>`:''}${item.tNote?`<div class="som-row"><span class="som-k">맛</span><span class="som-v">${x(item.tNote)}</span></div>`:''}${item.pairing?`<div class="som-row som-pair"><span class="som-k">어울림</span><span class="som-v">${x(item.pairing)}</span></div>`:''}${prof?`<div class="som-sep"></div>${prof}`:''}${item.tEst?`<div class="som-est">※ 맛 지표는 ${item.tEst==='house'?'매장 기준':'양조장·판매처·시음기 평을 모은'} 참고값입니다</div>`:''}</div></div>`;
+  return `<div class="sommelier"><button type="button" class="som-tg" aria-expanded="false" aria-controls="som-${x(item.id)}">소믈리에 노트 <span class="som-ar">▾</span></button><div class="som-body" id="som-${x(item.id)}" hidden>${item.sImg&&!item.sPoster?`<img class="som-bottle" src="${x(item.sImg)}" alt="${x(item.name)}" loading="lazy">`:''}${item.sPoster?`<img class="som-poster" src="${x(item.sPoster)}" alt="${x(item.name)} 포스터" loading="lazy">`:''}${somScale(item)}${sojuHtml(item)}${(!isSj&&item.tAroma)?`<div class="som-row"><span class="som-k">향</span><span class="som-v">${x(item.tAroma)}</span></div>`:''}${(!isSj&&item.tNote)?`<div class="som-row"><span class="som-k">맛</span><span class="som-v">${x(item.tNote)}</span></div>`:''}${item.pairing?`<div class="som-row som-pair"><span class="som-k">어울림</span><span class="som-v">${x(item.pairing)}</span></div>`:''}${(prof&&!isSj)?`<div class="som-sep"></div>${prof}`:''}${item.tEst?`<div class="som-est">※ 맛 지표는 ${item.tEst==='house'?'매장 기준':'양조장·판매처·시음기 평을 모은'} 참고값입니다</div>`:''}</div></div>`;
 }
 // 사장님 10/20: 증류식 소주 노트 — 사케바·일본 소주 메뉴판식(원료·누룩·증류·숙성 / 맛 지도 / 추천 음용 / 어울리는 안주)
 function sojuHtml(it){
   if(!(it.sAxA||it.sMaterial))return '';
-  const chip=(k,v)=>v?`<span class="sj-chip"><b>${k}</b>${x(v)}</span>`:'';
   const dk=/감압/.test(it.sDistill||'')?'감압':(/상압/.test(it.sDistill||'')?'상압':'');
-  const spec=`<div class="sj-spec">${dk?`<span class="sj-dist ${dk==='상압'?'sa':'ga'}">${dk} 증류</span>`:''}${chip('원료',it.sMaterial)}${chip('누룩',it.sjNuruk)}${(it.sDistill&&it.sDistill.trim()!==dk)?chip('증류',it.sDistill):''}${chip('숙성',it.sAging)}</div>`;
+  const row=(k,v)=>v?`<div class="som-row"><span class="som-k">${k}</span><span class="som-v">${v}</span></div>`:'';
+  const rec=it.sStarter?`<div class="sj-rec">👍 ${dk?dk+'증류 ':''}입문 추천<span>${dk==='상압'?'전통 방식인데도 부드럽게 시작하기 좋아요':(dk==='감압'?'깔끔하고 가벼워 처음 드시기 좋아요':'가볍게 처음 드시기 좋아요')}</span></div>`:'';
+  const distV=dk?`<span class="sj-dist ${dk==='상압'?'sa':'ga'}">${dk}</span>${it.sDistill.trim()!==dk?` <span class="sj-sub">${x(it.sDistill.replace(dk,'').replace(/^[\s·,(]+|[\s)]+$/g,''))}</span>`:''}`:(it.sDistill&&!/확인/.test(it.sDistill)?x(it.sDistill):'<span class="sj-sub">방식 확인 중</span>');
+  const info=`<div class="sj-info">${row('증류',distV)}${row('원료',it.sMaterial?x(it.sMaterial):'')}${row('누룩',it.sjNuruk?x(it.sjNuruk):'')}${row('숙성',it.sAging?x(it.sAging):'')}</div>`;
   let map='';
   if(it.sAxA&&it.sAxT){
     const sec=(MD.sections||[]).find(s=>(s.items||[]).some(i=>i.id===it.id));const pts=((sec&&sec.items)||[]).filter(i=>i.sAxA&&i.sAxT);
     const P=(a,t,j)=>[14+(t-1)*23+(j%3-1)*3,106-(a-1)*23+(Math.floor(j/3)%3-1)*3];
     const seen={};const dots=pts.map(i=>{const key=i.sAxA+'-'+i.sAxT;const j=seen[key]=(seen[key]||0)+1;if(i.id===it.id)return '';const [cx,cy]=P(i.sAxA,i.sAxT,j);return `<circle cx="${cx}" cy="${cy}" r="3" class="sj-o"/>`;}).join('');
     const [mx,my]=P(it.sAxA,it.sAxT,1);
-    map=`<div class="sj-map"><svg viewBox="0 0 120 120" role="img" aria-label="맛 지도: 향 ${it.sAxA}/5, 맛 ${it.sAxT}/5"><line x1="60" y1="6" x2="60" y2="114" class="sj-ax"/><line x1="6" y1="60" x2="114" y2="60" class="sj-ax"/><text x="8" y="56" class="sj-tx">가볍게</text><text x="112" y="56" class="sj-tx" text-anchor="end">진하게</text>${dots}<circle cx="${mx}" cy="${my}" r="6.5" class="sj-me"/></svg><span class="sj-l t">화사한 향</span><span class="sj-est-tag">추정</span><span class="sj-l b">은은한 향</span></div>`;
+    map=`<div class="sj-mapwrap"><div class="sj-map"><span class="sj-l t">화사한 향</span><svg viewBox="0 0 120 120" role="img" aria-label="맛 지도: 향 ${it.sAxA}/5, 맛 ${it.sAxT}/5"><line x1="60" y1="6" x2="60" y2="114" class="sj-ax"/><line x1="6" y1="60" x2="114" y2="60" class="sj-ax"/><text x="8" y="56" class="sj-tx">가볍게</text><text x="112" y="56" class="sj-tx" text-anchor="end">진하게</text>${dots}<circle cx="${mx}" cy="${my}" r="6.5" class="sj-me"/></svg><span class="sj-l b">은은한 향</span></div><div class="sj-cap">증류식 소주 ${pts.length}종 중 이 술의 위치</div></div>`;
   }
-  const tags=(it.sAromaTags||[]).map(t=>`<span class="sj-tag">${x(t)}</span>`).join('');
-  const sv=it.sServe;const serve=sv?`<div class="som-row"><span class="som-k">음용</span><span class="som-v"><span class="sj-est-tag in">추천·추정</span><b>${x(sv.main||'')}</b>${sv.alt&&sv.alt.length?` · ${x(sv.alt.join(' · '))}`:''}${sv.temp?` <span class="sj-temp">${x(sv.temp)}</span>`:''}</span></div>`:'';
-  const pf=(it.sPairFood||[]).map(f=>{const d=findItem(f.id);return d?`<button type="button" class="pb-go sj-food" data-go="${x(f.id)}" title="${x(f.why||'')}">${x(d.name)} →</button>`:'';}).join('');
-  const secAll=((MD.sections||[]).find(s=>(s.items||[]).some(i=>i.id===it.id))||{}).items||[];
-  const nexts=(it.sAxA&&it.sAxT)?secAll.filter(i=>i.id!==it.id&&i.sAxA&&i.sAxT&&!i.soldout).map(i=>({i,d:Math.abs(i.sAxA-it.sAxA)+Math.abs(i.sAxT-it.sAxT)+(i.sAxT>it.sAxT?0:0.3)})).sort((a,b)=>a.d-b.d).slice(0,2):[];
-  const nextHtml=nexts.length?`<div class="som-row"><span class="som-k">다음엔</span><span class="som-v sj-foods"><span class="sj-nx-q">이게 좋았다면</span>${nexts.map(n=>`<button type="button" class="pb-go sj-food" data-go="${x(n.i.id)}">${x(n.i.name)} →</button>`).join('')}</span></div>`:'';
-  const rec=it.sStarter?`<div class="sj-rec">👍 ${dk?dk+'증류 ':''}입문 추천<span>${dk==='상압'?'전통 방식인데도 부드럽게 시작하기 좋아요':(dk==='감압'?'깔끔하고 가벼워 처음 드시기 좋아요':'가볍게 처음 드시기 좋아요')}</span></div>`:'';
-  return `<div class="sj">${rec}${spec}<div class="sj-mid">${map}<div class="sj-r">${tags?`<div class="sj-tags">${tags}</div>`:''}</div></div>${serve}${pf?`<div class="som-row"><span class="som-k">안주</span><span class="som-v sj-foods">${pf}</span></div>`:''}${nextHtml}</div>`;
+  const sv=it.sServe;const serve=sv?`<b>${x(sv.main||'')}</b>${sv.alt&&sv.alt.length?` · ${x(sv.alt.join(' · '))}`:''}${sv.temp?` <span class="sj-temp">${x(sv.temp)}</span>`:''}`:'';
+  const pf=(it.sPairFood||[]).map(f=>{const d=findItem(f.id);return d?`<button type="button" class="pb-go sj-food" data-go="${x(f.id)}" title="${x(f.why||'')}" aria-label="${x(d.name)} — ${x(f.why||'어울리는 안주')}, 메뉴로 이동">${x(d.name)} →</button>`:'';}).join('');
+  return `<div class="sj">${rec}${info}${map}<div class="sj-info">${row('향',it.tAroma?x(it.tAroma):'')}${row('맛',it.tNote?x(it.tNote):'')}${row('음용',serve)}${pf?`<div class="som-row"><span class="som-k">안주</span><span class="som-v sj-foods">${pf}</span></div>`:''}</div></div>`;
 }
 function somBar(lbl,lo,hi,v,max){if(v==null||v==='')return '';const n=parseInt(v)||0;let d='';for(let i=1;i<=max;i++)d+=`<i class="${i<=n?'on':''}"></i>`;return `<div class="som-scale"><span class="som-k">${lbl}</span><span class="som-lo">${lo}</span><span class="som-bar">${d}</span><span class="som-hi">${hi}</span></div>`;}
 function pairBoxHtml(item){
