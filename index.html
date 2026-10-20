@@ -1544,7 +1544,7 @@ async function botFree(text){const t=text.trim().slice(0,80);if(!t)return;botSay
   const items=[];for(const sec of MD.sections)for(const it of sec.items){if(it.name.startsWith('↳'))continue;if(words.some(w=>it.name.includes(w)))items.push(it);}
   let out='';if(best&&bs>=2)out+=`<p>${x(best.a)}</p>`;
   if(items.length)out+='<p>메뉴판에서 찾았어요:</p>'+items.slice(0,4).map(it=>`<div><button type="button" class="og-go" data-go="${x(it.id)}">${x(it.name)}</button> <span class="og-p">${x(it.priceGlass||it.priceBottle||'')}원</span></div>`).join('');
-  botLog(out?'bot_free_hit':'bot_free_miss',{q_text:t});
+  botLog(out?'bot_free_hit':'bot_free_miss',{q_text:t.replace(/\d[\d\s-]{2,}\d/g,'***').replace(/\S+@\S+/g,'***')});  // 전화번호·이메일은 기록하지 않음
   botSay(out||'그 질문은 아직 답을 준비하지 못했어요. 직원에게 물어봐 주세요. (질문은 다음 답변 준비에 쓰입니다)');}
 function botOpen(){const s=document.getElementById('bot-sheet');s.hidden=false;document.getElementById('bot-fab').setAttribute('aria-expanded','true');botLog('bot_open',{});
   if(!s.dataset.init){s.dataset.init=1;botSay('어떤 자리세요? 아래에서 고르시거나 짧게 물어봐 주세요.');}}
