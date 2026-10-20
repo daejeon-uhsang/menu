@@ -1383,7 +1383,7 @@ function buildItem(item,sec,idx){
       const chip=e.target.closest('.pb-chip');
       if(chip){e.stopPropagation();const box=chip.closest('.pairbox');box.querySelectorAll('.pb-chip').forEach(c=>c.classList.toggle('on',c===chip));box.querySelector('.pb-ans').innerHTML=pairAnswer(item,chip.dataset.cat);gtag('event','pairing_pick',{item_name:item.name,category:chip.dataset.cat});return;}
       const go=e.target.closest('.pb-go');
-      if(go){e.stopPropagation();const t=document.querySelector(`[data-item-id="${go.dataset.go}"]`);if(t){t.scrollIntoView({behavior:'smooth',block:'center'});t.classList.add('flash');setTimeout(()=>t.classList.remove('flash'),1600);}gtag('event','pairing_go',{item_name:item.name,drink_id:go.dataset.go});return;}
+      if(go){e.stopPropagation();const t=document.querySelector(`[data-item-id="${CSS.escape(go.dataset.go)}"]`);if(t){t.scrollIntoView({behavior:'smooth',block:'center'});t.classList.add('flash');setTimeout(()=>t.classList.remove('flash'),1600);}gtag('event','pairing_go',{item_name:item.name,drink_id:go.dataset.go});return;}
       if(e.target.closest('.som-body'))return;
     }
     const som=e.target.closest('.sommelier')||el.querySelector('.sommelier');
@@ -1399,7 +1399,7 @@ function pF(i){
   if(i.priceGlass)return`<div class="ponly">${x(i.priceGlass)}<span class="punit">원</span></div>`;
   return'';
 }
-function x(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function x(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}  // Codex R49: 속성 따옴표까지 이스케이프
 function tnDots(v){let s='';for(let i=1;i<=5;i++)s+=i<=v?'●':'○';return s;}
 function tnHtml(item){
   const rows=[];
@@ -1434,16 +1434,18 @@ async function openSoolMap(sec){
   try{await loadMap();}catch(e){body.innerHTML='<div class="mm-load">지도를 불러오지 못했습니다.</div>';return;}
   const P=_mapData.posters.find(p=>p.sections.includes(sec.id));const ids=new Set(sec.items.map(i=>i.id));
   const pins=(P?P.pins:[]).map(p=>({...p,ids:p.ids.filter(i=>ids.has(i))})).filter(p=>p.ids.length);
-  const st=_mapData.store||{x:187.3,y:126.5};
-  let svg=_mapSvg.replace('<svg ','<svg class="mm-svg" ');
+  const st0=_mapData.store||{};const st={x:Number(st0.x)||187.3,y:Number(st0.y)||126.5};
+  const num=v=>{const n=Number(v);return Number.isFinite(n)?n:0;};  // Codex R49: 좌표·번호는 숫자만
+  pins.forEach(p=>{p.x=num(p.x);p.y=num(p.y);p.no=num(p.no);});
+  let svg=_mapSvg.replace(/<script[\s\S]*?<\/script>/gi,'').replace(/\son\w+\s*=\s*("[^"]*"|'[^']*')/gi,'').replace('<svg ','<svg class="mm-svg" ');
   const marks=pins.map(p=>`<g class="mm-pin" data-no="${p.no}" tabindex="0"><circle cx="${p.x}" cy="${p.y}" r="9"/><text x="${p.x}" y="${p.y+3.4}" text-anchor="middle">${p.no}</text></g>`).join('')+`<g class="mm-store"><rect x="${st.x-7}" y="${st.y-7}" width="14" height="14"/><text x="${st.x}" y="${st.y+3.5}" text-anchor="middle">大</text></g>`;
   svg=svg.replace('</svg>',marks+'</svg>');
   const items=Object.fromEntries(sec.items.map(i=>[i.id,i]));
   const list=pins.map(p=>`<div class="mm-row" data-no="${p.no}"><span class="mm-no">${p.no}</span><div><div class="mm-reg">${x(p.region)}${p.est_all?' *':''}</div>${p.ids.map(i=>`<button type="button" class="mm-item" data-go="${x(i)}">${x(items[i].name)}</button>`).join('')}</div></div>`).join('');
   const house=(P&&P.house&&ids.has(P.house))?`<div class="mm-row"><span class="mm-no mm-h">大</span><div><div class="mm-reg">대전어상 하우스</div><button type="button" class="mm-item" data-go="${x(P.house)}">${x(items[P.house].name)}</button></div></div>`:'';
   body.innerHTML=`<div class="mm-title">${x(sec.title)} 산지 지도</div><div class="mm-sub">${pins.reduce((a,p)=>a+p.ids.length,0)}종 · ${pins.length}개 시군 — 번호를 누르면 그 지역 술로 이동합니다</div><div class="mm-map">${svg}</div><div class="mm-list">${house}${list}</div><div class="mm-foot">* 위치 추정 · 지도: Natural Earth(퍼블릭 도메인) · 매장 벽 지도와 같은 번호</div>`;
-  body.querySelectorAll('.mm-pin').forEach(g=>g.addEventListener('click',()=>{const r=body.querySelector(`.mm-row[data-no="${g.dataset.no}"]`);if(r){r.scrollIntoView({behavior:'smooth',block:'nearest'});r.classList.add('flash');setTimeout(()=>r.classList.remove('flash'),1600);}}));
-  body.querySelectorAll('.mm-item').forEach(b=>b.addEventListener('click',()=>{ov.classList.remove('open');const t=document.querySelector(`[data-item-id="${b.dataset.go}"]`);if(t){t.scrollIntoView({behavior:'smooth',block:'center'});t.classList.add('flash');setTimeout(()=>t.classList.remove('flash'),1600);}gtag('event','sool_map_go',{drink_id:b.dataset.go});}));
+  body.querySelectorAll('.mm-pin').forEach(g=>g.addEventListener('click',()=>{const r=body.querySelector(`.mm-row[data-no="${CSS.escape(g.dataset.no)}"]`);if(r){r.scrollIntoView({behavior:'smooth',block:'nearest'});r.classList.add('flash');setTimeout(()=>r.classList.remove('flash'),1600);}}));
+  body.querySelectorAll('.mm-item').forEach(b=>b.addEventListener('click',()=>{ov.classList.remove('open');const t=document.querySelector(`[data-item-id="${CSS.escape(b.dataset.go)}"]`);if(t){t.scrollIntoView({behavior:'smooth',block:'center'});t.classList.add('flash');setTimeout(()=>t.classList.remove('flash'),1600);}gtag('event','sool_map_go',{drink_id:b.dataset.go});}));
 }
 function findItem(id){for(const sec of (MD.sections||[]))for(const it of sec.items)if(it.id===id)return it;return null;}
 function somScale(it){return somBar('당도','드라이','달콤',it.tSweet,5)+somBar('산미','낮음','높음',it.tSour,5)+somBar('바디','가벼움','묵직',it.tBody,5)+(it.tCarb?somBar('탄산','없음','강함',it.tCarb,5):'')+(it.tUmami?somBar('감칠맛','약함','강함',it.tUmami,5):'');}
