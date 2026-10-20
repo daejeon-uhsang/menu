@@ -1444,7 +1444,7 @@ async function openSoolMap(sec){
   const st0=_mapData.store||{};const st={x:Number(st0.x)||187.3,y:Number(st0.y)||126.5};
   const num=v=>{const n=Number(v);return Number.isFinite(n)?n:0;};  // Codex R49: 좌표·번호는 숫자만
   pins.forEach(p=>{p.x=num(p.x);p.y=num(p.y);p.no=num(p.no);});
-  let svg=_mapSvg.replace(/<script[\s\S]*?<\/script>/gi,'').replace(/\son\w+\s*=\s*("[^"]*"|'[^']*')/gi,'').replace('<svg ','<svg class="mm-svg" ');
+  let svg=cleanSvg(_mapSvg);
   const marks=pins.map(p=>`<g class="mm-pin" data-no="${p.no}" tabindex="0"><circle cx="${p.x}" cy="${p.y}" r="11"/><text x="${p.x}" y="${p.y+3.4}" text-anchor="middle">${p.no}</text></g>`).join('')+`<g class="mm-store"><rect x="${st.x-7}" y="${st.y-7}" width="14" height="14"/><text x="${st.x}" y="${st.y+3.5}" text-anchor="middle">大</text></g>`;
   svg=svg.replace('</svg>',marks+'</svg>');
   const items=Object.fromEntries(sec.items.map(i=>[i.id,i]));
@@ -1454,6 +1454,14 @@ async function openSoolMap(sec){
   body.querySelectorAll('.mm-pin').forEach(g=>g.addEventListener('click',()=>{const r=body.querySelector(`.mm-row[data-no="${CSS.escape(g.dataset.no)}"]`);if(r){r.scrollIntoView({behavior:'smooth',block:'nearest'});r.classList.add('flash');setTimeout(()=>r.classList.remove('flash'),1600);}}));
   body.querySelectorAll('.mm-item').forEach(b=>b.addEventListener('click',()=>{ov.classList.remove('open');const t=document.querySelector(`[data-item-id="${CSS.escape(b.dataset.go)}"]`);if(t){t.scrollIntoView({behavior:'smooth',block:'center'});t.classList.add('flash');setTimeout(()=>t.classList.remove('flash'),1600);}gtag('event','sool_map_go',{drink_id:b.dataset.go});}));
 }
+function cleanSvg(src){  // Codex R51: 정규식 대신 DOM allowlist 정제
+  const OK_TAG=new Set(['svg','g','path','rect','circle','ellipse','line','polyline','polygon','text','tspan','title','desc','defs','clippath','lineargradient','radialgradient','stop']);
+  const OK_ATTR=new Set(['viewbox','width','height','x','y','x1','y1','x2','y2','cx','cy','r','rx','ry','d','points','fill','fill-opacity','fill-rule','stroke','stroke-width','stroke-opacity','stroke-linejoin','stroke-linecap','stroke-dasharray','opacity','transform','class','id','text-anchor','font-size','font-family','font-weight','clip-path','offset','stop-color','stop-opacity','gradientunits','preserveaspectratio','xmlns','version']);
+  const doc=new DOMParser().parseFromString(src,'image/svg+xml');const root=doc.documentElement;
+  if(!root||root.nodeName.toLowerCase()!=='svg'||doc.getElementsByTagName('parsererror').length)return '<svg class="mm-svg" viewBox="0 0 400 400"></svg>';
+  (function walk(el){for(const c of [...el.children]){const t=c.nodeName.toLowerCase();if(t==='style'){if(c.children.length||/@import|url\s*\(|expression|behavior|<|\\/i.test(c.textContent))c.remove();continue;}if(!OK_TAG.has(t)){c.remove();continue;}walk(c);}
+    for(const a of [...el.attributes]){const n=a.name.toLowerCase(),v=a.value;if(!OK_ATTR.has(n)||/url\s*\(\s*['"]?\s*(?!#)/i.test(v)||/javascript:/i.test(v))el.removeAttribute(a.name);}})(root);
+  root.setAttribute('class','mm-svg korea-base');return new XMLSerializer().serializeToString(root);}
 function showBack(fromEl,name){let b=document.getElementById('back-btn');if(!b){b=document.createElement('button');b.id='back-btn';b.type='button';b.className='back-btn';document.body.appendChild(b);}
   b.textContent='← '+name+'(으)로 돌아가기';b.hidden=false;b.onclick=()=>{fromEl.scrollIntoView({behavior:'smooth',block:'center'});b.hidden=true;try{gtag('event','pairing_back',{item_name:name});}catch(e){}};clearTimeout(window._bk);window._bk=setTimeout(()=>{b.hidden=true;},15000);}
 function findItem(id){for(const sec of (MD.sections||[]))for(const it of sec.items)if(it.id===id)return it;return null;}
