@@ -856,6 +856,15 @@ body.admin-mode .add-sec-btn{display:block;}
   .sec-chip{font-family:'YiSunShin','Nanum Myeongjo',serif!important;font-weight:400!important;font-size:15px!important;}
   .iname{font-family:'ChosunGs','Nanum Myeongjo',serif!important;font-weight:400!important;font-size:20px!important;letter-spacing:.5px;}
 }
+/* 10/22 UX 기준(UI UX Pro Max 벤치마크): 화면 전용 — 터치 44px·글자 12px 이상·밀림 방지 */
+@media screen{
+  .sec-chip{min-height:44px}
+  .main-header-block.brand-intro .bi-toggle{min-height:44px;padding:10px 16px}
+  .guide-links a,.footer a{display:inline-flex;align-items:center;min-height:44px}
+  .sv-note{font-size:12px}
+  .bottle-th{aspect-ratio:2/3}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
@@ -1461,7 +1470,7 @@ function buildItem(item,sec,idx){
     el.innerHTML=`<div class="ehint" style="right:2px;top:3px">✎</div>${mvB}<div class="pnum">${idx+1}</div><div><div class="iname">${x(item.name)} ${bd}${soTxt}${rbTxt}</div><div class="ispec">${x(item.spec)}</div><div class="idesc">${x(item.desc)}</div>${prTxt}${tnTxt}</div><div class="iprice">${pF(item)}</div>`;
   }else{
     el=document.createElement('div');el.className='item'+soClass+(item.sImg?' has-bottle':'');
-    el.innerHTML=`<div class="ehint">✎ 수정</div>${mvB}${item.sImg?`<img class="bottle-th" src="${x(item.sImg)}" alt="" loading="lazy">`:''}<div><div class="iname">${x(item.name)} ${bd}${soTxt}${rbTxt}</div>${item.spec?`<div class="ispec">${x(item.spec)}</div>`:''}${item.desc?`<div class="idesc">${x(item.desc)}</div>`:''}${prTxt}</div><div class="iprice">${pF(item)}</div>${tnTxt}`;
+    el.innerHTML=`<div class="ehint">✎ 수정</div>${mvB}${item.sImg?`<img class="bottle-th" src="${x(item.sImg)}" alt="" width="44" height="66" loading="lazy" decoding="async">`:''}<div><div class="iname">${x(item.name)} ${bd}${soTxt}${rbTxt}</div>${item.spec?`<div class="ispec">${x(item.spec)}</div>`:''}${item.desc?`<div class="idesc">${x(item.desc)}</div>`:''}${prTxt}</div><div class="iprice">${pF(item)}</div>${tnTxt}`;
   }
   el.dataset.itemId=item.id;
   el.addEventListener('click',e=>{
