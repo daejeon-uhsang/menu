@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Daejeon Eosang — English Menu</title>
+<style>
+:root{--ink:#180e00;--paper:#f8f0de;--paper2:#ede0c4;--crimson:#7a1414;--gold:#b8820a;--muted:#5e4a2c;--div:#c4a878;}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--paper);color:var(--ink);font-family:-apple-system,"Segoe UI",Roboto,"Noto Sans KR",sans-serif;overflow-x:clip}
+header{position:sticky;top:0;z-index:10;background:var(--paper);border-bottom:2px solid var(--gold);text-align:center;padding:10px 16px 0}
+.en{font-size:10px;letter-spacing:5px;color:var(--crimson)}
+h1{font-family:Georgia,serif;font-size:21px;letter-spacing:2px;margin:2px 0}
+.sub{font-size:12px;color:var(--muted)}
+.ko{display:inline-block;margin:6px 0 8px;font-size:13px;color:var(--crimson);text-decoration:none;border:1px solid var(--crimson);border-radius:16px;padding:4px 12px;min-height:30px;line-height:20px}
+nav{display:flex;overflow-x:auto;gap:6px;padding:8px 0 10px;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav a{flex-shrink:0;font-size:13px;color:var(--ink);text-decoration:none;border:1px solid var(--div);border-radius:18px;padding:8px 12px}
+main{max-width:720px;margin:0 auto;padding:0 16px 60px}
+.info{font-size:13px;color:var(--muted);line-height:1.6;background:var(--paper2);padding:10px 12px;margin:14px 0 4px;border-left:3px solid var(--gold)}
+section{padding-top:18px;scroll-margin-top:150px}
+h2{font-family:Georgia,serif;font-size:18px;border-bottom:1.5px solid var(--ink);padding-bottom:6px;margin-bottom:6px}
+.note{font-size:12px;color:var(--muted);margin-bottom:6px}
+.item{display:grid;grid-template-columns:1fr auto;gap:10px;padding:11px 0;border-bottom:1px solid var(--div)}
+.name{font-weight:700;font-size:16px;line-height:1.35}
+.kn{font-size:12px;color:var(--muted);font-weight:400}
+.spec{font-size:12.5px;color:var(--gold);margin-top:2px}
+.desc{font-size:13.5px;color:var(--muted);line-height:1.5;margin-top:3px}
+.price{text-align:right;font-weight:700;font-size:15px;max-width:34vw;overflow-wrap:anywhere}
+.price{white-space:pre-line}.price small{display:block;font-weight:400;font-size:12px;color:var(--muted)}
+.badge{display:inline-block;font-size:10.5px;background:var(--crimson);color:#fff;padding:1px 5px;border-radius:2px;vertical-align:middle;margin-left:4px;font-weight:500}
+.addon .name{font-size:14px;font-weight:600}
+footer{text-align:center;font-size:12px;color:var(--muted);padding:24px 16px}
+</style>
+</head>
+<body>
+<header>
+  <div class="en">TRADITIONAL KOREAN LIQUOR</div>
+  <h1>Daejeon Eosang</h1>
+  <div class="sub">Korean traditional liquor bar · 대전어상</div>
+  <a class="ko" href="./">한국어 메뉴</a>
+  <nav id="nav"></nav>
+</header>
+<main id="main">
+  <div class="info">Prices are in Korean won (₩). Please tell staff the menu name or show this screen to order.<br>S = small, M = medium. "Glass" = one glass, "Bottle" = full bottle.</div>
+</main>
+<footer>Daejeon Eosang 大廃漁床 · @daejeon_uhsang</footer>
+<script>
+(function(){
+function xe(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function pr(s){return String(s||"").replace(/ \/ /g,"\n").replace(/소 /g,"S ").replace(/중 /g,"M ").replace(/일반 /g,"Regular ").replace(/특 /g,"Special ");}
+Promise.all([fetch("menu.json",{cache:"no-store"}).then(function(r){return r.json();}),fetch("menu_en.json",{cache:"no-store"}).then(function(r){return r.json();})]).then(function(a){
+  var d=a[0],en=a[1],nav=document.getElementById("nav"),main=document.getElementById("main");
+  d.sections.forEach(function(sec){
+    if(sec.hidden||!sec.items||!sec.items.length)return;
+    var st=(en.sections||{})[sec.id]||[sec.title,sec.note||""];
+    var h='<section id="'+xe(sec.id)+'"><h2>'+xe(st[0])+'</h2>'+(st[1]?'<div class="note">'+xe(st[1])+'</div>':'');
+    sec.items.forEach(function(it){
+      var t=(en.items||{})[it.id],nm=t?t[0]:it.name,sp=t?t[1]:it.spec,ds=t?t[2]:it.desc;
+      var bg=it.badgeText?((en.badges||{})[it.badgeText]||""):"";
+      var p="";
+      if(it.priceBottle&&it.priceGlass)p=xe(pr(it.priceBottle))+'<small>Bottle</small>'+xe(it.priceGlass)+'<small>Glass</small>';
+      else if(it.priceBottle)p=xe(pr(it.priceBottle));
+      else if(it.priceGlass)p=xe(it.priceGlass);
+      var addon=/^↳/.test(it.name);
+      h+='<div class="item'+(addon?' addon':'')+'"><div><div class="name">'+xe(nm)+(bg?'<span class="badge">'+xe(bg)+'</span>':'')+' <span class="kn">'+xe(it.name.replace(/^↳\s*/,""))+'</span></div>'+(sp?'<div class="spec">'+xe(sp)+'</div>':'')+(ds?'<div class="desc">'+xe(ds)+'</div>':'')+'</div><div class="price">'+p+'</div></div>';
+    });
+    main.insertAdjacentHTML("beforeend",h+'</section>');
+    var l=document.createElement("a");l.href="#"+sec.id;l.textContent=st[0];nav.appendChild(l);
+  });
+}).catch(function(){document.getElementById("main").insertAdjacentHTML("beforeend",'<p style="padding:20px">Menu failed to load. Please refresh or ask staff.</p>');});
+})();
+</script>
+</body>
+</html>
