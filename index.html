@@ -454,6 +454,33 @@ body.admin-mode .add-sec-btn{display:block;}
 .sv-btn:focus-visible{outline:2px solid var(--crimson);outline-offset:3px;}
 .sv-note{font-size:11.5px;line-height:1.7;color:var(--muted);margin:10px 0 0;word-break:keep-all;}
 
+/* 원산지 표시 (11/5 사장님: 칠판 게시 + QR 하단) — 데이터는 menu.json origins */
+.orig-block{margin:22px 0 8px;padding:18px 14px 14px;border:1.5px solid var(--ink);background:var(--paper2);position:relative;}
+.orig-block::before{content:'';position:absolute;top:3px;left:3px;right:3px;bottom:3px;border:0.5px solid var(--div);pointer-events:none;}
+.orig-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.orig-line{flex:1;min-width:12px;height:1px;background:var(--gold2);opacity:.65;}
+.orig-title{font-family:'YiSunShin','Nanum Myeongjo',serif;font-weight:400;font-size:26px;letter-spacing:3px;color:var(--ink);white-space:nowrap;margin:0;}
+.orig-title::before,.orig-title::after{content:'◆';font-size:8px;color:var(--crimson);margin:0 6px;vertical-align:middle;}
+.orig-table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:14px;line-height:1.6;color:var(--ink);position:relative;}
+.orig-table col.c1{width:30%;}.orig-table col.c2{width:30%;}
+.orig-table th{font-family:'Nanum Myeongjo',serif;font-weight:700;font-size:14px;color:#fff;background:var(--crimson);padding:8px 6px;text-align:left;border:1px solid var(--crimson);}
+.orig-table td{padding:9px 6px;border-bottom:1px solid var(--div);vertical-align:top;word-break:keep-all;overflow-wrap:anywhere;}
+.orig-table tr:nth-child(even) td{background:rgba(248,240,222,.6);}
+.orig-table td:first-child{font-family:'Nanum Myeongjo',serif;font-weight:700;}
+.orig-kind{display:block;font-size:14px;color:var(--muted);font-weight:400;}
+.orig-menus{color:#3e2e1c;}
+.orig-ref{position:relative;margin:12px 0 0;padding:10px 6px 2px;border-top:1px dashed var(--div);font-size:14px;line-height:1.7;color:var(--ink);}
+.orig-ref-h{font-family:'Nanum Myeongjo',serif;font-weight:700;font-size:14px;margin:0 0 4px;color:#3e2e1c;word-break:keep-all;}
+.orig-ref ul{margin:0;padding-left:18px;}
+.orig-ref li{margin:2px 0;word-break:keep-all;overflow-wrap:anywhere;}
+.orig-ref-m{color:var(--muted);}
+.orig-note{position:relative;font-size:14px;line-height:1.75;color:var(--muted);margin:10px 0 0;word-break:keep-all;}
+@media print{
+  .orig-block:not([hidden]){display:block!important;break-before:page;page-break-before:always;break-inside:avoid;margin:0;padding:10mm 8mm;border:1.5px solid #180e00;background:#f8f0de!important;}
+  .orig-title{font-family:'Nanum Myeongjo',serif;font-weight:800;font-size:18pt;}
+  .orig-table,.orig-table th,.orig-kind,.orig-note,.orig-ref,.orig-ref-h{font-size:11pt;}
+}
+
 /* ── 모바일 반응형 ── */
 @media(max-width:768px){
   html,body{overflow-x:hidden;}
@@ -1201,6 +1228,7 @@ body.admin-mode .add-sec-btn{display:block;}
     </div>
     <p class="sv-note">뭉티기는 들어오는 날이 달라질 수 있어, 오시기 전 매장 전화로 입고를 확인해 주세요.<br>플레이스 화면의 '저장' 버튼을 누르면 됩니다. 12명까지 네이버 예약, 13명 이상은 전화로 문의해 주세요.</p>
   </section>
+  <section class="orig-block" id="origin-block" aria-labelledby="orig-title" hidden></section>
   <div class="footer">
     <strong>대전어상 大廛漁床</strong>
     모든 메뉴는 당일 입고 상황에 따라 변동될 수 있습니다<br>
@@ -1272,6 +1300,32 @@ function renderAll(){
   buildSecNav();
   renderGuide();
   buildPrintPages();
+  renderOrigins();
+}
+
+/* 원산지 표시: menu.json origins[{item,kind?,origin,menus:[메뉴 id]}] + originsNote */
+function renderOrigins(){
+  const box=document.getElementById('origin-block');if(!box)return;
+  const rows=Array.isArray(MD.origins)?MD.origins:[];
+  if(!rows.length){box.hidden=true;box.innerHTML='';return;}
+  const names={};
+  MD.sections.forEach(s=>(s.items||[]).forEach(it=>{names[it.id]=String(it.name||'').replace(/^↳\s*/,'');}));
+  const v=t=>x(String(t||''));
+  let h='<div class="orig-head"><span class="orig-line"></span><h2 class="orig-title" id="orig-title">원산지 표시</h2><span class="orig-line"></span></div>';
+  h+='<table class="orig-table"><colgroup><col class="c1"><col class="c2"><col></colgroup><thead><tr><th scope="col">품목</th><th scope="col">원산지</th><th scope="col">사용 메뉴</th></tr></thead><tbody>';
+  rows.forEach(r=>{
+    const ms=(r.menus||[]).map(id=>names[id]||'').filter(Boolean).join(', ');
+    h+=`<tr><td>${x(r.item)}</td><td>${v(r.origin)}${r.kind!==undefined?`<span class="orig-kind">식육 종류: ${v(r.kind)}</span>`:''}</td><td class="orig-menus">${x(ms)}</td></tr>`;
+  });
+  h+='</tbody></table>';
+  const refs=Array.isArray(MD.originsRef)?MD.originsRef:[];
+  if(refs.length){
+    h+=`<div class="orig-ref"><p class="orig-ref-h">${x(MD.originsRefLabel||'참고')}</p><ul>`;
+    refs.forEach(r=>{const ms=(r.menus||[]).map(id=>names[id]||'').filter(Boolean).join(', ');h+=`<li><b>${x(r.item)}</b>: ${v(r.origin)}${ms?` <span class="orig-ref-m">(${x(ms)})</span>`:''}</li>`;});
+    h+='</ul></div>';
+  }
+  if(MD.originsNote)h+=`<p class="orig-note">${x(MD.originsNote)}</p>`;
+  box.innerHTML=h;box.hidden=false;
 }
 
 function buildSecNav(){

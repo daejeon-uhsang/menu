@@ -32,6 +32,17 @@ h2{font-family:Georgia,serif;font-size:18px;border-bottom:1.5px solid var(--ink)
 .badge{display:inline-block;font-size:10.5px;background:var(--crimson);color:#fff;padding:1px 5px;border-radius:2px;vertical-align:middle;margin-left:4px;font-weight:500}
 .addon .name{font-size:14px;font-weight:600}
 footer{text-align:center;font-size:12px;color:var(--muted);padding:24px 16px}
+.orig{margin:28px 0 0;padding:16px 12px 12px;border:1.5px solid var(--ink);background:var(--paper2)}
+.orig h2{text-align:center;border-bottom:none;margin-bottom:10px}
+.orig table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:14px;line-height:1.5}
+.orig th{background:var(--crimson);color:#fff;text-align:left;padding:8px 6px;font-size:14px}
+.orig td{padding:9px 6px;border-bottom:1px solid var(--div);vertical-align:top;overflow-wrap:anywhere}
+.orig td:first-child{font-weight:700}
+.orig .ref{margin-top:12px;padding-top:10px;border-top:1px dashed var(--div);font-size:14px;line-height:1.6}
+.orig .ref p.ref-h{margin:0 0 4px;font-weight:700;color:var(--ink)}
+.orig .ref ul{margin:0;padding-left:18px}
+.orig .kind{display:block;color:var(--muted)}
+.orig p{font-size:14px;color:var(--muted);line-height:1.6;margin-top:10px}
 </style>
 </head>
 <body>
@@ -69,6 +80,26 @@ Promise.all([fetch("menu.json",{cache:"no-store"}).then(function(r){return r.jso
     main.insertAdjacentHTML("beforeend",h+'</section>');
     var l=document.createElement("a");l.href="#"+sec.id;l.textContent=st[0];nav.appendChild(l);
   });
+  var oe=en.origins||{},rows=Array.isArray(d.origins)?d.origins:[];
+  if(rows.length){
+    var nm={};d.sections.forEach(function(sec){(sec.items||[]).forEach(function(it){var t=(en.items||{})[it.id];nm[it.id]=t?t[0].replace(/^\+\s*/,""):it.name.replace(/^↳\s*/,"");});});
+    var tv=function(v){var s=String(v||"");return xe((oe.values||{})[s]||s);};
+    var cols=oe.cols||["Ingredient","Origin","Used in"];
+    var h='<section class="orig" id="origin"><h2>'+xe(oe.title||"Country of Origin")+'</h2><table><colgroup><col style="width:30%"><col style="width:30%"><col></colgroup><thead><tr><th scope="col">'+xe(cols[0])+'</th><th scope="col">'+xe(cols[1])+'</th><th scope="col">'+xe(cols[2])+'</th></tr></thead><tbody>';
+    rows.forEach(function(r){
+      var ms=(r.menus||[]).map(function(id){return nm[id]||"";}).filter(Boolean).join(", ");
+      h+='<tr><td>'+xe((oe.items||{})[r.item]||r.item)+'</td><td>'+tv(r.origin)+(r.kind!==undefined?'<span class="kind">'+xe(oe.kind||"Type of meat")+': '+tv(r.kind)+'</span>':'')+'</td><td>'+xe(ms)+'</td></tr>';
+    });
+    h+='</tbody></table>';
+    var refs=Array.isArray(d.originsRef)?d.originsRef:[];
+    if(refs.length){
+      h+='<div class="ref"><p class="ref-h">'+xe(oe.refLabel||"For reference")+'</p><ul>';
+      refs.forEach(function(r){var ms=(r.menus||[]).map(function(id){return nm[id]||"";}).filter(Boolean).join(", ");h+='<li><b>'+xe((oe.items||{})[r.item]||r.item)+'</b>: '+tv(r.origin)+(ms?' <span class="kind" style="display:inline">('+xe(ms)+')</span>':'')+'</li>';});
+      h+='</ul></div>';
+    }
+    h+=(oe.note?'<p>'+xe(oe.note)+'</p>':'')+'</section>';
+    main.insertAdjacentHTML("beforeend",h);
+  }
 }).catch(function(){document.getElementById("main").insertAdjacentHTML("beforeend",'<p style="padding:20px">Menu failed to load. Please refresh or ask staff.</p>');});
 })();
 </script>
