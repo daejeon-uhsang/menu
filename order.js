@@ -1,5 +1,5 @@
 /* 대전어상 QR 주문 (손님 화면) — docs/contract.md 11/6 약속 기준
-   동작 조건: 주소에 t(1~10)·k(8글자)가 있고 menu.json "orderEnabled": true 일 때만.
+   동작 조건: 주소에 t(1~9)·k(8글자)가 있고 menu.json "orderEnabled": true 일 때만.
    조건이 아니면 아무것도 하지 않는다(지금 메뉴판과 완전히 같음).
    손님 이름·전화번호는 받지 않는다. 테이블 번호·메뉴·수량·메모·성인 확인만 보낸다. */
 (function () {
@@ -7,7 +7,7 @@
   var P = new URLSearchParams(location.search);
   var tRaw = P.get('t'), K = P.get('k') || '';
   var T = parseInt(tRaw, 10);
-  if (!(T >= 1 && T <= 10) || String(T) !== tRaw || !/^[A-Za-z0-9]{8}$/.test(K)) return;
+  if (!(T >= 1 && T <= 9) || String(T) !== tRaw || !/^[A-Za-z0-9]{8}$/.test(K)) return;
 
   var SDK = 'https://www.gstatic.com/firebasejs/10.12.2/';
   var TIMEOUT_MS = 8000, BLOCK_MS = 30000, MAX_LINES = 20, MAX_QTY = 10, MEMO_MAX = 40;
@@ -15,7 +15,8 @@
   var isLocal = host === 'localhost' || host === '127.0.0.1' || /^(10|192\.168)\./.test(host) || /^172\.(1[6-9]|2\d|3[01])\./.test(host);
   var EMU = P.get('emu') === '1' && isLocal;
 
-  var TABLE_NAME = T <= 5 ? T + '번 테이블' : (T === 6 ? '6 창가' : '다찌 ' + T);
+  // 11/6 사장님: 1=입구 옆 창가석, 2~5=홀 테이블(5=냉장고 옆), 6~9=다찌 1석씩
+  var TABLE_NAME = T === 1 ? '1번 창가석' : (T <= 5 ? T + '번 테이블' : '다찌 ' + T + '번');
   var ALC_RE = /전통주|명주|소주|막걸리|탁주|약주|청주|하이볼|와인|위스키|브랜디|맥주|사케|칵테일/;
 
   var ss = {
