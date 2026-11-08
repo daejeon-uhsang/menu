@@ -6,6 +6,7 @@
   'use strict';
   var P = new URLSearchParams(location.search);
   var tRaw = P.get('t'), K = P.get('k') || '';
+  if (!K) { try { K = sessionStorage.getItem('uh_qr_k') || ''; } catch (e) {} }
   var T = parseInt(tRaw, 10);
   if (!(T >= 1 && T <= 9) || String(T) !== tRaw || !/^[A-Za-z0-9]{8}$/.test(K)) return;
 
