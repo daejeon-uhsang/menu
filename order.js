@@ -61,7 +61,7 @@
   }
 
   /* ---------- 상태 ---------- */
-  var CART_KEY = 'od_cart_' + T, PEND_KEY = 'od_pending_' + T, LAST_KEY = 'od_last_sent';
+  var CART_KEY = 'od_cart_' + T, PEND_KEY = 'od_pending_' + T, LAST_KEY = 'od_last_sent', HIST_KEY = 'od_hist_' + T;
   var cart = ss.get(CART_KEY) || [];
   var INDEX = {};           // item id → {item, sec}
   var storeOpen = null;     // null=모름, true/false
@@ -70,6 +70,26 @@
   var sending = false;
 
   function saveCart() { ss.set(CART_KEY, cart); }
+  /* 이번 방문에 보낸 주문 목록(이 폰의 sessionStorage 에만, 탭을 닫으면 사라짐. 서버에는 아무것도 더 보내지 않음) */
+  function histGet() { var h = ss.get(HIST_KEY); return Array.isArray(h) ? h : []; }
+  function histAdd(pend) {
+    var h = histGet();
+    if (h.some(function (o) { return o.id === pend.id; })) return;
+    h.push({ id: pend.id, at: Date.now(), items: pend.payload.items, memo: pend.payload.memo || '' });
+    ss.set(HIST_KEY, h.slice(-10));
+  }
+  function hhmm(ts) { var d = new Date(ts); return ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2); }
+  function histHtml() {
+    var h = histGet(); if (!h.length) return '';
+    var out = '<div class="od-hist"><h4>이번 방문에 보낸 주문</h4>';
+    h.slice().reverse().forEach(function (o, idx) {
+      var tot = o.items.reduce(function (a, it) { return a + it.qty * it.price; }, 0);
+      out += '<div class="od-ho"><div class="od-hot"><b>' + (h.length - idx) + '번째 주문</b><span>' + hhmm(o.at) + ' 보냄' + (tot ? ' · ' + won(tot) : '') + '</span></div><ul>';
+      o.items.forEach(function (it) { out += '<li>' + esc(it.name) + (it.opt ? ' <em>' + esc(it.opt) + '</em>' : '') + ' <b>×' + it.qty + '</b></li>'; });
+      out += '</ul>' + (o.memo ? '<p class="od-hm">요청사항: ' + esc(o.memo) + '</p>' : '') + '</div>';
+    });
+    return out + '</div>';
+  }
   /* 미확정 주문(id·내용): 접수 확인 또는 손님이 직접 취소할 때까지 localStorage 에 보관하고 수정·새 주문을 잠근다 */
   function pendGet() { try { return JSON.parse(lsGet(PEND_KEY) || 'null'); } catch (e) { return null; } }
   function pendSet(p) { lsSet(PEND_KEY, JSON.stringify(p)); }
@@ -124,7 +144,7 @@
   var bannerEl, barEl, sheetEl, dimEl, toastEl;
   function start(md) {
     var link = document.createElement('link');
-    link.rel = 'stylesheet'; link.href = 'order.css?v=20261106';
+    link.rel = 'stylesheet'; link.href = 'order.css?v=20261108b';
     document.head.appendChild(link);
     document.body.classList.add('od-on');
     md.sections.forEach(function (sec) {
@@ -145,8 +165,51 @@
       var tm = 0;
       new MutationObserver(function () { clearTimeout(tm); tm = setTimeout(decorateAll, 60); }).observe(scon, { childList: true, subtree: true });
     }
+    hookPairing();
     checkOpen();
     ev('order_mode', { table: T });
+  }
+
+  /* 떠 있던 [English] 버튼은 주문 모드에서 숨기고(본문 가림) 같은 링크를 안내줄 오른쪽에 작게 둔다 */
+  function enLinkHtml() { return '<a class="od-en" href="en.html" lang="en">English</a>'; }
+
+  /* ---------- 어울리는 술(질문 도우미 답변) 안에서 바로 담기 ---------- */
+  function pairOpt(item, size, glass) {
+    var opts = parseOpts(item); if (opts.length === 1) return opts[0];
+    var o = null;
+    if (size) o = opts.filter(function (x) { return x.opt === size || x.opt.indexOf(size) >= 0; })[0];
+    else if (glass) o = opts.filter(function (x) { return x.opt === '잔'; })[0];
+    else o = opts.filter(function (x) { return x.opt === '병'; })[0];
+    return o || null;
+  }
+  function decoratePairing(root) {
+    var added = false;
+    root.querySelectorAll('.og-card li').forEach(function (li) {
+      if (li.querySelector('.od-pair-add')) return;
+      var go = li.querySelector('.og-go'); if (!go) return;
+      var r = INDEX[go.dataset.go]; if (!r || r.item.soldout) return;
+      var o = pairOpt(r.item, go.dataset.size, go.dataset.glass === '1'); if (!o) return;
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'od-pair-add'; b.dataset.odId = r.item.id; b.dataset.opt = o.opt;
+      b.setAttribute('aria-label', r.item.name + ' 담기'); b.textContent = '담기';
+      b.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var q = Math.max(1, parseInt(go.dataset.q, 10) || 1);
+        for (var i = 0; i < q; i++) { if (!addToCart(r.item, r.sec, o)) break; }
+      });
+      li.insertBefore(b, li.querySelector('.og-p') || null);
+      li.classList.add('od-has-add'); added = true;
+    });
+    if (added) paintCounts();
+  }
+  function hookPairing() {
+    var tries = 0;
+    (function find() {
+      var log = document.getElementById('bot-log');
+      if (!log) { if (++tries < 80) setTimeout(find, 250); return; }
+      decoratePairing(log);
+      if (window.MutationObserver) new MutationObserver(function () { decoratePairing(log); }).observe(log, { childList: true, subtree: true });
+    })();
   }
 
   function paintBanner() {
@@ -155,11 +218,11 @@
     if (storeOpen === false) {
       bannerEl.className = 'od-banner od-closed';
       bannerEl.innerHTML = configured
-        ? '<b>지금은 주문을 받지 않아요</b><span class="od-sub">직원에게 말씀해 주세요. 메뉴는 그대로 보실 수 있어요.</span>'
-        : '<b>주문 연결 준비 중이에요</b><span class="od-sub">직원에게 말씀해 주세요.</span>';
+        ? '<b>지금은 주문을 받지 않아요</b><span class="od-sub">직원에게 말씀해 주세요. 메뉴는 그대로 보실 수 있어요.</span>' + enLinkHtml()
+        : '<b>주문 연결 준비 중이에요</b><span class="od-sub">직원에게 말씀해 주세요.</span>' + enLinkHtml();
     } else {
       bannerEl.className = 'od-banner';
-      bannerEl.innerHTML = '<b>' + esc(TABLE_NAME) + ' 주문</b><span class="od-sub">메뉴 아래 [담기]를 누르고, 화면 아래 [보기]에서 보내 주세요. 계산은 나가실 때 계산대에서 해요.</span>';
+      bannerEl.innerHTML = '<b>' + esc(TABLE_NAME) + '</b><span class="od-sub">담기 → 보기 → 보내기</span>' + enLinkHtml();
     }
   }
 
@@ -207,23 +270,28 @@
   }
 
   function addToCart(item, sec, o) {
-    if (locked()) { toast('확인 안 된 주문이 있어요. 먼저 처리해 주세요'); openSheet('cart'); return; }
+    if (locked()) { toast('확인 안 된 주문이 있어요. 먼저 처리해 주세요'); openSheet('cart'); return false; }
     var key = item.id + '|' + o.opt;
     var line = cart.find(function (l) { return l.key === key; });
     if (line) {
-      if (line.qty >= MAX_QTY) { toast('한 메뉴는 ' + MAX_QTY + '개까지 담을 수 있어요'); return; }
+      if (line.qty >= MAX_QTY) { toast('한 메뉴는 ' + MAX_QTY + '개까지 담을 수 있어요'); return false; }
       line.qty++;
     } else {
-      if (cart.length >= MAX_LINES) { toast('한 번에 ' + MAX_LINES + '가지까지 보낼 수 있어요'); return; }
+      if (cart.length >= MAX_LINES) { toast('한 번에 ' + MAX_LINES + '가지까지 보낼 수 있어요'); return false; }
       cart.push({ key: key, id: item.id, name: (String(item.name).replace(/^[\s↳└ㄴ∟·\-]+/, '').trim() || String(item.name)).slice(0, 40), opt: o.opt, price: o.price, qty: 1,
-        alc: /^s/.test(sec.id) || ALC_RE.test(item.name) });
+        alc: /^s/.test(sec.id) || ALC_RE.test(item.name), sauce: /간장/.test(item.spec || '') && /마라/.test(item.spec || '') });
     }
     saveCart(); paintCounts();
     toast('담았어요 · ' + String(item.name).replace(/^[\s↳└ㄴ∟·\-]+/, '') + (o.opt ? ' ' + o.opt : ''));
     barEl.classList.remove('od-bump'); void barEl.offsetWidth; barEl.classList.add('od-bump');
     ev('order_add', { item_id: item.id, opt: o.opt, table: T });
+    return true;
   }
 
+  function pairQty(id, opt) {
+    var l = cart.find(function (x) { return x.key === id + '|' + opt; });
+    return l ? l.qty : 0;
+  }
   function paintCounts() {
     var per = {};
     cart.forEach(function (l) { per[l.id] = (per[l.id] || 0) + l.qty; });
@@ -231,16 +299,20 @@
       var b = row.querySelector('.od-add'), n = per[row.dataset.odId] || 0;
       b.innerHTML = '담기' + (n ? '<span class="od-cnt">' + n + '</span>' : '');
     });
+    document.querySelectorAll('.od-pair-add').forEach(function (b) {
+      var n = pairQty(b.dataset.odId, b.dataset.opt), html = '담기' + (n ? '<span class="od-cnt">' + n + '</span>' : '');
+      if (b.innerHTML !== html) b.innerHTML = html;  // 같으면 건드리지 않음(관찰자 무한 반복 방지)
+    });
     if (!barEl) return;
     var n = cartCount();
     if (locked()) {
-      barEl.querySelector('.od-bar-t').innerHTML = '<b>확인 안 된 주문</b><span>' + esc(TABLE_NAME) + ' · [보기]에서 다시 보내 주세요</span>';
+      barEl.querySelector('.od-bar-t').innerHTML = '<b>확인 안 된 주문</b><span>눌러서 확인</span>';
       barEl.querySelector('button').disabled = false; return;
     }
     barEl.querySelector('.od-bar-t').innerHTML = n
       ? '<b>담은 메뉴 ' + n + '</b><span>' + esc(TABLE_NAME) + ' · 합계 ' + won(cartTotal()) + '</span>'
-      : '<b>' + esc(TABLE_NAME) + '</b><span>' + (storeOpen === false ? '지금은 주문을 받지 않아요' : '담은 메뉴가 없어요') + '</span>';
-    barEl.querySelector('button').disabled = !n;
+      : '<b>' + esc(TABLE_NAME) + '</b><span>' + (storeOpen === false ? '지금은 주문을 받지 않아요' : '담은 메뉴가 없어요') + (histGet().length ? ' · 보낸 주문 ' + histGet().length + '건' : '') + '</span>';
+    barEl.querySelector('button').disabled = !(n || histGet().length);
   }
 
   /* ---------- 아래 고정 바 ---------- */
@@ -300,23 +372,25 @@
     var h = '<div class="od-head"><h2>' + esc(TABLE_NAME) + ' 주문</h2><button type="button" class="od-x" data-act="close">닫기</button></div><div class="od-body">';
     if (!cart.length) h += '<div class="od-empty">담은 메뉴가 없어요.<br>메뉴 아래 [담기]를 눌러 주세요.</div>';
     cart.forEach(function (l, i) {
-      h += '<div class="od-line"><div><div class="od-nm">' + esc(l.name) + (l.opt ? '<em>' + esc(l.opt) + '</em>' : '') + '</div>'
-        + '<div class="od-up">' + (l.price ? won(l.price) : '가격은 직원 확인') + '</div></div>'
-        + '<div class="od-lt">' + (l.price ? won(l.price * l.qty) : '') + '</div>'
-        + '<div class="od-qty" style="grid-column:1/-1;justify-content:flex-end">'
+      h += '<div class="od-line od-line-c"><div><div class="od-nm">' + esc(l.name) + (l.opt ? '<em>' + esc(l.opt) + '</em>' : '') + '</div>'
+        + '<div class="od-up">' + (l.price ? won(l.price) + (l.qty > 1 ? ' × ' + l.qty + ' = <b>' + won(l.price * l.qty) + '</b>' : '') : '가격은 직원 확인') + '</div></div>'
+        + '<div class="od-qty">'
         + '<button type="button" data-act="minus" data-i="' + i + '" aria-label="' + esc(l.name) + ' 하나 빼기">−</button>'
         + '<output aria-live="polite">' + l.qty + '</output>'
         + '<button type="button" data-act="plus" data-i="' + i + '" aria-label="' + esc(l.name) + ' 하나 더">＋</button></div></div>';
     });
     if (cart.length) {
+      var sauce = cart.some(function (l) { return l.sauce; });
       h += '<div class="od-field"><label for="od-memo">요청사항 (선택)</label>'
-        + '<input id="od-memo" type="text" maxlength="' + MEMO_MAX + '" placeholder="예: 덜 맵게, 간장 양념으로" value="' + esc(memo) + '" autocomplete="off" enterkeyhint="done">'
+        + (sauce ? '<p class="od-sauce">백순대 내장볶음 양념(간장·매콤양념·마라 중 1가지)을 아래에 적어 주세요</p>' : '')
+        + '<input id="od-memo" type="text" maxlength="' + MEMO_MAX + '" placeholder="' + (sauce ? '예: 양념은 매콤으로, 덜 맵게' : '예: 덜 맵게, 간장 양념으로') + '" value="' + esc(memo) + '" autocomplete="off" enterkeyhint="done">'
         + '<span class="od-count"><span id="od-mc">' + memo.length + '</span>/' + MEMO_MAX + '</span></div>';
       if (hasAlcohol()) h += '<label class="od-adult" id="od-adult"><input type="checkbox" id="od-adult-cb"' + (adultOk ? ' checked' : '') + '>만 19세 이상입니다 (술은 성인만 주문할 수 있어요)</label>';
       h += '<div class="od-sum"><span>합계</span><b>' + won(cartTotal()) + '</b></div>'
         + '<p class="od-note">이름·전화번호는 받지 않아요. 계산은 나가실 때 계산대에서 해 주세요.</p>';
     }
-    h += '</div><div class="od-foot"><p class="od-msg" id="od-msg"></p><button type="button" class="od-send" data-act="send">주문 보내기</button></div>';
+    h += histHtml();
+    h += '</div><div class="od-foot"><p class="od-msg" id="od-msg"></p><button type="button" class="od-send" data-act="send">주문 보내기' + (cart.length && cartTotal() ? ' · ' + won(cartTotal()) : '') + '</button></div>';
     sheetEl.innerHTML = h;
     var mi = sheetEl.querySelector('#od-memo');
     if (mi) mi.addEventListener('input', function () { memo = mi.value.slice(0, MEMO_MAX); sheetEl.querySelector('#od-mc').textContent = memo.length; });
@@ -403,13 +477,13 @@
     doSend(pend, false);
   }
 
-  function showResult(kind, title, lines, acts) {
+  function showResult(kind, title, lines, acts, extra) {
     sheetEl.dataset.view = 'result';
     var ic = { ok: '✓', bad: '!', wait: '<div class="od-spin"></div>', wait2: '?' }[kind];
-    var h = '<div class="od-result' + (kind === 'bad' ? ' od-bad' : (kind === 'wait' || kind === 'wait2') ? ' od-wait' : '') + '" role="status" aria-live="assertive">'
+    var h = '<div class="od-result' + (kind === 'bad' ? ' od-bad' : (kind === 'wait' || kind === 'wait2') ? ' od-wait' : '') + (extra ? ' od-long' : '') + '" role="status" aria-live="assertive">'
       + '<div class="od-ic" aria-hidden="true">' + ic + '</div><h3>' + esc(title) + '</h3>';
     lines.forEach(function (ln, i) { h += '<p' + (i ? ' class="od-small"' : '') + '>' + esc(ln) + '</p>'; });
-    h += '<div class="od-acts">' + (acts || '') + '</div></div>';
+    h += (extra ? '<div class="od-extra">' + extra + '</div>' : '') + '<div class="od-acts">' + (acts || '') + '</div></div>';
     sheetEl.innerHTML = h;
     sheetEl.onclick = onSheetClick;
   }
@@ -456,8 +530,13 @@
     pendDel();
     cart = []; memo = ''; adultOk = false; saveCart(); paintCounts();
     ev('order_ok', { table: T, already: already ? 1 : 0 });
-    showResult('ok', '주문 도착', [TABLE_NAME, '계산대 주문판에 도착했어요. 곧 준비해 드릴게요.', '계산은 나가실 때 계산대에서 해 주세요.'],
-      '<button type="button" class="od-send" data-act="more">더 주문하기</button>');
+    histAdd(pend); paintCounts();
+    var rb = document.querySelector('.review-bar'), links = '';
+    if (rb) rb.querySelectorAll('a.naver, a.insta').forEach(function (a) {
+      links += '<a class="od-link" href="' + esc(a.getAttribute('href')) + '" target="_blank" rel="noopener">' + esc(a.textContent.replace(/\s+/g, ' ').trim()) + '</a>';
+    });
+    showResult('ok', '주문 도착', [TABLE_NAME + ' · 계산대 주문판에 도착했어요. 곧 준비해 드릴게요.', '10분이 지나도 나오지 않으면 직원에게 말씀해 주세요. 계산은 나가실 때 계산대에서 해 주세요.'],
+      '<button type="button" class="od-send" data-act="more">더 주문하기</button>', histHtml() + (links ? '<div class="od-links">' + links + '</div>' : ''));
   }
   // 다시 보냈는데 거절 = 앞서 보낸 것이 이미 들어갔을 수 있음(손님은 주문을 읽을 수 없어 확인 불가) → 장바구니·잠금 유지
   function maybeArrived() {

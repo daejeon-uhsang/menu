@@ -3,10 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="color-scheme" content="light">
+<meta name="color-scheme" content="only light">
+<meta name="supported-color-schemes" content="light">
+<meta name="darkreader-lock">
 <title>Daejeon Eosang — English Menu</title>
 <style>
-:root{--ink:#180e00;--paper:#f8f0de;--paper2:#ede0c4;--crimson:#7a1414;--gold:#b8820a;--muted:#5e4a2c;--div:#c4a878;}
+:root{color-scheme:only light;--ink:#180e00;--paper:#f8f0de;--paper2:#ede0c4;--crimson:#7a1414;--gold:#b8820a;--muted:#5e4a2c;--div:#c4a878;}
+html,body{color-scheme:only light;filter:none!important;}
+@media(prefers-color-scheme:dark){:root{--ink:#180e00!important;--paper:#f8f0de!important;--paper2:#ede0c4!important;--crimson:#7a1414!important;--gold:#b8820a!important;--muted:#5e4a2c!important;--div:#c4a878!important;}html,body{background:#f8f0de!important;color:#180e00!important;}}
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{background:var(--paper);color:var(--ink);font-family:-apple-system,"Segoe UI",Roboto,"Noto Sans KR",sans-serif;overflow-x:clip}
 header{position:sticky;top:0;z-index:10;background:var(--paper);border-bottom:2px solid var(--gold);text-align:center;padding:10px 16px 0}

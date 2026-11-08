@@ -2,15 +2,30 @@
    모든 선택자는 .od- 또는 body.od-on 으로 시작 — 주문 모드가 아니면 아무것도 바뀌지 않는다. */
 body.od-on{padding-bottom:calc(92px + env(safe-area-inset-bottom,0px));}
 /* 떠 있는 버튼(영어·도우미·뒤로·맨위)을 주문 바 위로 올림 */
-body.od-on #en-link{bottom:calc(96px + env(safe-area-inset-bottom,0px))!important;}
-body.od-on .bot-fab,body.od-on .back-btn{bottom:calc(96px + env(safe-area-inset-bottom,0px))!important;}
-body.od-on .top-btn{bottom:calc(156px + env(safe-area-inset-bottom,0px))!important;}
+/* [English]는 안내줄 오른쪽 작은 링크로 옮기고 떠 있는 버튼은 숨김(본문을 가리지 않게) */
+body.od-on #en-link{display:none!important;}
+/* 도우미 버튼은 작은 동그라미(글자 없이 아이콘), 주문 바 바로 위 오른쪽 */
+body.od-on .bot-fab{bottom:calc(84px + env(safe-area-inset-bottom,0px))!important;width:48px;height:48px;min-height:48px;padding:0!important;border-radius:50%;font-size:0!important;display:flex;align-items:center;justify-content:center;opacity:.92;}
+body.od-on .bot-fab span{font-size:24px;line-height:1;}
+body.od-on .back-btn{bottom:calc(84px + env(safe-area-inset-bottom,0px))!important;left:max(12px,env(safe-area-inset-left,0px));max-width:calc(100% - 84px);}
+body.od-on .top-btn{bottom:calc(140px + env(safe-area-inset-bottom,0px))!important;}
+/* 도우미 창이 주문 바를 덮지 않게: 바 위에서 끝나고, 바보다 뒤 */
+body.od-on .bot-sheet{bottom:calc(72px + env(safe-area-inset-bottom,0px));z-index:1440;max-height:calc(100vh - 72px - env(safe-area-inset-bottom,0px) - 24px);padding-bottom:0;border-radius:16px 16px 0 0;}
+body.od-on .bot-fab[aria-expanded="true"]{display:none;}
+/* 첫 화면에서 메뉴까지 거리 줄이기(주문 모드에서만): 로고 작게, 가격 기준·예약/리뷰/인스타 줄은 숨김(리뷰·인스타는 주문 도착 화면으로) */
+body.od-on .pband,body.od-on .pband-b,body.od-on .h-haechi-img,body.od-on .h-divline,body.od-on .legend,body.od-on .review-bar,body.od-on .brand-intro{display:none!important;}
+body.od-on .header.main-header-block{padding-top:8px!important;padding-bottom:6px!important;margin:0!important;min-height:0!important;}
+body.od-on .h-logo-img{max-height:64px!important;width:auto!important;margin:0 auto!important;display:block;}
+body.od-on .h-sub{font-size:13px!important;margin:2px 0 0!important;}
 body.od-on.admin-mode .od-row,body.od-on.admin-mode .od-bar{display:none!important;}
 
 /* 상단 안내 */
-.od-banner{margin:12px 14px 4px;padding:14px 16px;border:1.5px solid var(--crimson,#7a1414);border-radius:10px;background:rgba(248,240,222,.96);color:var(--ink,#180e00);font-size:16px;line-height:1.5;}
+.od-banner{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:8px 14px 2px;padding:8px 14px;border:1.5px solid var(--crimson,#7a1414);border-radius:10px;background:rgba(248,240,222,.96);color:var(--ink,#180e00);font-size:16px;line-height:1.5;}
 .od-banner b{color:var(--crimson,#7a1414);font-size:18px;}
-.od-banner .od-sub{display:block;margin-top:4px;color:var(--muted,#6b5535);font-size:16px;}
+.od-banner .od-sub{flex:1;color:var(--muted,#6b5535);font-size:16px;}
+.od-en{margin-left:auto;display:inline-flex;align-items:center;min-height:44px;padding:0 12px;border:1px solid var(--gold,#8a6218);border-radius:22px;color:var(--ink,#180e00);font-size:14px;text-decoration:none;background:transparent;}
+.od-banner.od-closed .od-en{color:#fff;border-color:#fff;}
+.od-banner.od-closed .od-sub{flex-basis:100%;order:3;}
 .od-banner.od-closed{background:#7a1414;color:#fff;border-color:#7a1414;}
 .od-banner.od-closed b,.od-banner.od-closed .od-sub{color:#fff;}
 
@@ -34,7 +49,6 @@ body.od-on.admin-mode .od-row,body.od-on.admin-mode .od-bar{display:none!importa
 .od-bar .od-bar-t b{font-size:18px;color:#f3d48a;}
 .od-bar .od-bar-t span{display:block;font-size:16px;opacity:.9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .od-bar button{font:inherit;font-size:18px;font-weight:700;min-height:52px;min-width:104px;padding:0 20px;border-radius:26px;border:none;background:var(--crimson,#7a1414);color:#fff;cursor:pointer;box-shadow:0 0 0 2px #f3d48a inset;}
-.od-bar button[disabled]{opacity:.5;}
 .od-bar.od-bump{animation:odBump .35s ease;}
 @keyframes odBump{0%{transform:translateY(0)}40%{transform:translateY(-6px)}100%{transform:translateY(0)}}
 
@@ -100,4 +114,57 @@ body.od-lock #en-link,body.od-lock .bot-fab,body.od-lock .back-btn,body.od-lock 
 @media (prefers-color-scheme:dark){
   .od-sheet,.od-head,.od-foot{background:#f8f0de!important;color:#180e00!important;}
   .od-field input[type=text],.od-qty button,.od-adult{background:#fff!important;color:#180e00!important;}
+  /* 11/8: 주문 모드의 나머지 요소도 같은 밝은 팔레트로 고정(배너·담기 줄·바·도우미·보낸 주문 목록) */
+  .od-banner{background:rgba(248,240,222,.96)!important;color:#180e00!important;}
+  .od-banner b{color:#7a1414!important;}
+  .od-banner .od-sub{color:#6b5535!important;}
+  .od-banner.od-closed{background:#7a1414!important;color:#fff!important;}
+  .od-banner.od-closed b,.od-banner.od-closed .od-sub,.od-banner.od-closed .od-en{color:#fff!important;}
+  .od-en,.od-link,.od-x{background:transparent!important;color:#180e00!important;}
+  .od-opt{background:rgba(248,240,222,.95)!important;color:#180e00!important;}
+  .od-opt[aria-pressed="true"]{background:#8a6218!important;color:#fff!important;}
+  .od-add,.od-pair-add,.od-send{background:#7a1414!important;color:#fff!important;}
+  .od-add .od-cnt,.od-pair-add .od-cnt{background:#fff!important;color:#7a1414!important;}
+  .od-btn2{background:transparent!important;color:#180e00!important;}
+  .od-bar{background:#180e00!important;color:#f8f0de!important;}
+  .od-bar button{background:#7a1414!important;color:#fff!important;}
+  .od-bar button[disabled]{background:#4a3a2a!important;color:#e6d8b8!important;}
+  .od-toast{background:rgba(24,14,0,.92)!important;color:#fff!important;}
+  .od-hist h4{color:#7a1414!important;}
+  .od-hot span,.od-hm,.od-note,.od-result p.od-small{color:#6b5535!important;}
+  .od-sauce,.od-hint,.od-msg{color:#7a1414!important;}
+  .bot-sheet,.bot-hd{background:#f7f0e1!important;color:#3d2f1c!important;}
+  .bot-m,.bot-m.a{color:#3d2f1c!important;}
+  .bot-q{background:#fffaf0!important;color:#7a5208!important;}
+  .bot-in input{background:#fff!important;color:#180e00!important;}
 }
+
+/* 어울리는 술 답변 안의 담기 */
+.od-pair-add{font:inherit;font-size:15px;font-weight:700;min-height:44px;min-width:64px;padding:0 14px;border:none;border-radius:22px;background:var(--crimson,#7a1414);color:#fff;cursor:pointer;touch-action:manipulation;margin:0 4px;}
+.od-pair-add .od-cnt{display:inline-block;margin-left:6px;padding:0 7px;border-radius:10px;background:#fff;color:var(--crimson,#7a1414);font-size:13px;}
+.bot-m .og-steps li.od-has-add{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;}
+.bot-m .og-steps li.od-has-add .og-n{flex-basis:100%;}
+/* 담은 메뉴 줄 1단 */
+.od-line-c{padding:8px 0;align-items:center;}
+.od-line-c .od-up b{color:var(--ink,#180e00);}
+.od-sauce{margin:0 0 6px;font-size:16px;font-weight:600;color:var(--crimson,#7a1414);line-height:1.4;}
+/* 보낸 주문 목록 */
+.od-hist{margin-top:20px;padding-top:12px;border-top:2px solid var(--div,#c4a878);text-align:left;}
+.od-hist h4{margin:0 0 8px;font-size:18px;color:var(--crimson,#7a1414);}
+.od-ho{padding:8px 0;border-bottom:1px dashed var(--div,#c4a878);}
+.od-hot{display:flex;justify-content:space-between;gap:8px;font-size:16px;}
+.od-hot span{color:var(--muted,#6b5535);}
+.od-ho ul{margin:4px 0 0;padding:0;list-style:none;font-size:17px;line-height:1.5;}
+.od-ho li em{font-style:normal;color:var(--crimson,#7a1414);}
+.od-hm{margin:2px 0 0;font-size:16px;color:var(--muted,#6b5535);}
+.od-result .od-extra{width:100%;max-width:420px;}
+.od-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+.od-link{flex:1;min-width:140px;display:flex;align-items:center;justify-content:center;min-height:48px;border:1.5px solid var(--gold,#8a6218);border-radius:24px;color:var(--ink,#180e00);font-size:16px;text-decoration:none;}
+/* 도착 화면은 목록이 길면 스크롤 */
+.od-sheet .od-result{overflow-y:auto;}
+.od-sheet .od-result.od-long{justify-content:flex-start;padding-top:28px;}
+.od-sheet .od-result .od-ic{flex-shrink:0;}
+/* 토스트는 바 위로(방금 본 메뉴 글자를 가리지 않게) */
+.od-toast{top:auto;bottom:calc(88px + env(safe-area-inset-bottom,0px));}
+/* 비활성 [보기]도 또렷하게 */
+.od-bar button[disabled]{opacity:1;background:#4a3a2a;color:#e6d8b8;box-shadow:0 0 0 2px #8a7a5a inset;}
