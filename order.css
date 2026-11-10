@@ -131,6 +131,8 @@ body.od-lock #en-link,body.od-lock .bot-fab,body.od-lock .back-btn,body.od-lock 
   .od-bar button[disabled]{background:#4a3a2a!important;color:#e6d8b8!important;}
   .od-toast{background:rgba(24,14,0,.92)!important;color:#fff!important;}
   .od-hist h4{color:#7a1414!important;}
+  .od-htot{color:#180e00!important;}
+  .od-htot b{color:#7a1414!important;}
   .od-hot span,.od-hm,.od-note,.od-result p.od-small{color:#6b5535!important;}
   .od-sauce,.od-hint,.od-msg{color:#7a1414!important;}
   .bot-sheet,.bot-hd{background:#f7f0e1!important;color:#3d2f1c!important;}
@@ -151,6 +153,8 @@ body.od-lock #en-link,body.od-lock .bot-fab,body.od-lock .back-btn,body.od-lock 
 /* 보낸 주문 목록 */
 .od-hist{margin-top:20px;padding-top:12px;border-top:2px solid var(--div,#c4a878);text-align:left;}
 .od-hist h4{margin:0 0 8px;font-size:18px;color:var(--crimson,#7a1414);}
+.od-htot{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:10px 0 0;padding-top:8px;font-size:18px;color:#180e00;}
+.od-htot b{color:var(--crimson,#7a1414);}
 .od-ho{padding:8px 0;border-bottom:1px dashed var(--div,#c4a878);}
 .od-hot{display:flex;justify-content:space-between;gap:8px;font-size:16px;}
 .od-hot span{color:var(--muted,#6b5535);}

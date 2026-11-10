@@ -119,6 +119,8 @@
       o.items.forEach(function (it) { out += '<li>' + esc(it.name) + (it.opt ? ' <em>' + esc(it.opt) + '</em>' : '') + ' <b>×' + it.qty + '</b></li>'; });
       out += '</ul>' + (o.memo ? '<p class="od-hm">요청사항: ' + esc(o.memo) + '</p>' : '') + '</div>';
     });
+    var all = h.reduce(function (a, o) { return a + o.items.reduce(function (b, it) { return b + it.qty * it.price; }, 0); }, 0);
+    out += '<p class="od-htot"><span>오늘 합계</span><b>' + won(all) + ' · 주문 ' + h.length + '건</b></p>';
     return out + '</div>';
   }
   /* 미확정 주문(id·내용): 접수 확인 또는 손님이 직접 취소할 때까지 localStorage 에 보관하고 수정·새 주문을 잠근다 */
@@ -175,7 +177,7 @@
   var bannerEl, barEl, sheetEl, dimEl, toastEl;
   function start(md) {
     var link = document.createElement('link');
-    link.rel = 'stylesheet'; link.href = 'order.css?v=20261110a';
+    link.rel = 'stylesheet'; link.href = 'order.css?v=20261110c';
     document.head.appendChild(link);
     document.body.classList.add('od-on');
     md.sections.forEach(function (sec) {
