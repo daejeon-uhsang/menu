@@ -168,3 +168,8 @@ body.od-lock #en-link,body.od-lock .bot-fab,body.od-lock .back-btn,body.od-lock 
 .od-toast{top:auto;bottom:calc(88px + env(safe-area-inset-bottom,0px));}
 /* 비활성 [보기]도 또렷하게 */
 .od-bar button[disabled]{opacity:1;background:#4a3a2a;color:#e6d8b8;box-shadow:0 0 0 2px #8a7a5a inset;}
+
+/* 일반 주류(함께 주문): 전통주보다 눈에 덜 띄게 작게, 터치 영역은 그대로 */
+body.od-on .od-gen{margin-top:28px;opacity:.96;}
+body.od-on .od-gen .sec-title{font-size:16px!important;}
+body.od-on .od-gen .note{font-size:14px;}

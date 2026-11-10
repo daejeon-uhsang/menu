@@ -144,7 +144,7 @@
   var bannerEl, barEl, sheetEl, dimEl, toastEl;
   function start(md) {
     var link = document.createElement('link');
-    link.rel = 'stylesheet'; link.href = 'order.css?v=20261108b';
+    link.rel = 'stylesheet'; link.href = 'order.css?v=20261110a';
     document.head.appendChild(link);
     document.body.classList.add('od-on');
     md.sections.forEach(function (sec) {
@@ -226,8 +226,26 @@
     }
   }
 
+  /* ---------- 일반 주류(숨김 섹션)는 주문 모드에서만 메뉴 맨 아래에 작게 붙인다 ----------
+     일반 메뉴판·사진·검색용 표기는 그대로(menu.json hidden 유지). 다시 그려져도 맨 아래에 다시 붙인다. */
+  function ensureGeneral() {
+    var scon = document.getElementById('scon');
+    if (!scon || typeof window.buildSec !== 'function') return;
+    var sec = null;
+    Object.keys(INDEX).forEach(function (id) { if (INDEX[id].sec.id === 's5') sec = INDEX[id].sec; });
+    if (!sec || !sec.hidden) return;
+    var ex = scon.querySelector(':scope > .od-gen');
+    if (ex && ex === scon.lastElementChild) return;
+    if (ex) ex.remove();
+    var copy = Object.assign({}, sec, { title: '함께 주문 · 일반 주류' });
+    var el = window.buildSec(copy, 0);
+    el.classList.add('od-gen'); el.removeAttribute('data-sec');
+    scon.appendChild(el);
+  }
+
   /* ---------- 메뉴 항목마다 담기 줄 ---------- */
   function decorateAll() {
+    ensureGeneral();
     document.querySelectorAll('#scon [data-item-id]').forEach(function (el) {
       if (el.querySelector(':scope > .od-row')) return;
       var r = INDEX[el.dataset.itemId];
