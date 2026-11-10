@@ -70,18 +70,49 @@
   var sending = false;
 
   function saveCart() { ss.set(CART_KEY, cart); }
-  /* 이번 방문에 보낸 주문 목록(이 폰의 sessionStorage 에만, 탭을 닫으면 사라짐. 서버에는 아무것도 더 보내지 않음) */
-  function histGet() { var h = ss.get(HIST_KEY); return Array.isArray(h) ? h : []; }
+  /* 오늘 영업 중 보낸 주문 목록(이 폰의 localStorage, 테이블별). 서버에는 아무것도 더 보내지 않음.
+     영업일 경계 = 한국 시간 12:00(주문판 dayStart 와 같은 기준). 영업일이 바뀌면 자동 삭제.
+     저장 내용: 품목·수량·가격·시각·요청사항·테이블 번호만(이름·연락처 없음). */
+  var H_MS = 3600000, DAY_MS = 24 * H_MS;
+  function bizDay(now) { var kst = (now == null ? Date.now() : now) + 9 * H_MS; return Math.floor((kst - 12 * H_MS) / DAY_MS) * DAY_MS + 12 * H_MS - 9 * H_MS; }
+  var HIST2 = 'od_hist2_';
+  function histSweep() { // 다른 영업일·깨진 기록 정리
+    try {
+      var cur = bizDay(), del = [];
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (k && k.indexOf(HIST2) === 0) {
+          var o = null; try { o = JSON.parse(localStorage.getItem(k)); } catch (e) {}
+          if (!o || o.d !== cur || !Array.isArray(o.h)) del.push(k);
+        }
+      }
+      del.forEach(function (k) { lsDel(k); });
+    } catch (e) {}
+  }
+  function histGet() {
+    var o = null; try { o = JSON.parse(lsGet(HIST2 + T) || 'null'); } catch (e) {}
+    if (o && o.d === bizDay() && Array.isArray(o.h)) return o.h;
+    if (o) lsDel(HIST2 + T);
+    // 이전 버전(sessionStorage) 기록이 있으면 한 번 옮겨 담기
+    var old = ss.get(HIST_KEY);
+    if (Array.isArray(old) && old.length) {
+      var cur = bizDay(), mine = old.filter(function (x) { return x && x.at >= cur && Array.isArray(x.items); });
+      ss.del(HIST_KEY);
+      if (mine.length) { lsSet(HIST2 + T, JSON.stringify({ t: T, d: cur, h: mine.slice(-10) })); return mine.slice(-10); }
+    }
+    return [];
+  }
   function histAdd(pend) {
     var h = histGet();
     if (h.some(function (o) { return o.id === pend.id; })) return;
     h.push({ id: pend.id, at: Date.now(), items: pend.payload.items, memo: pend.payload.memo || '' });
-    ss.set(HIST_KEY, h.slice(-10));
+    lsSet(HIST2 + T, JSON.stringify({ t: T, d: bizDay(), h: h.slice(-10) }));
   }
+  histSweep();
   function hhmm(ts) { var d = new Date(ts); return ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2); }
   function histHtml() {
     var h = histGet(); if (!h.length) return '';
-    var out = '<div class="od-hist"><h4>이번 방문에 보낸 주문</h4>';
+    var out = '<div class="od-hist"><h4>오늘 보낸 주문</h4>';
     h.slice().reverse().forEach(function (o, idx) {
       var tot = o.items.reduce(function (a, it) { return a + it.qty * it.price; }, 0);
       out += '<div class="od-ho"><div class="od-hot"><b>' + (h.length - idx) + '번째 주문</b><span>' + hhmm(o.at) + ' 보냄' + (tot ? ' · ' + won(tot) : '') + '</span></div><ul>';
