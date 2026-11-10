@@ -1556,6 +1556,17 @@
           }
         },
         {
+          "id": "f204b",
+          "name": "↳ 치즈사리",
+          "icon": "",
+          "spec": "추가 토핑",
+          "badge": "",
+          "badgeText": "",
+          "desc": "떡볶이에 추가해 드려요",
+          "priceBottle": "",
+          "priceGlass": "+3,000"
+        },
+        {
           "id": "f206",
           "name": "명란마요주먹밥",
           "icon": "🍙",
