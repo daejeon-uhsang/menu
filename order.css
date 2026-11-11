@@ -177,3 +177,10 @@ body.od-lock #en-link,body.od-lock .bot-fab,body.od-lock .back-btn,body.od-lock 
 body.od-on .od-gen{margin-top:28px;opacity:.96;}
 body.od-on .od-gen .sec-title{font-size:16px!important;}
 body.od-on .od-gen .note{font-size:14px;}
+
+/* 11/11 품절로 빠진 줄 · 접수 취소 · 임시 품절 */
+.od-hist .od-vd{text-decoration:line-through;opacity:.6}
+.od-hist .od-vtag{display:inline-block;text-decoration:none;color:#fff;background:#b3261e;border-radius:4px;padding:0 6px;font-size:12px;font-weight:700;line-height:1.6}
+.od-hist .od-vnote{margin:4px 0;padding:6px 8px;border:1px solid #b3261e;border-radius:6px;color:#b3261e;font-weight:700;font-size:14px}
+.od-hist .od-cx .od-hot span{text-decoration:line-through;opacity:.6}
+.od-hist .od-cx .od-btn2{margin-top:6px}

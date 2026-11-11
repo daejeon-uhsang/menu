@@ -110,18 +110,72 @@
   }
   histSweep();
   function hhmm(ts) { var d = new Date(ts); return ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2); }
+  /* ---------- 품절로 빠진 줄 · 접수 취소(직원이 탭에서 처리, 이 폰은 읽기만) ---------- */
+  var VOIDS = {};   // 주문 id → {v:{줄번호:빠진개수}, x:'취소 사유 코드 또는 빈 값'}
+  function vOf(o) { return VOIDS[o.id] || { v: {}, x: '' }; }
+  function effQty(o, i) { var q = o.items[i].qty - Math.min(+(vOf(o).v || {})[i] || 0, o.items[i].qty); return q < 0 ? 0 : q; }
+  function histTotal(o) { if (vOf(o).x) return 0; return o.items.reduce(function (a, it, i) { return a + effQty(o, i) * it.price; }, 0); }
   function histHtml() {
     var h = histGet(); if (!h.length) return '';
     var out = '<div class="od-hist"><h4>오늘 보낸 주문</h4>';
     h.slice().reverse().forEach(function (o, idx) {
-      var tot = o.items.reduce(function (a, it) { return a + it.qty * it.price; }, 0);
-      out += '<div class="od-ho"><div class="od-hot"><b>' + (h.length - idx) + '번째 주문</b><span>' + hhmm(o.at) + ' 보냄' + (tot ? ' · ' + won(tot) : '') + '</span></div><ul>';
-      o.items.forEach(function (it) { out += '<li>' + esc(it.name) + (it.opt ? ' <em>' + esc(it.opt) + '</em>' : '') + ' <b>×' + it.qty + '</b></li>'; });
-      out += '</ul>' + (o.memo ? '<p class="od-hm">요청사항: ' + esc(o.memo) + '</p>' : '') + '</div>';
+      var vi = vOf(o), tot = histTotal(o), cx = !!vi.x;
+      out += '<div class="od-ho' + (cx ? ' od-cx' : '') + '"><div class="od-hot"><b>' + (h.length - idx) + '번째 주문</b><span>' + hhmm(o.at) + ' 보냄' + (tot ? ' · ' + won(tot) : '') + '</span></div>';
+      if (cx) out += '<p class="od-vnote">주문이 접수되지 않았어요 (직원 안내)' + (vi.x === 'soldout' ? ' · 품절' : '') + '</p>';
+      out += '<ul>';
+      o.items.forEach(function (it, i) {
+        var e = effQty(o, i), vv = it.qty - e;
+        out += '<li' + (cx || e <= 0 ? ' class="od-vd"' : '') + '>' + esc(it.name) + (it.opt ? ' <em>' + esc(it.opt) + '</em>' : '') + ' <b>×' + (cx || e <= 0 ? it.qty : e) + '</b>'
+          + (!cx && vv > 0 ? ' <span class="od-vtag">' + (e <= 0 ? '품절로 주문에서 빠졌어요 (직원 안내)' : esc(it.name) + ' ' + vv + '개 품절로 빠졌어요 (직원 안내)') + '</span>' : '') + '</li>';
+      });
+      out += '</ul>' + (o.memo ? '<p class="od-hm">요청사항: ' + esc(o.memo) + '</p>' : '');
+      if (cx) out += '<button type="button" class="od-btn2" data-act="readd" data-oid="' + esc(o.id) + '">' + (lsGet('od_readd_' + o.id) ? '다시 담았어요 · 한 번 더 담기' : '다시 담기') + '</button>';
+      out += '</div>';
     });
-    var all = h.reduce(function (a, o) { return a + o.items.reduce(function (b, it) { return b + it.qty * it.price; }, 0); }, 0);
-    out += '<p class="od-htot"><span>오늘 합계</span><b>' + won(all) + ' · 주문 ' + h.length + '건</b></p>';
+    var all = h.reduce(function (a, o) { return a + histTotal(o); }, 0), cnt = h.filter(function (o) { return !vOf(o).x; }).length;
+    out += '<p class="od-htot"><span>오늘 합계</span><b>' + won(all) + ' · 주문 ' + cnt + '건</b></p>';
     return out + '</div>';
+  }
+  var VSEEN = 'od_vseen_' + T, vTm = 0, vBusy = false;
+  function refreshVoids() {
+    var h = histGet().filter(function (o) { return Date.now() - o.at < 2 * H_MS; }).slice(-5);
+    if (!h.length || vBusy) return;
+    vBusy = true;
+    backend().then(function (b) {
+      if (!b.orderVoid) return null;
+      return Promise.all(h.map(function (o) { return b.orderVoid(o.id).then(function (d) { return [o.id, d]; }, function () { return null; }); }));
+    }).then(function (rs) {
+      vBusy = false; if (!rs) return;
+      rs.forEach(function (r) { if (r) VOIDS[r[0]] = r[1] ? { v: r[1].v || {}, x: r[1].x || '' } : null; });
+      var sig = JSON.stringify(h.map(function (o) { return [o.id, VOIDS[o.id] || 0]; })), prev = lsGet(VSEEN);
+      var any = h.some(function (o) { var v = VOIDS[o.id]; return v && (v.x || Object.keys(v.v || {}).length); });
+      if (any && sig !== prev) {
+        lsSet(VSEEN, sig);
+        toast(h.some(function (o) { return VOIDS[o.id] && VOIDS[o.id].x; }) ? '주문이 접수되지 않았어요 — 주문 기록을 확인해 주세요' : '품절로 주문에서 빠진 메뉴가 있어요 — 주문 기록을 확인해 주세요');
+      }
+      paintCounts();
+      if (sheetEl && !sheetEl.hidden && sheetEl.dataset.view === 'cart') paintCart();
+    }, function () { vBusy = false; });
+  }
+  function startVoidWatch() {
+    refreshVoids();
+    clearInterval(vTm); vTm = setInterval(function () { if (!document.hidden) refreshVoids(); }, 45000);
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) refreshVoids(); });
+  }
+  /* 직원이 접수 취소한 주문의 메뉴를 장바구니에 다시 담기(품절로 막힌 메뉴는 건너뜀) */
+  function readd(oid) {
+    var o = histGet().filter(function (x) { return x.id === oid; })[0]; if (!o) return;
+    var skipped = [], added = 0;
+    o.items.forEach(function (it) {
+      var r = INDEX[it.id];
+      if (!r || r.item.soldout) { skipped.push(it.name); return; }
+      var opt = parseOpts(r.item).filter(function (x) { return x.opt === it.opt; })[0];
+      if (!opt) { skipped.push(it.name); return; }
+      for (var i = 0; i < it.qty; i++) { if (!addToCart(r.item, r.sec, opt)) break; added++; }
+    });
+    lsSet('od_readd_' + oid, '1');
+    paintCounts(); paintCart();
+    toast(skipped.length ? '담았어요. 품절·변경된 메뉴는 빠졌어요: ' + skipped.join(', ') : '담았던 메뉴를 다시 담았어요');
   }
   /* 미확정 주문(id·내용): 접수 확인 또는 손님이 직접 취소할 때까지 localStorage 에 보관하고 수정·새 주문을 잠근다 */
   function pendGet() { try { return JSON.parse(lsGet(PEND_KEY) || 'null'); } catch (e) { return null; } }
@@ -155,6 +209,12 @@
         storeOpen: function () {
           return F.getDoc(F.doc(db, 'config', 'store')).then(function (s) { return !!(s.exists() && s.data().open === true); });
         },
+        menuState: function () {   // 사장님이 켠 임시 품절 id 목록(읽기만). 못 읽으면 호출한 쪽이 menu.json 그대로 쓴다
+          return F.getDoc(F.doc(db, 'config', 'menuState')).then(function (s) { return s.exists() && Array.isArray(s.data().soldout) ? s.data().soldout : []; });
+        },
+        orderVoid: function (id) { // 내 주문에서 품절로 빠진 줄/취소 여부(읽기만, 주문 id 는 이 폰만 앎)
+          return F.getDoc(F.doc(db, 'orderVoids', id)).then(function (s) { return s.exists() ? s.data() : null; });
+        },
         send: function (id, payload) {
           var data = Object.assign({}, payload, { createdAt: F.serverTimestamp() });
           return F.setDoc(F.doc(db, 'orders', id), data);
@@ -173,11 +233,47 @@
     });
   }
 
+  /* ---------- 임시 품절(menuState): menu.json 품절에 더해 사장님이 켠 것만 흐리게. 못 읽으면 아무것도 안 바꾼다 ---------- */
+  function applyMenuState(ids) {
+    var set = {}; (ids || []).forEach(function (x) { set[String(x)] = true; });
+    Object.keys(INDEX).forEach(function (id) {
+      var r = INDEX[id];
+      if (set[id]) { if (!r.item.soldout) { r.item.soldout = true; r.ms = true; } }
+      else if (r.ms) { r.item.soldout = false; r.ms = false; }
+    });
+    var before = cart.length;
+    cart = cart.filter(function (l) { var r = INDEX[l.id]; var ok = r && !r.item.soldout; if (!ok) lastRemoved.push(l.name); return ok; });
+    if (cart.length !== before) {
+      saveCart(); paintCounts();
+      var gone = lastRemoved.slice();
+      toast(gone.join(', ') + ' 방금 품절이 되어 장바구니에서 뺐어요');
+      if (sheetEl && !sheetEl.hidden && sheetEl.dataset.view === 'cart') { paintCart(); var mm = sheetEl.querySelector('#od-msg'); if (mm) mm.textContent = gone.join(', ') + ' 방금 품절이 되어 장바구니에서 뺐어요. 확인하고 다시 보내 주세요'; }
+    }
+    document.querySelectorAll('.od-pair-add').forEach(function (b) { var r = INDEX[b.dataset.odId]; if (r && r.item.soldout) { var li = b.closest('li'); if (li) li.classList.remove('od-has-add'); b.remove(); } });
+    decorateAll();
+  }
+  function syncMs(el, r) {   // 화면 요소를 현재 품절 상태에 맞춘다(menu.json 품절 표시는 건드리지 않음)
+    var on = el.classList.contains('od-ms');
+    if (r.ms && !on) {
+      el.classList.add('is-soldout', 'od-ms');
+      var nm = el.querySelector('.iname');
+      if (nm && !el.querySelector('.od-ms-badge')) { var b = document.createElement('span'); b.className = 'soldout-badge od-ms-badge'; b.textContent = '품절'; nm.appendChild(b); }
+      var row = el.querySelector(':scope > .od-row'); if (row) row.remove();
+    } else if (!r.ms && on) {
+      el.classList.remove('is-soldout', 'od-ms');
+      var bd = el.querySelector('.od-ms-badge'); if (bd) bd.remove();
+    }
+  }
+  var msTm = 0;
+  function loadMenuState() {
+    return backend().then(function (b) { return b.menuState ? b.menuState() : null; }).then(function (ids) { if (ids) applyMenuState(ids); return !!ids; }, function () { return false; });
+  }
+
   /* ---------- 시작 ---------- */
   var bannerEl, barEl, sheetEl, dimEl, toastEl;
   function start(md) {
     var link = document.createElement('link');
-    link.rel = 'stylesheet'; link.href = 'order.css?v=20261110c';
+    link.rel = 'stylesheet'; link.href = 'order.css?v=20261111a';
     document.head.appendChild(link);
     document.body.classList.add('od-on');
     md.sections.forEach(function (sec) {
@@ -200,6 +296,7 @@
     }
     hookPairing();
     checkOpen();
+    loadMenuState(); startVoidWatch();
     ev('order_mode', { table: T });
   }
 
@@ -280,8 +377,9 @@
   function decorateAll() {
     ensureGeneral();
     document.querySelectorAll('#scon [data-item-id]').forEach(function (el) {
-      if (el.querySelector(':scope > .od-row')) return;
       var r = INDEX[el.dataset.itemId];
+      if (r) syncMs(el, r);
+      if (el.querySelector(':scope > .od-row')) return;
       if (!r || r.item.soldout || el.classList.contains('is-soldout')) return;
       el.appendChild(buildRow(r.item, r.sec));
     });
@@ -321,6 +419,7 @@
   }
 
   function addToCart(item, sec, o) {
+    if (item.soldout) { toast('지금은 품절이에요'); return false; }
     if (locked()) { toast('확인 안 된 주문이 있어요. 먼저 처리해 주세요'); openSheet('cart'); return false; }
     var key = item.id + '|' + o.opt;
     var line = cart.find(function (l) { return l.key === key; });
@@ -394,7 +493,7 @@
   }
   function openSheet(view) {
     sheetEl.hidden = false; dimEl.hidden = false; document.body.classList.add('od-lock');
-    if (view === 'cart') { paintCart(); checkOpen().then(function () { if (!sheetEl.hidden && sheetEl.dataset.view === 'cart') paintFoot(); }); }
+    if (view === 'cart') { paintCart(); refreshVoids(); loadMenuState(); checkOpen().then(function () { if (!sheetEl.hidden && sheetEl.dataset.view === 'cart') paintFoot(); }); }
   }
   function closeSheet() {
     sheetEl.hidden = true; dimEl.hidden = true; document.body.classList.remove('od-lock');
@@ -494,6 +593,7 @@
       pendDel(); paintCounts(); paintCart(); return;
     }
     if (act === 'back') { paintCart(); return; }
+    if (act === 'readd') { readd(b.dataset.oid); return; }
     if (act === 'more') { closeSheet(); return; }
   }
 
@@ -523,10 +623,26 @@
       return;
     }
     // 보내기 시작부터 '미확정'으로 저장(도중에 화면이 닫혀도 같은 id 로만 다시 보냄)
-    var pend = { id: rid(), payload: buildPayload(), unsure: true, timedOut: false };
-    pendSet(pend);
-    doSend(pend, false);
+    if (checking) return;
+    checking = true; lastRemoved = [];
+    var msg0 = sheetEl.querySelector('#od-msg'); if (msg0) msg0.textContent = '품절 확인 중…';
+    // 보내기 직전에 임시 품절을 한 번 더 확인(3초 안에 못 읽으면 그냥 진행 — 서버 규칙이 막는 게 아니라 직원이 탭에서 처리)
+    var settled = false;
+    var guard = setTimeout(function () { if (!settled) { settled = true; checking = false; go(); } }, 3000);
+    loadMenuState().then(function () {
+      if (settled) return; settled = true; clearTimeout(guard); checking = false;
+      var gone = lastRemoved.slice(); lastRemoved = [];
+      if (gone.length) { paintCart(); var m = sheetEl.querySelector('#od-msg'); if (m) m.textContent = gone.join(', ') + ' 방금 품절이 되어 장바구니에서 뺐어요. 확인하고 다시 보내 주세요'; return; }
+      go();
+    });
+    function go() {
+      if (sending || !cart.length || locked()) return;
+      var pend = { id: rid(), payload: buildPayload(), unsure: true, timedOut: false };
+      pendSet(pend);
+      doSend(pend, false);
+    }
   }
+  var checking = false, lastRemoved = [];
 
   function showResult(kind, title, lines, acts, extra) {
     sheetEl.dataset.view = 'result';
