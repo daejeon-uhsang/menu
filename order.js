@@ -139,11 +139,10 @@
   var VSEEN = 'od_vseen_' + T, vTm = 0, vBusy = false;
   var vRot = 0;
   function voidTargets(all) {
-    // 접속·복귀·장바구니 열기: 오늘 내 주문 전부(최대 10건). 주기 확인: 최근 20분 주문 우선 + 나머지 오늘 주문을 돌아가며 합쳐 한 번에 3건(20분 지난 주문의 취소도 몇 분 안에 반영)
+    // 접속·복귀·장바구니 열기: 오늘 내 주문 전부(최대 10건). 주기 확인: 최근 2건 + 나머지 오늘 주문 1건 돌려서(회당 최대 3건)
     var h = histGet(); if (all) return h.slice(-10);
-    var now = Date.now(), recent = h.filter(function (o) { return now - o.at < 20 * 60000; }), rest = h.filter(function (o) { return now - o.at >= 20 * 60000; });
-    var out = recent.slice(-3);
-    for (var n = out.length; n < 3 && rest.length; n++) { out.push(rest[vRot % rest.length]); vRot++; }
+    var out = h.slice(-2), rest = h.slice(0, -2);        // 가장 최근 2건은 매번, 나머지 오늘 주문은 돌아가며 1건씩(몇 분 안에 한 바퀴)
+    if (rest.length) { out.push(rest[vRot % rest.length]); vRot++; }
     return out;
   }
   function refreshVoids(all) {
@@ -160,9 +159,9 @@
       var hh = histGet();
       var sig = JSON.stringify(hh.map(function (o) { return [o.id, VOIDS[o.id] || 0]; })), prev = lsGet(VSEEN);
       var any = hh.some(function (o) { var v = VOIDS[o.id]; return v && (v.x || Object.keys(v.v || {}).length); });
-      if (any && sig !== prev) {
-        lsSet(VSEEN, sig);
-        toast(hh.some(function (o) { return VOIDS[o.id] && VOIDS[o.id].x; }) ? '주문이 접수되지 않았어요 — 주문 기록을 확인해 주세요' : '품절로 주문에서 빠진 메뉴가 있어요 — 주문 기록을 확인해 주세요');
+      if (sig !== prev) {
+        lsSet(VSEEN, sig);   // 모두 해제된 상태도 기억해 두면, 같은 사유로 다시 취소돼도 새 변화로 알림
+        if (any) toast(hh.some(function (o) { return VOIDS[o.id] && VOIDS[o.id].x; }) ? '주문이 접수되지 않았어요 — 주문 기록을 확인해 주세요' : '품절로 주문에서 빠진 메뉴가 있어요 — 주문 기록을 확인해 주세요');
       }
       paintCounts();
       if (sheetEl && !sheetEl.hidden && sheetEl.dataset.view === 'cart') paintCart();
