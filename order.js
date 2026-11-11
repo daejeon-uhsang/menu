@@ -137,9 +137,18 @@
     return out + '</div>';
   }
   var VSEEN = 'od_vseen_' + T, vTm = 0, vBusy = false;
+  var vRot = 0;
+  function voidTargets(all) {
+    // 접속·복귀·장바구니 열기: 오늘 내 주문 전부(최대 10건). 주기 확인: 최근 20분 주문 우선 + 나머지 오늘 주문을 돌아가며 합쳐 한 번에 3건(20분 지난 주문의 취소도 몇 분 안에 반영)
+    var h = histGet(); if (all) return h.slice(-10);
+    var now = Date.now(), recent = h.filter(function (o) { return now - o.at < 20 * 60000; }), rest = h.filter(function (o) { return now - o.at >= 20 * 60000; });
+    var out = recent.slice(-3);
+    for (var n = out.length; n < 3 && rest.length; n++) { out.push(rest[vRot % rest.length]); vRot++; }
+    return out;
+  }
   function refreshVoids(all) {
     // all=true(접속·화면 복귀·장바구니 열기): 오늘 기록 전부(최대 10건) 한 번. 주기 확인은 최근 20분·최대 3건만(읽기 한도 절약)
-    var h = histGet().filter(function (o) { return all || Date.now() - o.at < 20 * 60000; }).slice(-(all ? 10 : 3));
+    var h = voidTargets(all);
     if (!h.length || vBusy) return;
     vBusy = true;
     backend().then(function (b) {
@@ -148,14 +157,19 @@
     }).then(function (rs) {
       vBusy = false; if (!rs) return;
       rs.forEach(function (r) { if (r) VOIDS[r[0]] = r[1] ? { v: r[1].v || {}, x: r[1].x || '' } : null; });
-      var sig = JSON.stringify(h.map(function (o) { return [o.id, VOIDS[o.id] || 0]; })), prev = lsGet(VSEEN);
-      var any = h.some(function (o) { var v = VOIDS[o.id]; return v && (v.x || Object.keys(v.v || {}).length); });
+      var hh = histGet();
+      var sig = JSON.stringify(hh.map(function (o) { return [o.id, VOIDS[o.id] || 0]; })), prev = lsGet(VSEEN);
+      var any = hh.some(function (o) { var v = VOIDS[o.id]; return v && (v.x || Object.keys(v.v || {}).length); });
       if (any && sig !== prev) {
         lsSet(VSEEN, sig);
-        toast(h.some(function (o) { return VOIDS[o.id] && VOIDS[o.id].x; }) ? '주문이 접수되지 않았어요 — 주문 기록을 확인해 주세요' : '품절로 주문에서 빠진 메뉴가 있어요 — 주문 기록을 확인해 주세요');
+        toast(hh.some(function (o) { return VOIDS[o.id] && VOIDS[o.id].x; }) ? '주문이 접수되지 않았어요 — 주문 기록을 확인해 주세요' : '품절로 주문에서 빠진 메뉴가 있어요 — 주문 기록을 확인해 주세요');
       }
       paintCounts();
       if (sheetEl && !sheetEl.hidden && sheetEl.dataset.view === 'cart') paintCart();
+      else if (sheetEl && !sheetEl.hidden && sheetEl.dataset.view === 'result') {   // 도착 결과 화면의 주문 기록도 최신으로
+        var hd = sheetEl.querySelector('.od-hist');
+        if (hd) { var tmp = document.createElement('div'); tmp.innerHTML = histHtml(); if (tmp.firstChild) hd.replaceWith(tmp.firstChild); }
+      }
     }, function () { vBusy = false; });
   }
   function startVoidWatch() {
