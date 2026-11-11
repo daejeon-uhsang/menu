@@ -137,8 +137,9 @@
     return out + '</div>';
   }
   var VSEEN = 'od_vseen_' + T, vTm = 0, vBusy = false;
-  function refreshVoids() {
-    var h = histGet().filter(function (o) { return Date.now() - o.at < 2 * H_MS; }).slice(-5);
+  function refreshVoids(all) {
+    // all=true(접속·화면 복귀·장바구니 열기): 오늘 기록 전부(최대 10건) 한 번. 주기 확인은 최근 20분·최대 3건만(읽기 한도 절약)
+    var h = histGet().filter(function (o) { return all || Date.now() - o.at < 20 * 60000; }).slice(-(all ? 10 : 3));
     if (!h.length || vBusy) return;
     vBusy = true;
     backend().then(function (b) {
@@ -158,12 +159,19 @@
     }, function () { vBusy = false; });
   }
   function startVoidWatch() {
-    refreshVoids();
-    clearInterval(vTm); vTm = setInterval(function () { if (!document.hidden) refreshVoids(); }, 45000);
-    document.addEventListener('visibilitychange', function () { if (!document.hidden) refreshVoids(); });
+    refreshVoids(true);
+    clearInterval(vTm); vTm = setInterval(function () { if (!document.hidden) { refreshVoids(false); loadMenuState(); } }, 60000);   // 열어 둔 메뉴판에도 품절·재개가 1분 안에 반영
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) { refreshVoids(true); loadMenuState(); } });
   }
   /* 직원이 접수 취소한 주문의 메뉴를 장바구니에 다시 담기(품절로 막힌 메뉴는 건너뜀) */
   function readd(oid) {
+    // 직원이 취소를 철회했을 수 있으니 방금 상태를 확인하고, 아직 취소 상태일 때만 다시 담는다(확인 못 하면 안 담음)
+    backend().then(function (b) { return b.orderVoid ? b.orderVoid(oid) : null; }).then(function (d) {
+      if (!d || !d.x) { VOIDS[oid] = d ? { v: d.v || {}, x: '' } : null; paintCart(); toast('직원이 이 주문을 받았어요. 다시 담지 않아도 돼요'); return; }
+      doReadd(oid);
+    }, function () { toast('연결을 확인하고 다시 눌러 주세요'); });
+  }
+  function doReadd(oid) {
     var o = histGet().filter(function (x) { return x.id === oid; })[0]; if (!o) return;
     var skipped = [], added = 0;
     o.items.forEach(function (it) {
@@ -493,7 +501,7 @@
   }
   function openSheet(view) {
     sheetEl.hidden = false; dimEl.hidden = false; document.body.classList.add('od-lock');
-    if (view === 'cart') { paintCart(); refreshVoids(); loadMenuState(); checkOpen().then(function () { if (!sheetEl.hidden && sheetEl.dataset.view === 'cart') paintFoot(); }); }
+    if (view === 'cart') { paintCart(); refreshVoids(true); loadMenuState(); checkOpen().then(function () { if (!sheetEl.hidden && sheetEl.dataset.view === 'cart') paintFoot(); }); }
   }
   function closeSheet() {
     sheetEl.hidden = true; dimEl.hidden = true; document.body.classList.remove('od-lock');
@@ -627,7 +635,7 @@
     checking = true; lastRemoved = [];
     var msg0 = sheetEl.querySelector('#od-msg'); if (msg0) msg0.textContent = '품절 확인 중…';
     // 보내기 직전에 임시 품절을 한 번 더 확인(3초 안에 못 읽으면 그냥 진행 — 서버 규칙이 막는 게 아니라 직원이 탭에서 처리)
-    var settled = false;
+    var settled = false, sig0 = JSON.stringify(cart) + adultOk;
     var guard = setTimeout(function () { if (!settled) { settled = true; checking = false; go(); } }, 3000);
     loadMenuState().then(function () {
       if (settled) return; settled = true; clearTimeout(guard); checking = false;
@@ -637,6 +645,8 @@
     });
     function go() {
       if (sending || !cart.length || locked()) return;
+      if (JSON.stringify(cart) + adultOk !== sig0) { var m2 = sheetEl.querySelector('#od-msg'); if (m2) m2.textContent = '확인하는 동안 담은 메뉴가 바뀌었어요. 확인하고 다시 눌러 주세요'; return; }
+      if (hasAlcohol() && !adultOk) return;
       var pend = { id: rid(), payload: buildPayload(), unsure: true, timedOut: false };
       pendSet(pend);
       doSend(pend, false);
