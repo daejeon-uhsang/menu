@@ -119,8 +119,8 @@
     var h = histGet(); if (!h.length) return '';
     var out = '<div class="od-hist"><h4>오늘 보낸 주문</h4>';
     h.slice().reverse().forEach(function (o, idx) {
-      var vi = vOf(o), tot = histTotal(o), cx = !!vi.x;
-      out += '<div class="od-ho' + (cx ? ' od-cx' : '') + '"><div class="od-hot"><b>' + (h.length - idx) + '번째 주문</b><span>' + hhmm(o.at) + ' 보냄' + (tot ? ' · ' + won(tot) : '') + '</span></div>';
+      var vi = vOf(o), tot = histTotal(o), cx = !!vi.x, av = !cx && o.items.every(function (it, i) { return effQty(o, i) <= 0; });
+      out += '<div class="od-ho' + (cx ? ' od-cx' : '') + '"><div class="od-hot"><b>' + (h.length - idx) + '번째 주문</b><span>' + hhmm(o.at) + ' 보냄' + (av ? ' · 0원 · <em class="od-av">전부 빠짐</em>' : (tot ? ' · ' + won(tot) : '')) + '</span></div>';
       if (cx) out += '<p class="od-vnote">주문이 접수되지 않았어요 (직원 안내)' + (vi.x === 'soldout' ? ' · 품절' : '') + '</p>';
       out += '<ul>';
       o.items.forEach(function (it, i) {
@@ -294,7 +294,7 @@
   var bannerEl, barEl, sheetEl, dimEl, toastEl;
   function start(md) {
     var link = document.createElement('link');
-    link.rel = 'stylesheet'; link.href = 'order.css?v=20261111a';
+    link.rel = 'stylesheet'; link.href = 'order.css?v=20261113a';
     document.head.appendChild(link);
     document.body.classList.add('od-on');
     md.sections.forEach(function (sec) {
