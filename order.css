@@ -185,3 +185,7 @@ body.od-on .od-gen .note{font-size:14px;}
 .od-hist .od-cx .od-hot span{text-decoration:line-through;opacity:.6}
 .od-hist .od-cx .od-btn2{margin-top:6px}
 .od-hist .od-av{font-style:normal;display:inline-block;color:#fff;background:#6b6b6b;border-radius:4px;padding:0 6px;font-size:14px;font-weight:700;line-height:1.6;text-decoration:none}
+
+/* 11/14 일반 주류 바로가기 칩(주문 모드) */
+.sec-chip.od-drink-chip{display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.15;padding:5px 14px;}
+.sec-chip.od-drink-chip small{font-size:11px;font-weight:600;letter-spacing:0;opacity:.85;margin-top:2px;}
