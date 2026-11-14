@@ -411,12 +411,18 @@
       chip.type = 'button'; chip.className = 'sec-chip od-drink-chip';
       chip.innerHTML = '<span>일반 주류</span><small>소주·맥주</small>';
       chip.setAttribute('aria-label', '일반 주류로 이동' + (names ? ' (' + names + ')' : ''));
+      if (!nav._odDrinkNav) nav._odDrinkNav = true, nav.addEventListener('click', function (ev) {
+        var t = ev.target.closest && ev.target.closest('.sec-chip');
+        var c = nav.querySelector(':scope > .od-drink-chip');
+        if (t && c && t !== c) { c.classList.remove('active'); c.removeAttribute('aria-current'); }
+      });
       chip.addEventListener('click', function () {
         var t = document.querySelector('#scon > .od-gen');
         if (!t) return;
         var y = t.getBoundingClientRect().top + window.scrollY - nav.offsetHeight - 8;
         window.scrollTo({ top: y, behavior: 'smooth' });
         Array.prototype.forEach.call(nav.children, function (x) { x.classList.toggle('active', x === chip); });
+        chip.setAttribute('aria-current', 'true');
         try { gtag('event', 'category_nav', { category_name: '일반 주류', category_id: 's5', from: 'order_chip' }); } catch (e) {}
       });
     }
@@ -432,7 +438,8 @@
             c.parentNode.scrollTo({ left: c.offsetLeft - c.parentNode.clientWidth / 2 + c.offsetWidth / 2, behavior: 'smooth' });
           } else if (e.boundingClientRect.top > window.innerHeight * 0.3) { c.classList.remove('active'); c.removeAttribute('aria-current'); }  // 위로 올라가 일반 주류가 화면 아래로 내려갔을 때만 해제(맨 아래 짧은 영역이라 끝까지 내려도 띠를 못 넘는 큰 화면 대비)
         });
-      }, { rootMargin: '-20% 0px -70% 0px' }).observe(gen);
+      }, { rootMargin: '-20% 0px -70% 0px' });
+      drinkObs.observe(gen);
     }
     if (nav.children[3] === chip) return;
     var others = Array.prototype.filter.call(nav.children, function (c) { return c !== chip; });
