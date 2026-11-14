@@ -397,7 +397,13 @@
   /* ---------- 일반 주류 바로가기(11/14 사장님) ----------
      주문 비중이 높은데 맨 아래라 못 찾고 구두 주문 → 위쪽 바로가기 줄 4번째(궁중 디저트 다음)에 칩을 넣는다.
      바로가기 줄은 메뉴를 다시 그릴 때 비워지므로 decorateAll 때마다 다시 확인한다. */
-  var drinkObs = null, drinkObsTarget = null;
+  var drinkObs = null, drinkObsTarget = null, drinkOn = false;  // drinkOn: 일반 주류 칩 선택 상태(바로가기 줄이 다시 만들어져도 복원)
+  function setDrinkOn(c, on) {
+    drinkOn = on;
+    if (!c) return;
+    if (on) { Array.prototype.forEach.call(c.parentNode ? c.parentNode.children : [], function (x) { x.classList.toggle('active', x === c); }); c.setAttribute('aria-current', 'true'); }
+    else { c.classList.remove('active'); c.removeAttribute('aria-current'); }
+  }
   function ensureDrinkChip() {
     var nav = document.getElementById('secnav');
     var gen = document.querySelector('#scon > .od-gen');
@@ -414,15 +420,14 @@
       if (!nav._odDrinkNav) nav._odDrinkNav = true, nav.addEventListener('click', function (ev) {
         var t = ev.target.closest && ev.target.closest('.sec-chip');
         var c = nav.querySelector(':scope > .od-drink-chip');
-        if (t && c && t !== c) { c.classList.remove('active'); c.removeAttribute('aria-current'); }
+        if (t && c && t !== c) setDrinkOn(c, false);
       });
       chip.addEventListener('click', function () {
         var t = document.querySelector('#scon > .od-gen');
         if (!t) return;
         var y = t.getBoundingClientRect().top + window.scrollY - nav.offsetHeight - 8;
         window.scrollTo({ top: y, behavior: 'smooth' });
-        Array.prototype.forEach.call(nav.children, function (x) { x.classList.toggle('active', x === chip); });
-        chip.setAttribute('aria-current', 'true');
+        setDrinkOn(chip, true);
         try { gtag('event', 'category_nav', { category_name: '일반 주류', category_id: 's5', from: 'order_chip' }); } catch (e) {}
       });
     }
@@ -434,16 +439,18 @@
         es.forEach(function (e) {
           var c = document.querySelector('#secnav > .od-drink-chip'); if (!c) return;
           if (e.isIntersecting) {
-            Array.prototype.forEach.call(c.parentNode.children, function (x) { x.classList.toggle('active', x === c); }); c.setAttribute('aria-current', 'true');
+            setDrinkOn(c, true);
             c.parentNode.scrollTo({ left: c.offsetLeft - c.parentNode.clientWidth / 2 + c.offsetWidth / 2, behavior: 'smooth' });
-          } else if (e.boundingClientRect.top > window.innerHeight * 0.3) { c.classList.remove('active'); c.removeAttribute('aria-current'); }  // 위로 올라가 일반 주류가 화면 아래로 내려갔을 때만 해제(맨 아래 짧은 영역이라 끝까지 내려도 띠를 못 넘는 큰 화면 대비)
+          } else if (e.boundingClientRect.top > window.innerHeight * 0.3) setDrinkOn(c, false);  // 위로 올라가 일반 주류가 화면 아래로 내려갔을 때만 해제(맨 아래 짧은 영역이라 끝까지 내려도 띠를 못 넘는 큰 화면 대비)
         });
       }, { rootMargin: '-20% 0px -70% 0px' });
       drinkObs.observe(gen);
     }
-    if (nav.children[3] === chip) return;
-    var others = Array.prototype.filter.call(nav.children, function (c) { return c !== chip; });
-    nav.insertBefore(chip, others[3] || null);
+    if (nav.children[3] !== chip) {
+      var others = Array.prototype.filter.call(nav.children, function (c) { return c !== chip; });
+      nav.insertBefore(chip, others[3] || null);
+    }
+    if (drinkOn && !chip.classList.contains('active')) setDrinkOn(chip, true);  // 줄이 새로 만들어졌으면 선택 표시 복원
   }
 
   /* ---------- 메뉴 항목마다 담기 줄 ---------- */
