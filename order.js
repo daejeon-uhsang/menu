@@ -397,6 +397,7 @@
   /* ---------- 일반 주류 바로가기(11/14 사장님) ----------
      주문 비중이 높은데 맨 아래라 못 찾고 구두 주문 → 위쪽 바로가기 줄 4번째(궁중 디저트 다음)에 칩을 넣는다.
      바로가기 줄은 메뉴를 다시 그릴 때 비워지므로 decorateAll 때마다 다시 확인한다. */
+  var drinkObs = null, drinkObsTarget = null;
   function ensureDrinkChip() {
     var nav = document.getElementById('secnav');
     var gen = document.querySelector('#scon > .od-gen');
@@ -408,7 +409,7 @@
       var names = sec ? sec.items.filter(function (i) { return !i.soldout; }).map(function (i) { return i.name.replace(/\s+/g, ''); }).join('·') : '';
       chip = document.createElement('button');
       chip.type = 'button'; chip.className = 'sec-chip od-drink-chip';
-      chip.innerHTML = '<span>일반 주류</span>' + (names ? '<small>' + esc(names) + '</small>' : '');
+      chip.innerHTML = '<span>일반 주류</span><small>소주·맥주</small>';
       chip.setAttribute('aria-label', '일반 주류로 이동' + (names ? ' (' + names + ')' : ''));
       chip.addEventListener('click', function () {
         var t = document.querySelector('#scon > .od-gen');
@@ -420,15 +421,16 @@
       });
     }
     // 일반 주류 영역이 보이면 이 칩을 선택 표시(다른 칩 선택 해제), 벗어나면 해제
-    if (window.IntersectionObserver && gen._odDrinkObs !== true) {
-      gen._odDrinkObs = true;
-      new IntersectionObserver(function (es) {
+    if (window.IntersectionObserver && drinkObsTarget !== gen) {
+      if (drinkObs) drinkObs.disconnect();
+      drinkObsTarget = gen;
+      drinkObs = new IntersectionObserver(function (es) {
         es.forEach(function (e) {
           var c = document.querySelector('#secnav > .od-drink-chip'); if (!c) return;
           if (e.isIntersecting) {
-            Array.prototype.forEach.call(c.parentNode.children, function (x) { x.classList.toggle('active', x === c); });
+            Array.prototype.forEach.call(c.parentNode.children, function (x) { x.classList.toggle('active', x === c); }); c.setAttribute('aria-current', 'true');
             c.parentNode.scrollTo({ left: c.offsetLeft - c.parentNode.clientWidth / 2 + c.offsetWidth / 2, behavior: 'smooth' });
-          } else if (e.boundingClientRect.top > window.innerHeight * 0.3) c.classList.remove('active');  // 위로 올라가 일반 주류가 화면 아래로 내려갔을 때만 해제(맨 아래 짧은 영역이라 끝까지 내려도 띠를 못 넘는 큰 화면 대비)
+          } else if (e.boundingClientRect.top > window.innerHeight * 0.3) { c.classList.remove('active'); c.removeAttribute('aria-current'); }  // 위로 올라가 일반 주류가 화면 아래로 내려갔을 때만 해제(맨 아래 짧은 영역이라 끝까지 내려도 띠를 못 넘는 큰 화면 대비)
         });
       }, { rootMargin: '-20% 0px -70% 0px' }).observe(gen);
     }
@@ -511,8 +513,8 @@
     var per = {};
     cart.forEach(function (l) { per[l.id] = (per[l.id] || 0) + l.qty; });
     document.querySelectorAll('.od-row').forEach(function (row) {
-      var b = row.querySelector('.od-add'), n = per[row.dataset.odId] || 0;
-      b.innerHTML = '담기' + (n ? '<span class="od-cnt">' + n + '</span>' : '');
+      var b = row.querySelector('.od-add'), n = per[row.dataset.odId] || 0, html = '담기' + (n ? '<span class="od-cnt">' + n + '</span>' : '');
+      if (b && b.innerHTML !== html) b.innerHTML = html;  // 11/14 Codex: 같으면 쓰지 않음(#scon 관찰자 60ms 반복 방지)
     });
     document.querySelectorAll('.od-pair-add').forEach(function (b) {
       var n = pairQty(b.dataset.odId, b.dataset.opt), html = '담기' + (n ? '<span class="od-cnt">' + n + '</span>' : '');
